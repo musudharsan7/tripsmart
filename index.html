@@ -2,1077 +2,995 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#FF5722">
-<meta name="description" content="Plan any India trip instantly — enter your budget and get destinations with full cost breakdown">
-<title>TripSmart India — Plan Trips, Know the Cost</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#080810">
+<title>TripSmart India — Plan Any Trip</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --saffron: #FF6B35;
-  --deep: #1A1A2E;
-  --card: #16213E;
-  --accent: #F7C59F;
-  --green: #4CAF82;
-  --muted: #8892A4;
-  --border: rgba(255,255,255,0.08);
-  --glass: rgba(255,255,255,0.04);
-  --font-head: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
+:root{
+  --bg:#080810; --bg2:#0F0F1A; --bg3:#161624; --bg4:#1E1E30;
+  --gold:#C8A45A; --gold2:#E2C07A; --gold3:#F4DFA0; --goldglow:rgba(200,164,90,0.18);
+  --silk:#EDE8DA; --muted:#7A7590; --dim:#2E2D42; --border:rgba(200,164,90,0.14);
+  --green:#3D8B6E; --ruby:#8B3040;
+  --H:'Playfair Display',serif; --B:'Jost',sans-serif;
+  --r:18px;
 }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--silk);font-family:var(--B);font-weight:300;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 80% 50% at 10% -5%,rgba(200,164,90,.09) 0%,transparent 60%),
+             radial-gradient(ellipse 60% 40% at 90% 105%,rgba(200,164,90,.06) 0%,transparent 55%)}
 
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-body {
-  background: var(--deep);
-  color: #fff;
-  font-family: var(--font-body);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* BG texture */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(255,107,53,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(76,175,130,0.12) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-}
+/* ── TOPLINE ── */
+.tl{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold2) 50%,var(--gold) 70%,transparent 100%);position:relative;z-index:20}
 
 /* ── HEADER ── */
-header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(26,26,46,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 20px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.logo {
-  font-family: var(--font-head);
-  font-weight: 800; font-size: 1.2rem;
-  display: flex; align-items: center; gap: 8px;
-}
-.logo span { color: var(--saffron); }
-.logo-icon { font-size: 1.4rem; }
-.header-actions { display: flex; gap: 10px; }
-.btn-icon {
-  background: var(--glass);
-  border: 1px solid var(--border);
-  color: #fff; border-radius: 10px;
-  width: 38px; height: 38px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; font-size: 1rem; transition: background 0.2s;
-}
-.btn-icon:hover { background: rgba(255,255,255,0.1); }
+header{position:sticky;top:0;z-index:100;background:rgba(8,8,16,.93);backdrop-filter:blur(28px);border-bottom:1px solid var(--border);height:58px;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--H);font-size:1.3rem;font-weight:600;letter-spacing:.03em;display:flex;align-items:center;gap:9px}
+.logo-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;box-shadow:0 0 16px rgba(200,164,90,.45)}
+.logo em{color:var(--gold2);font-style:italic}
+.hbts{display:flex;gap:7px}
+.hbt{width:36px;height:36px;border-radius:9px;background:rgba(200,164,90,.06);border:1px solid var(--border);color:var(--gold);font-size:.9rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
+.hbt:hover{background:rgba(200,164,90,.12);border-color:rgba(200,164,90,.3)}
 
 /* ── TABS ── */
-.tabs {
-  display: flex;
-  background: rgba(26,26,46,0.6);
-  border-bottom: 1px solid var(--border);
-  padding: 0 20px;
-  gap: 4px;
-  position: relative; z-index: 1;
-}
-.tab {
-  padding: 12px 16px; font-size: 0.8rem;
-  font-family: var(--font-head); font-weight: 600;
-  color: var(--muted); border-bottom: 2px solid transparent;
-  cursor: pointer; transition: all 0.2s; white-space: nowrap;
-  letter-spacing: 0.02em;
-}
-.tab.active { color: var(--saffron); border-bottom-color: var(--saffron); }
+.tabs{display:flex;background:rgba(8,8,16,.75);border-bottom:1px solid var(--border);padding:0 14px;overflow-x:auto;position:sticky;top:58px;z-index:99}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:13px 17px;font-size:.7rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid transparent;cursor:pointer;transition:all .25s;white-space:nowrap}
+.tab.active{color:var(--gold2);border-bottom-color:var(--gold)}
+.tab:hover:not(.active){color:var(--silk)}
 
-/* ── MAIN ── */
-main { position: relative; z-index: 1; }
-.screen { display: none; padding: 20px; animation: fadeUp 0.3s ease; }
-.screen.active { display: block; }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* ── SCREENS ── */
+main{position:relative;z-index:2}
+.screen{display:none;animation:up .38s cubic-bezier(.22,1,.36,1)}
+.screen.active{display:block}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── HERO ── */
-.hero {
-  text-align: center;
-  padding: 32px 0 24px;
-}
-.hero h1 {
-  font-family: var(--font-head);
-  font-weight: 800; font-size: 1.9rem;
-  line-height: 1.15; margin-bottom: 10px;
-}
-.hero h1 em { color: var(--saffron); font-style: normal; }
-.hero p { color: var(--muted); font-size: 0.9rem; }
+.hero{padding:32px 22px 22px;text-align:center}
+.eyebrow{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:11px;display:flex;align-items:center;justify-content:center;gap:9px}
+.eyebrow::before,.eyebrow::after{content:'';width:26px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.eyebrow::after{background:linear-gradient(270deg,transparent,var(--gold))}
+.hero h1{font-family:var(--H);font-size:2.4rem;font-weight:400;line-height:1.1;margin-bottom:10px}
+.hero h1 em{font-style:italic;color:var(--gold2)}
+.hero p{font-size:.8rem;color:var(--muted);line-height:1.6}
 
-/* ── FILTER CARD ── */
-.filter-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 24px;
-}
-.filter-row { display: flex; flex-direction: column; gap: 16px; }
+/* ── PLANNER CARD ── */
+.planner{margin:0 15px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 10px 50px rgba(0,0,0,.7)}
+.ph{padding:14px 18px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(200,164,90,.07),transparent);display:flex;align-items:center;gap:9px}
+.ph-title{font-family:var(--H);font-size:1rem;font-weight:600;color:var(--gold3)}
+.pb{padding:18px;display:flex;flex-direction:column;gap:18px}
 
-.field-label {
-  font-size: 0.72rem; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--muted); margin-bottom: 8px;
-}
-.budget-display {
-  font-family: var(--font-head);
-  font-size: 1.6rem; font-weight: 700;
-  color: var(--saffron); margin-bottom: 10px;
-}
-.slider {
-  width: 100%; height: 4px;
-  -webkit-appearance: none; appearance: none;
-  background: linear-gradient(to right, var(--saffron) 0%, var(--saffron) var(--val, 30%), rgba(255,255,255,0.15) var(--val, 30%));
-  border-radius: 4px; cursor: pointer; outline: none;
-}
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 22px; height: 22px;
-  background: var(--saffron);
-  border-radius: 50%;
-  border: 3px solid var(--deep);
-  box-shadow: 0 0 12px rgba(255,107,53,0.5);
-}
+/* Toggle: Domestic / International */
+.dest-toggle{display:flex;background:rgba(200,164,90,.06);border:1px solid var(--border);border-radius:50px;padding:4px;gap:0}
+.dt-btn{flex:1;padding:9px 12px;border-radius:50px;font-size:.75rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .25s;text-align:center;border:none;background:transparent;font-family:var(--B)}
+.dt-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);box-shadow:0 2px 12px rgba(200,164,90,.35)}
 
-.days-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.day-btn {
-  padding: 8px 14px; border-radius: 10px;
-  background: var(--glass); border: 1px solid var(--border);
-  color: var(--muted); font-size: 0.82rem;
-  cursor: pointer; transition: all 0.2s;
-  font-family: var(--font-body);
-}
-.day-btn.active {
-  background: rgba(255,107,53,0.2);
-  border-color: var(--saffron); color: var(--saffron);
-}
+.fl{font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:9px;font-weight:500}
+.ba{font-family:var(--H);font-size:1.9rem;font-weight:600;color:var(--gold2);margin-bottom:12px;line-height:1}
+.ba span{font-size:.95rem;font-weight:300;color:var(--gold)}
+.ba small{font-size:.75rem;color:var(--muted);font-family:var(--B);font-weight:300;margin-left:4px}
 
-.type-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.type-btn {
-  padding: 8px 14px; border-radius: 10px;
-  background: var(--glass); border: 1px solid var(--border);
-  color: var(--muted); font-size: 0.82rem;
-  cursor: pointer; transition: all 0.2s;
-  display: flex; align-items: center; gap: 5px;
-}
-.type-btn.active {
-  background: rgba(76,175,130,0.2);
-  border-color: var(--green); color: var(--green);
-}
+.trk{position:relative;height:2px;background:var(--dim);border-radius:2px;margin-bottom:6px}
+.tf{position:absolute;left:0;top:0;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .07s}
+input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height:24px;cursor:pointer}
+.tlbls{display:flex;justify-content:space-between;font-size:.63rem;color:var(--muted);margin-top:5px}
 
-.search-btn {
-  width: 100%; padding: 15px;
-  background: linear-gradient(135deg, var(--saffron), #E91E63);
-  border: none; border-radius: 14px;
-  color: #fff; font-family: var(--font-head);
-  font-weight: 700; font-size: 1rem;
-  cursor: pointer; letter-spacing: 0.03em;
-  transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 6px 24px rgba(255,107,53,0.35);
-  margin-top: 4px;
-}
-.search-btn:active { transform: scale(0.98); }
+.pills{display:flex;flex-wrap:wrap;gap:7px}
+.pill{padding:7px 14px;border-radius:50px;background:rgba(200,164,90,.04);border:1px solid rgba(200,164,90,.12);color:var(--muted);font-size:.73rem;cursor:pointer;transition:all .2s;font-family:var(--B)}
+.pill:hover{border-color:rgba(200,164,90,.3);color:var(--silk)}
+.pill.active{background:rgba(200,164,90,.12);border-color:var(--gold);color:var(--gold2)}
 
-/* ── RESULTS ── */
-.results-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 16px;
-}
-.results-title {
-  font-family: var(--font-head);
-  font-size: 1rem; font-weight: 700;
-}
-.results-count {
-  background: rgba(255,107,53,0.15);
-  color: var(--saffron); font-size: 0.78rem;
-  padding: 4px 10px; border-radius: 20px;
-  border: 1px solid rgba(255,107,53,0.3);
-}
+.rsel{width:100%;padding:11px 34px 11px 14px;background:rgba(200,164,90,.04);border:1px solid rgba(200,164,90,.15);border-radius:12px;color:var(--silk);font-size:.8rem;font-family:var(--B);font-weight:300;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23C8A45A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+.rsel option{background:var(--bg2)}
+
+/* Days custom input */
+.days-ctrl{display:flex;align-items:center;gap:12px}
+.days-num{font-family:var(--H);font-size:1.6rem;font-weight:600;color:var(--gold2);min-width:36px;text-align:center}
+.days-pm{width:34px;height:34px;border-radius:50%;border:1px solid rgba(200,164,90,.3);background:rgba(200,164,90,.07);color:var(--gold2);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:var(--B)}
+.days-pm:hover{background:rgba(200,164,90,.18);border-color:var(--gold)}
+.days-label{font-size:.75rem;color:var(--muted)}
+
+.cta{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:14px;color:var(--bg);font-family:var(--H);font-size:1rem;font-weight:600;letter-spacing:.07em;cursor:pointer;transition:all .3s;box-shadow:0 4px 22px rgba(200,164,90,.32);position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .3s}
+.cta:hover{box-shadow:0 6px 30px rgba(200,164,90,.55)}
+.cta:hover::before{opacity:1}
+.cta:active{transform:scale(.99)}
+
+/* ── AD / AFFILIATE ── */
+.aff{margin:0 15px 13px;background:linear-gradient(135deg,rgba(200,164,90,.07),rgba(200,164,90,.02));border:1px solid rgba(200,164,90,.18);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px}
+.aff-ic{font-size:1.7rem;flex-shrink:0}
+.aff-b{flex:1}
+.aff-t{font-family:var(--H);font-size:.92rem;font-weight:600;color:var(--gold3);margin-bottom:2px}
+.aff-s{font-size:.7rem;color:var(--muted)}
+.aff-btn{padding:9px 13px;border-radius:10px;white-space:nowrap;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);font-size:.7rem;font-weight:600;border:none;cursor:pointer;font-family:var(--B);flex-shrink:0;box-shadow:0 2px 10px rgba(200,164,90,.3);text-decoration:none;display:inline-flex;align-items:center}
+
+/* ── ORNAMENT ── */
+.orn{display:flex;align-items:center;gap:11px;padding:0 15px;margin:6px 0 14px}
+.ol{flex:1;height:1px;background:var(--border)}
+.oi{color:var(--gold);font-size:.68rem;letter-spacing:.12em;font-family:var(--H);font-style:italic;white-space:nowrap}
+
+/* ── RESULTS META ── */
+.rmeta{padding:0 15px;margin-bottom:13px;display:flex;align-items:baseline;justify-content:space-between}
+.rhead{font-family:var(--H);font-size:1.2rem;font-weight:600}
+.rbadge{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,164,90,.28);padding:4px 11px;border-radius:20px}
 
 /* ── DESTINATION CARD ── */
-.dest-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px; overflow: hidden;
-  margin-bottom: 16px;
-  transition: transform 0.2s, border-color 0.2s;
-  cursor: pointer;
-}
-.dest-card:hover { transform: translateY(-2px); border-color: rgba(255,107,53,0.3); }
-.dest-card.saved { border-color: rgba(76,175,130,0.4); }
+.dcard{margin:0 15px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.5);transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .3s}
+.dcard:hover{transform:translateY(-3px);border-color:rgba(200,164,90,.35);box-shadow:0 14px 40px rgba(0,0,0,.65)}
+.dcard.saved{border-color:rgba(200,164,90,.45)}
 
-.dest-img {
-  width: 100%; height: 160px;
-  object-fit: cover; display: block;
-  background: linear-gradient(135deg, #2d3561, #1a1a2e);
-  position: relative; overflow: hidden;
-}
-.dest-emoji-bg {
-  width: 100%; height: 160px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 5rem;
-  background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(76,175,130,0.1));
-}
-.dest-badges {
-  position: absolute; top: 12px; left: 12px;
-  display: flex; gap: 6px;
-}
-.badge {
-  padding: 4px 10px; border-radius: 20px;
-  font-size: 0.7rem; font-weight: 600;
-  backdrop-filter: blur(10px);
-  background: rgba(0,0,0,0.5); color: #fff;
-}
-.badge.budget { background: rgba(76,175,130,0.85); }
-.badge.mid { background: rgba(255,193,7,0.85); color: #000; }
-.badge.luxury { background: rgba(156,39,176,0.85); }
+/* Photo banner */
+.dimg{width:100%;height:180px;object-fit:cover;display:block;position:relative}
+.dimg-wrap{position:relative;height:180px;overflow:hidden;background:var(--bg3)}
+.dimg-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.dcard:hover .dimg-wrap img{transform:scale(1.04)}
+.dimg-fallback{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:5rem;background:linear-gradient(135deg,var(--bg3),var(--bg4))}
+.dimg-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1) 30%,rgba(8,8,16,.95) 100%)}
+.dtier{position:absolute;top:12px;left:12px;z-index:2;padding:5px 11px;border-radius:20px;font-size:.63rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(14px)}
+.t-b{background:rgba(61,139,110,.85);color:#86efac;border:1px solid rgba(134,239,172,.2)}
+.t-m{background:rgba(140,110,0,.85);color:var(--gold2);border:1px solid rgba(200,164,90,.3)}
+.t-l{background:rgba(109,40,55,.85);color:#fca5a5;border:1px solid rgba(252,165,165,.2)}
+.dintl{position:absolute;top:12px;right:12px;z-index:2;background:rgba(8,8,16,.8);border:1px solid var(--border);border-radius:20px;padding:4px 9px;font-size:.62rem;color:var(--gold)}
 
-.dest-body { padding: 16px; }
-.dest-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-.dest-name {
-  font-family: var(--font-head);
-  font-size: 1.1rem; font-weight: 700;
-}
-.dest-state { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
-.dest-total {
-  text-align: right;
-  font-family: var(--font-head);
-}
-.total-label { font-size: 0.68rem; color: var(--muted); }
-.total-amount { font-size: 1.15rem; font-weight: 800; color: var(--saffron); }
+/* Card body */
+.dbody{padding:15px 17px 17px}
+.dtop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:13px}
+.dname{font-family:var(--H);font-size:1.3rem;font-weight:600;line-height:1.1}
+.dloc{font-size:.7rem;color:var(--muted);margin-top:3px}
+.dprice{text-align:right}
+.dpl{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.dpa{font-family:var(--H);font-size:1.2rem;font-weight:700;color:var(--gold2)}
+.dppp{font-size:.62rem;color:var(--muted);margin-top:1px}
 
-.cost-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 8px; margin-bottom: 12px;
-}
-.cost-item {
-  background: var(--glass);
-  border: 1px solid var(--border);
-  border-radius: 10px; padding: 8px 10px;
-}
-.cost-item-label { font-size: 0.68rem; color: var(--muted); margin-bottom: 3px; }
-.cost-item-value { font-size: 0.9rem; font-weight: 600; }
+.bdown{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px}
+.bi{background:rgba(200,164,90,.04);border:1px solid rgba(200,164,90,.08);border-radius:10px;padding:8px 10px;transition:border-color .2s}
+.bi:hover{border-color:rgba(200,164,90,.2)}
+.bil{font-size:.6rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:3px}
+.biv{font-size:.86rem;font-weight:500}
 
-.dest-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-.tag {
-  padding: 4px 10px; border-radius: 20px;
-  font-size: 0.7rem;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid var(--border); color: var(--muted);
-}
+.dtags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
+.dtag{font-size:.63rem;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);color:var(--muted)}
+.ddesc{font-size:.77rem;color:var(--muted);line-height:1.6;margin-bottom:12px;font-style:italic}
 
-.dest-actions { display: flex; gap: 8px; }
-.btn-save, .btn-compare, .btn-share {
-  flex: 1; padding: 10px;
-  border-radius: 10px; border: 1px solid var(--border);
-  font-size: 0.78rem; font-weight: 600;
-  cursor: pointer; transition: all 0.2s;
-  display: flex; align-items: center; justify-content: center; gap: 5px;
-  font-family: var(--font-body);
-}
-.btn-save { background: rgba(76,175,130,0.1); color: var(--green); border-color: rgba(76,175,130,0.3); }
-.btn-save.saved { background: rgba(76,175,130,0.25); }
-.btn-compare { background: rgba(255,193,7,0.1); color: #FFC107; border-color: rgba(255,193,7,0.3); }
-.btn-share { background: rgba(33,150,243,0.1); color: #64B5F6; border-color: rgba(33,150,243,0.3); }
+/* Itinerary */
+.itin-toggle{display:flex;align-items:center;gap:7px;cursor:pointer;margin-bottom:10px;padding:9px 12px;background:rgba(200,164,90,.05);border:1px solid rgba(200,164,90,.1);border-radius:10px;transition:background .2s}
+.itin-toggle:hover{background:rgba(200,164,90,.1)}
+.itin-lbl{font-size:.72rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);flex:1}
+.itin-arr{font-size:.8rem;color:var(--gold);transition:transform .3s}
+.itin-arr.open{transform:rotate(180deg)}
+.itin-body{display:none;padding:12px;background:rgba(200,164,90,.03);border:1px solid rgba(200,164,90,.08);border-radius:12px;margin-bottom:12px}
+.itin-body.open{display:block}
+.iday{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.iday:last-child{margin-bottom:0}
+.iday-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.iday-txt{font-size:.75rem;color:var(--silk);line-height:1.5;flex:1}
+.iday-title{font-weight:500;color:var(--gold3);margin-bottom:2px;font-size:.78rem}
 
-/* ── AD SLOT ── */
-.ad-slot {
-  background: var(--card);
-  border: 1px dashed rgba(255,107,53,0.25);
-  border-radius: 14px; padding: 14px;
-  margin: 16px 0; text-align: center;
-}
-.ad-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
-.ad-content {
-  font-size: 0.82rem; color: var(--accent);
-  font-weight: 500;
-}
-.ad-cta {
-  display: inline-block; margin-top: 8px;
-  padding: 7px 16px; border-radius: 8px;
-  background: rgba(255,107,53,0.15);
-  border: 1px solid rgba(255,107,53,0.3);
-  color: var(--saffron); font-size: 0.75rem; font-weight: 600;
-  text-decoration: none; cursor: pointer;
-}
+/* Skyscanner CTA */
+.sky-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:11px;border-radius:11px;background:linear-gradient(135deg,#000e36,#05203c);border:1px solid rgba(0,112,255,.3);color:#60a5fa;font-size:.75rem;font-weight:500;cursor:pointer;margin-bottom:11px;transition:all .2s;text-decoration:none;font-family:var(--B)}
+.sky-btn:hover{border-color:rgba(0,112,255,.6);background:linear-gradient(135deg,#001050,#062844);box-shadow:0 4px 16px rgba(0,112,255,.2)}
+.ghotels-btn:hover{border-color:rgba(66,133,244,.6);background:linear-gradient(135deg,#0c1e3a,#0d2a42);box-shadow:0 4px 16px rgba(66,133,244,.2)}
+.sky-logo{font-size:1rem}
 
-/* ── SAVED SCREEN ── */
-.empty-state {
-  text-align: center; padding: 60px 20px;
-  color: var(--muted);
-}
-.empty-icon { font-size: 3rem; margin-bottom: 12px; }
-.empty-title { font-family: var(--font-head); font-size: 1.1rem; color: #fff; margin-bottom: 6px; }
+.dacts{display:flex;gap:7px}
+.dab{flex:1;padding:9px 7px;border-radius:10px;font-size:.68rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s;border:1px solid;display:flex;align-items:center;justify-content:center;gap:4px;font-family:var(--B)}
+.dab-sv{background:rgba(61,139,110,.08);border-color:rgba(61,139,110,.25);color:#86efac}
+.dab-sv.on{background:rgba(61,139,110,.2);border-color:rgba(134,239,172,.4)}
+.dab-cp{background:rgba(200,164,90,.06);border-color:rgba(200,164,90,.2);color:var(--gold2)}
+.dab-cp.on{background:rgba(200,164,90,.15)}
+.dab-sh{background:rgba(96,130,220,.06);border-color:rgba(96,130,220,.2);color:#93c5fd}
 
-/* ── COMPARE SCREEN ── */
-.compare-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-  margin-bottom: 20px;
-}
-.compare-col {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 16px; padding: 14px;
-}
-.compare-col-title {
-  font-family: var(--font-head);
-  font-size: 0.95rem; font-weight: 700;
-  margin-bottom: 12px; color: var(--saffron);
-}
-.compare-row {
-  display: flex; justify-content: space-between;
-  padding: 8px 0; border-bottom: 1px solid var(--border);
-  font-size: 0.78rem;
-}
-.compare-row:last-child { border-bottom: none; }
-.compare-key { color: var(--muted); }
-.compare-val { font-weight: 600; }
+/* ── COMPARE ── */
+.cmpw{padding:18px 15px}
+.cmph{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:15px}
+.cmpc{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px 11px;text-align:center}
+.cmpe{font-size:2rem;margin-bottom:5px}
+.cmpn{font-family:var(--H);font-size:.95rem;font-weight:600}
+.cmpl{font-size:.67rem;color:var(--muted);margin-top:2px}
+.cmptbl{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.cmpr{display:grid;grid-template-columns:1.3fr 1fr 1fr;padding:12px 15px;border-bottom:1px solid rgba(200,164,90,.06);align-items:center}
+.cmpr:last-child{border-bottom:none}
+.cmpr:nth-child(even){background:rgba(200,164,90,.02)}
+.crk{font-size:.68rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase}
+.crv{font-size:.8rem;font-weight:500}
+.crv.hl{color:var(--gold2);font-family:var(--H);font-size:.88rem}
+.cmpw-win{margin-top:13px;padding:13px 15px;background:linear-gradient(135deg,rgba(200,164,90,.09),transparent);border:1px solid rgba(200,164,90,.2);border-radius:12px;font-size:.8rem;color:var(--gold3)}
 
-/* ── COUNTDOWN ── */
-.countdown-card {
-  background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(76,175,130,0.1));
-  border: 1px solid rgba(255,107,53,0.25);
-  border-radius: 16px; padding: 16px;
-  margin-bottom: 16px; display: flex; align-items: center; gap: 14px;
-}
-.countdown-emoji { font-size: 2rem; }
-.countdown-info { flex: 1; }
-.countdown-trip { font-family: var(--font-head); font-weight: 700; font-size: 1rem; }
-.countdown-days { color: var(--saffron); font-size: 0.85rem; margin-top: 3px; }
+/* ── TIPS ── */
+.tipsw{padding:8px 15px 20px}
+.tipc{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:17px;margin-bottom:11px;display:flex;gap:13px;align-items:flex-start;transition:border-color .25s}
+.tipc:hover{border-color:rgba(200,164,90,.25)}
+.tipic{width:38px;height:38px;flex-shrink:0;background:linear-gradient(135deg,rgba(200,164,90,.12),rgba(200,164,90,.04));border:1px solid rgba(200,164,90,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.tipt{font-family:var(--H);font-size:.93rem;font-weight:600;margin-bottom:4px}
+.tipb{font-size:.76rem;color:var(--muted);line-height:1.6}
 
-/* ── SHARE MODAL ── */
-.modal-overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(8px);
-  display: flex; align-items: flex-end; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity 0.3s;
-}
-.modal-overlay.open { opacity: 1; pointer-events: all; }
-.modal {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 24px 24px 0 0;
-  padding: 24px 20px 40px;
-  width: 100%; max-width: 480px;
-  transform: translateY(40px); transition: transform 0.3s;
-}
-.modal-overlay.open .modal { transform: translateY(0); }
-.modal-title {
-  font-family: var(--font-head); font-weight: 700;
-  font-size: 1.1rem; margin-bottom: 16px; text-align: center;
-}
-.share-options { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
-.share-opt {
-  background: var(--glass); border: 1px solid var(--border);
-  border-radius: 14px; padding: 16px 10px;
-  text-align: center; cursor: pointer; transition: background 0.2s;
-}
-.share-opt:hover { background: rgba(255,255,255,0.08); }
-.share-opt-icon { font-size: 1.8rem; margin-bottom: 6px; }
-.share-opt-label { font-size: 0.72rem; color: var(--muted); }
-.modal-close {
-  display: block; width: 100%; margin-top: 16px;
-  padding: 13px; border-radius: 12px;
-  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-  color: var(--muted); font-size: 0.85rem; cursor: pointer;
-  font-family: var(--font-body);
-}
+/* ── SAVED ── */
+.svw{padding:8px 15px 20px}
+.svi{background:var(--bg2);border:1px solid var(--border);border-radius:15px;padding:14px;margin-bottom:11px;display:flex;align-items:center;gap:13px}
+.svemoji{font-size:2rem;flex-shrink:0}
+.svinfo{flex:1;min-width:0}
+.svname{font-family:var(--H);font-size:1rem;font-weight:600}
+.svmeta{font-size:.68rem;color:var(--muted);margin-top:2px}
+.svprice{font-family:var(--H);font-size:.95rem;color:var(--gold2);font-weight:600;margin-top:3px}
+.svrm{background:rgba(139,48,64,.1);border:1px solid rgba(139,48,64,.25);color:#fca5a5;padding:6px 11px;border-radius:8px;cursor:pointer;font-size:.68rem;font-family:var(--B);flex-shrink:0;transition:all .2s}
+.svrm:hover{background:rgba(139,48,64,.2)}
+
+/* ── MODAL ── */
+.mbg{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.8);backdrop-filter:blur(14px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .32s}
+.mbg.open{opacity:1;pointer-events:all}
+.msh{width:100%;max-width:480px;background:var(--bg2);border:1px solid var(--border);border-radius:24px 24px 0 0;padding:26px 18px 42px;transform:translateY(50px);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.mbg.open .msh{transform:translateY(0)}
+.mhand{width:34px;height:3px;background:var(--dim);border-radius:2px;margin:0 auto 18px}
+.mtitle{font-family:var(--H);font-size:1.15rem;font-weight:600;text-align:center;margin-bottom:18px}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.sopt{background:rgba(200,164,90,.04);border:1px solid var(--border);border-radius:13px;padding:17px 9px;text-align:center;cursor:pointer;transition:all .2s}
+.sopt:hover{background:rgba(200,164,90,.1);border-color:rgba(200,164,90,.3)}
+.soptI{font-size:1.7rem;margin-bottom:5px}
+.soptL{font-size:.66rem;color:var(--muted);letter-spacing:.06em}
+.mcancel{width:100%;margin-top:12px;padding:12px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;color:var(--muted);font-size:.8rem;cursor:pointer;font-family:var(--B)}
 
 /* ── TOAST ── */
-.toast {
-  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
-  background: rgba(76,175,130,0.95); color: #fff;
-  padding: 10px 20px; border-radius: 20px;
-  font-size: 0.85rem; font-weight: 500;
-  opacity: 0; transition: all 0.3s; z-index: 300; white-space: nowrap;
-}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%) translateY(16px);background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);padding:9px 20px;border-radius:50px;font-size:.76rem;font-weight:600;letter-spacing:.04em;opacity:0;transition:all .3s cubic-bezier(.22,1,.36,1);z-index:300;white-space:nowrap;box-shadow:0 4px 18px rgba(200,164,90,.42)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ── BOTTOM NAV ── */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: rgba(22,33,62,0.95);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid var(--border);
-  display: flex; z-index: 100;
-  padding-bottom: env(safe-area-inset-bottom, 0);
-}
-.nav-item {
-  flex: 1; padding: 12px 8px;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 3px;
-  cursor: pointer; transition: color 0.2s;
-  color: var(--muted); font-size: 0.62rem;
-  font-family: var(--font-body);
-}
-.nav-item.active { color: var(--saffron); }
-.nav-icon { font-size: 1.3rem; }
-main { padding-bottom: 70px; }
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(8,8,16,.97);backdrop-filter:blur(24px);border-top:1px solid var(--border);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
+.bni{flex:1;padding:11px 4px 9px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:all .25s;color:var(--muted);font-size:.57rem;letter-spacing:.08em;text-transform:uppercase;font-family:var(--B);font-weight:500}
+.bni.active{color:var(--gold2)}
+.bnic{font-size:1.15rem;transition:transform .25s}
+.bni.active .bnic{transform:translateY(-1px)}
+main{padding-bottom:70px}
 
-/* ── AFFILIATE STRIP ── */
-.affiliate-strip {
-  background: linear-gradient(135deg, rgba(255,107,53,0.12), rgba(233,30,99,0.08));
-  border: 1px solid rgba(255,107,53,0.2);
-  border-radius: 14px; padding: 14px 16px;
-  margin: 12px 0;
-  display: flex; align-items: center; gap: 12px;
-}
-.affiliate-icon { font-size: 1.6rem; flex-shrink: 0; }
-.affiliate-text { flex: 1; }
-.affiliate-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
-.affiliate-sub { font-size: 0.72rem; color: var(--muted); }
-.affiliate-btn {
-  padding: 8px 14px; border-radius: 8px;
-  background: var(--saffron); color: #fff;
-  font-size: 0.72rem; font-weight: 700;
-  border: none; cursor: pointer; white-space: nowrap;
-  font-family: var(--font-body);
-}
+/* SEC */
+.sech{padding:20px 15px 4px;font-family:var(--H);font-size:1.45rem;font-weight:600}
+.secs{padding:0 15px 14px;font-size:.77rem;color:var(--muted);font-style:italic}
+
+/* EMPTY */
+.empty{text-align:center;padding:60px 22px}
+.ei{font-size:3.2rem;margin-bottom:14px;opacity:.4}
+.et{font-family:var(--H);font-size:1.25rem;color:var(--silk);margin-bottom:7px;font-weight:400}
+.es{font-size:.8rem;color:var(--muted);font-style:italic}
 </style>
 </head>
 <body>
 
+<div class="tl"></div>
+
 <header>
-  <div class="logo">
-    <span class="logo-icon">✈️</span>
-    <span>Trip<span>Smart</span></span>
-  </div>
-  <div class="header-actions">
-    <button class="btn-icon" onclick="openScreen('saved')" title="Saved Trips">🔖</button>
-    <button class="btn-icon" onclick="openScreen('compare')" title="Compare">⚖️</button>
+  <div class="logo"><div class="logo-mark">✈</div>Trip<em>Smart</em> India</div>
+  <div class="hbts">
+    <div class="hbt" onclick="go('saved')">🔖</div>
+    <div class="hbt" onclick="go('compare')">⚖️</div>
   </div>
 </header>
 
 <div class="tabs">
-  <div class="tab active" onclick="openScreen('plan', this)">🗺 Plan Trip</div>
-  <div class="tab" onclick="openScreen('saved', this)">🔖 Saved</div>
-  <div class="tab" onclick="openScreen('compare', this)">⚖️ Compare</div>
-  <div class="tab" onclick="openScreen('tips', this)">💡 Tips</div>
+  <div class="tab active" id="tab-plan"    onclick="go('plan')">✦ Plan Trip</div>
+  <div class="tab"        id="tab-saved"   onclick="go('saved')">Saved</div>
+  <div class="tab"        id="tab-compare" onclick="go('compare')">Compare</div>
+  <div class="tab"        id="tab-tips"    onclick="go('tips')">Travel Tips</div>
 </div>
 
 <main>
 
-<!-- ══ PLAN SCREEN ══ -->
+<!-- ══ PLAN ══ -->
 <div class="screen active" id="screen-plan">
   <div class="hero">
-    <h1>Where do you want<br>to go <em>next?</em></h1>
-    <p>Enter your budget, get instant trip plans 🇮🇳</p>
+    <div class="eyebrow">Your Royal Travel Planner</div>
+    <h1>Where shall<br>you <em>wander</em> next?</h1>
+    <p>Enter your budget — we reveal your perfect journey</p>
   </div>
 
-  <div class="filter-card">
-    <div class="filter-row">
+  <div class="planner">
+    <div class="ph"><span style="font-size:1.1rem">💎</span><div class="ph-title">Curate My Journey</div></div>
+    <div class="pb">
+
+      <!-- Domestic / International toggle -->
       <div>
-        <div class="field-label">Your Total Budget (₹)</div>
-        <div class="budget-display" id="budgetDisplay">₹15,000</div>
-        <input type="range" class="slider" id="budgetSlider"
-          min="5000" max="150000" step="1000" value="15000"
-          oninput="updateBudget(this.value)">
-        <div style="display:flex;justify-content:space-between;margin-top:6px;">
-          <span style="font-size:0.68rem;color:var(--muted)">₹5K</span>
-          <span style="font-size:0.68rem;color:var(--muted)">₹1.5L</span>
+        <div class="fl">Destination Type</div>
+        <div class="dest-toggle">
+          <button class="dt-btn active" id="dtDom" onclick="setDT('domestic')">🇮🇳 &nbsp;Domestic</button>
+          <button class="dt-btn"        id="dtIntl" onclick="setDT('international')">🌏 &nbsp;International</button>
         </div>
       </div>
 
+      <!-- Budget per person -->
       <div>
-        <div class="field-label">Number of Days</div>
-        <div class="days-row" id="daysRow">
-          <button class="day-btn" onclick="selectDays(2,this)">2 Days</button>
-          <button class="day-btn active" onclick="selectDays(3,this)">3 Days</button>
-          <button class="day-btn" onclick="selectDays(5,this)">5 Days</button>
-          <button class="day-btn" onclick="selectDays(7,this)">7 Days</button>
-          <button class="day-btn" onclick="selectDays(10,this)">10 Days</button>
+        <div class="fl">Budget Per Person</div>
+        <div class="ba"><span>₹ </span><span id="bAmt">25,000</span><small id="bUSD"></small></div>
+        <div class="trk">
+          <div class="tf" id="tFill" style="width:13.8%"></div>
+          <input type="range" id="bRange" min="5000" max="200000" step="1000" value="25000" oninput="onB(this.value)">
+        </div>
+        <div class="tlbls"><span id="bMin">₹ 5K</span><span id="bMax">₹ 2L</span></div>
+      </div>
+
+      <!-- Number of days -->
+      <div>
+        <div class="fl">Number of Days</div>
+        <div class="days-ctrl">
+          <button class="days-pm" onclick="adjDays(-1)">−</button>
+          <div>
+            <div class="days-num" id="daysNum">4</div>
+            <div class="days-label" style="text-align:center">days</div>
+          </div>
+          <button class="days-pm" onclick="adjDays(1)">+</button>
+          <div class="pills" id="dPresets" style="margin-left:4px">
+            <div class="pill" onclick="setDays(3,this)">3D</div>
+            <div class="pill" onclick="setDays(5,this)">5D</div>
+            <div class="pill" onclick="setDays(7,this)">7D</div>
+            <div class="pill" onclick="setDays(10,this)">10D</div>
+          </div>
         </div>
       </div>
 
+      <!-- Travel Type -->
       <div>
-        <div class="field-label">Travel Type</div>
-        <div class="type-row" id="typeRow">
-          <button class="type-btn active" onclick="selectType('solo',this)">🧍 Solo</button>
-          <button class="type-btn" onclick="selectType('couple',this)">👫 Couple</button>
-          <button class="type-btn" onclick="selectType('family',this)">👨‍👩‍👧 Family</button>
-          <button class="type-btn" onclick="selectType('friends',this)">👯 Friends</button>
+        <div class="fl">Travel Companions</div>
+        <div class="pills" id="tRow">
+          <div class="pill active" onclick="setT('solo',this)">🧍 Solo</div>
+          <div class="pill" onclick="setT('couple',this)">👫 Couple</div>
+          <div class="pill" onclick="setT('family',this)">👨‍👩‍👧 Family</div>
+          <div class="pill" onclick="setT('friends',this)">👯 Group</div>
         </div>
       </div>
 
+      <!-- From city -->
       <div>
-        <div class="field-label">Departure City</div>
-        <select id="departureCity" style="width:100%;padding:11px 14px;background:var(--glass);border:1px solid var(--border);border-radius:12px;color:#fff;font-size:0.85rem;font-family:var(--font-body);outline:none;">
-          <option value="Chennai">Chennai</option>
-          <option value="Mumbai">Mumbai</option>
-          <option value="Delhi">Delhi</option>
-          <option value="Bangalore">Bangalore</option>
-          <option value="Hyderabad">Hyderabad</option>
-          <option value="Kolkata">Kolkata</option>
-          <option value="Pune">Pune</option>
-          <option value="Ahmedabad">Ahmedabad</option>
+        <div class="fl">Departing From</div>
+        <select class="rsel" id="fromCity">
+          <option>Chennai</option><option>Mumbai</option><option>Delhi</option>
+          <option>Bangalore</option><option>Hyderabad</option><option>Kolkata</option>
+          <option>Pune</option><option>Ahmedabad</option><option>Kochi</option>
         </select>
       </div>
 
-      <button class="search-btn" onclick="findTrips()">🔍 Find My Trips</button>
+      <button class="cta" onclick="findTrips()">Discover Destinations ✦</button>
     </div>
   </div>
 
-  <!-- Ad Slot -->
-  <div class="ad-slot">
-    <div class="ad-label">Sponsored</div>
-    <div class="ad-content">✈️ Book flights at lowest prices on MakeMyTrip</div>
-    <a class="ad-cta" href="https://makemytrip.com" target="_blank">Book Now →</a>
-  </div>
+  <!-- Skyscanner affiliate -->
+  <a class="aff" href="https://www.skyscanner.co.in" target="_blank" style="text-decoration:none">
+    <div class="aff-ic">✈️</div>
+    <div class="aff-b"><div class="aff-t">Search Flights on Skyscanner</div><div class="aff-s">Compare 100s of airlines — find the cheapest fare</div></div>
+    <div class="aff-btn">Search →</div>
+  </a>
 
-  <div id="resultsSection" style="display:none;">
-    <div class="results-header">
-      <div class="results-title">Matching Destinations</div>
-      <div class="results-count" id="resultsCount">0 found</div>
+  <div id="resWrap" style="display:none;margin-top:6px">
+    <div class="orn"><div class="ol"></div><div class="oi">✦ Destinations Curated for You ✦</div><div class="ol"></div></div>
+    <div class="rmeta">
+      <div class="rhead">Curated Picks</div>
+      <div class="rbadge" id="rCnt">0 found</div>
     </div>
-    <div id="resultsList"></div>
+    <div id="resList"></div>
 
-    <!-- Affiliate Strip -->
-    <div class="affiliate-strip">
-      <div class="affiliate-icon">🏨</div>
-      <div class="affiliate-text">
-        <div class="affiliate-title">Save up to 40% on hotels</div>
-        <div class="affiliate-sub">Compare prices on Goibibo & MMT</div>
-      </div>
-      <button class="affiliate-btn">Compare</button>
+    <div class="aff" style="margin-top:4px">
+      <div class="aff-ic">🏨</div>
+      <div class="aff-b"><div class="aff-t">Hotels up to 40% Off</div><div class="aff-s">Compare on Goibibo & MakeMyTrip</div></div>
+      <div class="aff-btn">Compare</div>
     </div>
-
-    <div class="affiliate-strip" style="background:linear-gradient(135deg,rgba(76,175,130,0.12),rgba(33,150,243,0.08));border-color:rgba(76,175,130,0.2);">
-      <div class="affiliate-icon">🎯</div>
-      <div class="affiliate-text">
-        <div class="affiliate-title">Book activities on Klook</div>
-        <div class="affiliate-sub">Tours, entry tickets, experiences</div>
-      </div>
-      <button class="affiliate-btn" style="background:var(--green)">Explore</button>
+    <div class="aff">
+      <div class="aff-ic">🎯</div>
+      <div class="aff-b"><div class="aff-t">Book Experiences on Klook</div><div class="aff-s">Tours, tickets & adventures — save 30%</div></div>
+      <div class="aff-btn" style="background:linear-gradient(135deg,#2D6A4F,#52b788);color:#fff">Explore</div>
     </div>
   </div>
 </div>
 
-<!-- ══ SAVED SCREEN ══ -->
+<!-- ══ SAVED ══ -->
 <div class="screen" id="screen-saved">
-  <div style="padding-top:8px;">
-    <div style="font-family:var(--font-head);font-size:1.3rem;font-weight:800;margin-bottom:4px;">Saved Trips</div>
-    <div style="color:var(--muted);font-size:0.85rem;margin-bottom:20px;">Your travel wishlist</div>
-    <div id="savedList"></div>
-    <div id="savedEmpty" class="empty-state" style="display:none;">
-      <div class="empty-icon">🗺️</div>
-      <div class="empty-title">No saved trips yet</div>
-      <div style="font-size:0.85rem;">Search for destinations and tap Save ❤️</div>
-    </div>
-  </div>
+  <div class="sech">Saved Journeys</div><div class="secs">Your personal travel wishlist</div>
+  <div class="svw" id="svList"></div>
+  <div class="empty" id="svEmpty" style="display:none"><div class="ei">🗺️</div><div class="et">Your wishlist awaits</div><div class="es">Save destinations you love from search results</div></div>
 </div>
 
-<!-- ══ COMPARE SCREEN ══ -->
+<!-- ══ COMPARE ══ -->
 <div class="screen" id="screen-compare">
-  <div style="padding-top:8px;">
-    <div style="font-family:var(--font-head);font-size:1.3rem;font-weight:800;margin-bottom:4px;">Compare Trips</div>
-    <div style="color:var(--muted);font-size:0.85rem;margin-bottom:20px;">Side-by-side cost breakdown</div>
-    <div id="compareContent"></div>
-  </div>
+  <div class="sech">Compare Journeys</div><div class="secs">Side-by-side cost analysis</div>
+  <div id="cmpWrap"></div>
 </div>
 
-<!-- ══ TIPS SCREEN ══ -->
+<!-- ══ TIPS ══ -->
 <div class="screen" id="screen-tips">
-  <div style="padding-top:8px;">
-    <div style="font-family:var(--font-head);font-size:1.3rem;font-weight:800;margin-bottom:16px;">💡 Budget Travel Tips</div>
-
-    <div class="affiliate-strip" style="margin-bottom:12px;">
-      <div class="affiliate-icon">🛡️</div>
-      <div class="affiliate-text">
-        <div class="affiliate-title">Get Travel Insurance</div>
-        <div class="affiliate-sub">From ₹299 — compare on PolicyBazaar</div>
-      </div>
-      <button class="affiliate-btn">Get Quote</button>
-    </div>
-
-    <div id="tipsList"></div>
+  <div class="sech">Travel Intelligence</div><div class="secs">Insider secrets for the discerning traveller</div>
+  <div class="aff" style="margin:0 15px 13px">
+    <div class="aff-ic">🛡️</div>
+    <div class="aff-b"><div class="aff-t">Travel Insurance from ₹299</div><div class="aff-s">Compare on PolicyBazaar before you fly</div></div>
+    <div class="aff-btn">Get Quote</div>
   </div>
+  <div class="tipsw" id="tipsList"></div>
 </div>
 
 </main>
 
 <!-- Share Modal -->
-<div class="modal-overlay" id="shareModal" onclick="closeShare(event)">
-  <div class="modal">
-    <div class="modal-title">Share this Trip 🌟</div>
-    <div class="share-options">
-      <div class="share-opt" onclick="shareVia('whatsapp')">
-        <div class="share-opt-icon">💬</div>
-        <div class="share-opt-label">WhatsApp</div>
-      </div>
-      <div class="share-opt" onclick="shareVia('copy')">
-        <div class="share-opt-icon">📋</div>
-        <div class="share-opt-label">Copy Link</div>
-      </div>
-      <div class="share-opt" onclick="shareVia('native')">
-        <div class="share-opt-icon">📤</div>
-        <div class="share-opt-label">More...</div>
-      </div>
+<div class="mbg" id="shareModal" onclick="maybeClose(event)">
+  <div class="msh">
+    <div class="mhand"></div>
+    <div class="mtitle">Share This Journey</div>
+    <div class="sgrid">
+      <div class="sopt" onclick="doShare('whatsapp')"><div class="soptI">💬</div><div class="soptL">WhatsApp</div></div>
+      <div class="sopt" onclick="doShare('copy')"><div class="soptI">📋</div><div class="soptL">Copy Text</div></div>
+      <div class="sopt" onclick="doShare('native')"><div class="soptI">📤</div><div class="soptL">Share...</div></div>
     </div>
-    <button class="modal-close" onclick="closeShare()">Cancel</button>
+    <button class="mcancel" onclick="closeShare()">Cancel</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<nav class="bottom-nav">
-  <div class="nav-item active" id="nav-plan" onclick="openScreen('plan',null,'nav-plan')">
-    <div class="nav-icon">🗺️</div><span>Plan</span>
-  </div>
-  <div class="nav-item" id="nav-saved" onclick="openScreen('saved',null,'nav-saved')">
-    <div class="nav-icon">🔖</div><span>Saved</span>
-  </div>
-  <div class="nav-item" id="nav-compare" onclick="openScreen('compare',null,'nav-compare')">
-    <div class="nav-icon">⚖️</div><span>Compare</span>
-  </div>
-  <div class="nav-item" id="nav-tips" onclick="openScreen('tips',null,'nav-tips')">
-    <div class="nav-icon">💡</div><span>Tips</span>
-  </div>
+<nav class="bnav">
+  <div class="bni active" id="nav-plan"    onclick="go('plan')"><div class="bnic">🗺️</div><span>Plan</span></div>
+  <div class="bni"        id="nav-saved"   onclick="go('saved')"><div class="bnic">🔖</div><span>Saved</span></div>
+  <div class="bni"        id="nav-compare" onclick="go('compare')"><div class="bnic">⚖️</div><span>Compare</span></div>
+  <div class="bni"        id="nav-tips"    onclick="go('tips')"><div class="bnic">💡</div><span>Tips</span></div>
 </nav>
 
 <script>
-// ── STATE ──
-let state = {
-  budget: 15000, days: 3, type: 'solo',
-  saved: JSON.parse(localStorage.getItem('ts_saved') || '[]'),
-  compare: JSON.parse(localStorage.getItem('ts_compare') || '[]'),
-  shareTarget: null
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+const S={
+  budget:25000, days:4, type:'solo', destType:'domestic',
+  saved:   JSON.parse(localStorage.getItem('ts3_sv')||'[]'),
+  compare: JSON.parse(localStorage.getItem('ts3_cp')||'[]'),
+  shareId: null
 };
 
-// ── DESTINATION DATA ──
-const destinations = [
+/* ═══════════════════════════════════════════════
+   DESTINATION DATA
+═══════════════════════════════════════════════ */
+const DEST=[
+  /* ── DOMESTIC ── */
   {
-    id: 'goa', name: 'Goa', state: 'Goa', emoji: '🏖️',
-    tier: 'mid', tags: ['Beach','Nightlife','Water Sports','Seafood'],
-    base: { flight: 4500, hotel_per_day: 1800, food_per_day: 700, activity_per_day: 500 },
-    description: 'India\'s beach capital — white sands, shacks, and sunsets.'
+    id:'goa', name:'Goa', country:'India', state:'Goa', emoji:'🏖️', type:'domestic', tier:'mid',
+    photo:'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&q=80',
+    tags:['Beach','Nightlife','Water Sports','Seafood','Portuguese Heritage'],
+    base:{f:4500,h:1800,fo:700,a:500},
+    desc:'India\'s beach capital — white sands, beach shacks and electric sunsets.',
+    itinerary:[
+      {title:'Arrival & North Goa Beaches',acts:'Land at Dabolim → check in → Baga & Calangute Beach → beach shack dinner'},
+      {title:'Water Sports & Forts',acts:'Parasailing at Candolim → Aguada Fort → Vagator sunset → night market at Anjuna'},
+      {title:'Old Goa & South Beaches',acts:'Se Cathedral & Basilica of Bom Jesus → Colva Beach → Palolem sunset walk'},
+      {title:'Cruise & Departure',acts:'Mandovi river cruise → Panaji market → seafood lunch → airport'}
+    ]
   },
   {
-    id: 'manali', name: 'Manali', state: 'Himachal Pradesh', emoji: '🏔️',
-    tier: 'budget', tags: ['Mountains','Snow','Trekking','Adventure'],
-    base: { flight: 5500, hotel_per_day: 1200, food_per_day: 500, activity_per_day: 600 },
-    description: 'Snow-capped peaks, Rohtang Pass, and riverside cafes.'
+    id:'manali', name:'Manali', country:'India', state:'Himachal Pradesh', emoji:'🏔️', type:'domestic', tier:'budget',
+    photo:'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&q=80',
+    tags:['Mountains','Snow','Trekking','Adventure','Cafés'],
+    base:{f:5500,h:1200,fo:500,a:600},
+    desc:'Snow-capped peaks, Rohtang Pass and cosy riverside cafés.',
+    itinerary:[
+      {title:'Arrival & Old Manali',acts:'Arrive Bhuntar airport → drive to Manali → Old Manali cafés → Hidimba Temple'},
+      {title:'Rohtang Pass',acts:'Early drive to Rohtang Pass (3978m) → snow play → Solang Valley paragliding'},
+      {title:'Kullu & Manikaran',acts:'Kullu Valley drive → Manikaran hot springs → local market shopping'},
+      {title:'Beas River & Departure',acts:'River rafting on Beas → Naggar Castle → departure'}
+    ]
   },
   {
-    id: 'ooty', name: 'Ooty', state: 'Tamil Nadu', emoji: '🌿',
-    tier: 'budget', tags: ['Hills','Tea Gardens','Scenic Train','Nature'],
-    base: { flight: 0, hotel_per_day: 900, food_per_day: 400, activity_per_day: 300 },
-    description: 'Queen of Hills — toy train, tea estates, and cool breeze.'
+    id:'ooty', name:'Ooty', country:'India', state:'Tamil Nadu', emoji:'🌿', type:'domestic', tier:'budget',
+    photo:'https://images.unsplash.com/photo-1583314965950-cd453a564428?w=600&q=80',
+    tags:['Nilgiris','Tea Gardens','Toy Train','Botanical Garden'],
+    base:{f:0,h:900,fo:400,a:300},
+    desc:'Queen of Hills — toy train, tea estates and cool mountain breeze.',
+    itinerary:[
+      {title:'Arrival & Botanical Garden',acts:'Arrive Coimbatore → drive to Ooty → Government Rose Garden → Botanical Garden'},
+      {title:'Toy Train & Tea',acts:'UNESCO Nilgiri Mountain Railway → Doddabetta Peak → tea factory tour & tasting'},
+      {title:'Ooty Lake & Markets',acts:'Boating at Ooty Lake → Tribal Research Centre → Charing Cross shopping'},
+      {title:'Emerald Lake & Return',acts:'Emerald Lake sunrise → Pine Forest walk → drive back to Coimbatore'}
+    ]
   },
   {
-    id: 'kerala', name: 'Alleppey', state: 'Kerala', emoji: '🛶',
-    tier: 'mid', tags: ['Backwaters','Houseboat','Ayurveda','Nature'],
-    base: { flight: 3000, hotel_per_day: 2500, food_per_day: 600, activity_per_day: 800 },
-    description: 'Glide through serene backwaters on a traditional houseboat.'
+    id:'alleppey', name:'Alleppey', country:'India', state:'Kerala', emoji:'🛶', type:'domestic', tier:'mid',
+    photo:'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=80',
+    tags:['Backwaters','Houseboat','Ayurveda','Seafood'],
+    base:{f:3000,h:2500,fo:600,a:800},
+    desc:'Glide through emerald backwaters on a traditional rice-boat houseboat.',
+    itinerary:[
+      {title:'Arrival & Houseboat Check-in',acts:'Fly to Kochi → drive to Alleppey → overnight houseboat boarding → sunset cruise'},
+      {title:'Backwater Village Life',acts:'Morning village walk → watch fishermen → toddy shop lunch → canoe ride'},
+      {title:'Marari Beach',acts:'Marari Beach sunrise → Ayurvedic massage → fresh catch seafood dinner'},
+      {title:'Kochi Exploration',acts:'Drive to Kochi → Fort Kochi walk → Chinese fishing nets → Kathakali show'}
+    ]
   },
   {
-    id: 'rajasthan', name: 'Jaipur', state: 'Rajasthan', emoji: '🏰',
-    tier: 'mid', tags: ['Heritage','Forts','Culture','Shopping'],
-    base: { flight: 4000, hotel_per_day: 1500, food_per_day: 500, activity_per_day: 700 },
-    description: 'The Pink City — Amber Fort, royal palaces, and vibrant bazaars.'
+    id:'jaipur', name:'Jaipur', country:'India', state:'Rajasthan', emoji:'🏰', type:'domestic', tier:'mid',
+    photo:'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&q=80',
+    tags:['Heritage','Amber Fort','Culture','Shopping','Cuisine'],
+    base:{f:4000,h:1500,fo:500,a:700},
+    desc:'The Pink City — Amber Fort, royal palaces and vibrant bazaars.',
+    itinerary:[
+      {title:'Amber & Jaigarh Forts',acts:'Elephant ride to Amber Fort → Jaigarh Fort cannon → City Palace & Jantar Mantar'},
+      {title:'Pink City Walk',acts:'Hawa Mahal sunrise photo → Johri Bazaar gems → Albert Hall Museum → rooftop dinner'},
+      {title:'Nahargarh & Crafts',acts:'Nahargarh Fort sunset → block printing workshop → blue pottery → Bapu Bazaar'},
+      {title:'Bagru & Departure',acts:'Bagru village textile tour → camel ride → Pink City brunch → departure'}
+    ]
   },
   {
-    id: 'coorg', name: 'Coorg', state: 'Karnataka', emoji: '☕',
-    tier: 'budget', tags: ['Coffee','Waterfalls','Trekking','Nature'],
-    base: { flight: 2500, hotel_per_day: 1400, food_per_day: 500, activity_per_day: 400 },
-    description: 'Scotland of India — coffee plantations and misty valleys.'
+    id:'andaman', name:'Andaman', country:'India', state:'A&N Islands', emoji:'🐠', type:'domestic', tier:'luxury',
+    photo:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80',
+    tags:['Beach','Scuba Diving','Snorkeling','Bioluminescence'],
+    base:{f:12000,h:3000,fo:800,a:1500},
+    desc:'Turquoise paradise — pristine coral reefs and secret jungle coves.',
+    itinerary:[
+      {title:'Port Blair & Cellular Jail',acts:'Fly to Port Blair → Cellular Jail light & sound show → seafood dinner'},
+      {title:'Havelock Island',acts:'Ferry to Havelock → Radhanagar Beach (Asia\'s best) → kayaking at sunset'},
+      {title:'Elephant Beach Snorkeling',acts:'Elephant Beach snorkeling → glass-bottom boat → night bioluminescence tour'},
+      {title:'Neil Island & Return',acts:'Ferry to Neil → Laxmanpur Beach → Natural Bridge → fly back from Port Blair'}
+    ]
   },
   {
-    id: 'andaman', name: 'Andaman', state: 'Andaman & Nicobar', emoji: '🐠',
-    tier: 'luxury', tags: ['Beach','Snorkeling','Scuba','Remote'],
-    base: { flight: 12000, hotel_per_day: 3000, food_per_day: 800, activity_per_day: 1500 },
-    description: 'Pristine turquoise waters and untouched coral reefs.'
+    id:'pondi', name:'Pondicherry', country:'India', state:'Puducherry', emoji:'🇫🇷', type:'domestic', tier:'budget',
+    photo:'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600&q=80',
+    tags:['French Quarter','Promenade','Cafés','Auroville','Yoga'],
+    base:{f:0,h:1000,fo:450,a:300},
+    desc:'French colonial promenade, sunrise walks and Auroville peace.',
+    itinerary:[
+      {title:'White Town & French Quarter',acts:'Sunrise promenade walk → Sacré-Coeur church → French café breakfast → Alliance Française'},
+      {title:'Auroville',acts:'Matri Mandir meditation → Auroville village → handicraft shopping → beach sunset'},
+      {title:'Tamil Quarter & Temples',acts:'Manakula Vinayagar Temple → Botanical Garden → Paradise Beach boat ride'},
+      {title:'Serenity Beach & Return',acts:'Serenity Beach yoga → fresh juice breakfast → Aurobindo Ashram → departure'}
+    ]
   },
   {
-    id: 'pondicherry', name: 'Pondicherry', state: 'Puducherry', emoji: '🇫🇷',
-    tier: 'budget', tags: ['French Town','Beach','Cafes','Yoga'],
-    base: { flight: 0, hotel_per_day: 1000, food_per_day: 450, activity_per_day: 300 },
-    description: 'French colonial charm, promenade sunrises, and Auroville peace.'
+    id:'leh', name:'Leh–Ladakh', country:'India', state:'Ladakh', emoji:'🏍️', type:'domestic', tier:'luxury',
+    photo:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
+    tags:['High Altitude','Pangong Lake','Monasteries','Biking'],
+    base:{f:9000,h:2000,fo:700,a:1200},
+    desc:'Land of high passes — Pangong Lake and ancient monastery silence.',
+    itinerary:[
+      {title:'Arrival & Acclimatization',acts:'Fly to Leh (3524m) → rest day → Shanti Stupa sunset → local market'},
+      {title:'Monasteries Circuit',acts:'Thiksey Monastery → Hemis → Rancho School (3 Idiots!) → Magnetic Hill'},
+      {title:'Pangong Lake',acts:'Drive to Pangong Tso (4350m) → colour-changing lake → camp overnight'},
+      {title:'Nubra Valley',acts:'Khardung La Pass (world\'s highest motorable road) → Nubra Valley → camel ride on sand dunes'},
+      {title:'Tso Moriri & Return',acts:'Tso Moriri Lake → drive back → local homestay dinner → departure'}
+    ]
+  },
+
+  /* ── INTERNATIONAL ── */
+  {
+    id:'bali', name:'Bali', country:'Indonesia', state:'Indonesia', emoji:'🌺', type:'international', tier:'mid',
+    photo:'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80',
+    tags:['Temples','Rice Terraces','Beaches','Nightlife','Spa'],
+    base:{f:18000,h:2500,fo:800,a:1000},
+    desc:'Island of the Gods — sacred temples, lush rice terraces and world-class beaches.',
+    itinerary:[
+      {title:'Arrival & Seminyak',acts:'Fly into Ngurah Rai → Seminyak beach clubs → Ku De Ta sunset → rooftop dinner'},
+      {title:'Ubud — Cultural Heart',acts:'Tegallalang rice terraces → Tirta Empul temple water purification → Monkey Forest'},
+      {title:'Tanah Lot & Kuta',acts:'Tanah Lot temple at sunset → Kuta surf lesson → Beachwalk shopping'},
+      {title:'Mount Batur Sunrise',acts:'4AM trek up Mount Batur (1717m) → sunrise at summit → hot springs → Ubud spa'},
+      {title:'Nusa Penida Day Trip',acts:'Boat to Nusa Penida → Kelingking Beach cliff view → Crystal Bay snorkeling → return'}
+    ]
   },
   {
-    id: 'shimla', name: 'Shimla', state: 'Himachal Pradesh', emoji: '🎿',
-    tier: 'budget', tags: ['Hills','Colonial','Snow','Scenic'],
-    base: { flight: 5000, hotel_per_day: 1300, food_per_day: 450, activity_per_day: 400 },
-    description: 'Former summer capital — mall road, snow, and pine forests.'
+    id:'bangkok', name:'Bangkok', country:'Thailand', state:'Thailand', emoji:'🏯', type:'international', tier:'mid',
+    photo:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80',
+    tags:['Temples','Street Food','Nightlife','Shopping','Massage'],
+    base:{f:14000,h:2000,fo:600,a:800},
+    desc:'City of angels — glittering temples, legendary street food and vibrant nightlife.',
+    itinerary:[
+      {title:'Grand Palace & Temples',acts:'Fly into Suvarnabhumi → Grand Palace & Wat Phra Kaew → Wat Pho reclining Buddha → sunset on Chao Phraya'},
+      {title:'Markets & Malls',acts:'Chatuchak Weekend Market (15,000 stalls) → Jim Thompson House → Siam Paragon & MBK'},
+      {title:'Ayutthaya Day Trip',acts:'Ancient capital UNESCO ruins → Wat Mahathat → floating market → street pad thai'},
+      {title:'Rooftop Bangkok',acts:'Sky Bar (Hangover movie bar) → Chinatown Yaowarat night market → Silom massage'},
+      {title:'Day Trip & Departure',acts:'Damnoen Saduak floating market → Amphawa → Suvarnabhumi departure'}
+    ]
   },
   {
-    id: 'varanasi', name: 'Varanasi', state: 'Uttar Pradesh', emoji: '🪔',
-    tier: 'budget', tags: ['Spiritual','Ghats','Heritage','Culture'],
-    base: { flight: 4500, hotel_per_day: 900, food_per_day: 400, activity_per_day: 300 },
-    description: 'World\'s oldest city — Ganga aarti and timeless ghats.'
+    id:'dubai', name:'Dubai', country:'UAE', state:'UAE', emoji:'🏙️', type:'international', tier:'luxury',
+    photo:'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80',
+    tags:['Burj Khalifa','Desert Safari','Shopping','Luxury','Modern Wonders'],
+    base:{f:16000,h:5000,fo:1200,a:2000},
+    desc:'City of superlatives — the world\'s tallest tower, golden deserts and ultra-luxury malls.',
+    itinerary:[
+      {title:'Arrival & Downtown',acts:'Fly into DXB → Burj Khalifa At The Top → Dubai Mall & Dubai Fountain show'},
+      {title:'Old Dubai',acts:'Gold Souk & Spice Souk → Abra crossing → Al Fahidi Historic District → Jumeirah Mosque'},
+      {title:'Desert Safari',acts:'Red dune bashing → camel ride → falconry → Bedouin camp dinner under stars'},
+      {title:'Palm & Marina',acts:'Palm Jumeirah monorail → Atlantis → Dubai Marina yacht dinner → JBR Walk'},
+      {title:'Miracle Garden & Departure',acts:'Dubai Miracle Garden → duty free → departure from DXB'}
+    ]
   },
   {
-    id: 'munnar', name: 'Munnar', state: 'Kerala', emoji: '🌱',
-    tier: 'budget', tags: ['Tea Gardens','Hills','Wildlife','Scenic'],
-    base: { flight: 3500, hotel_per_day: 1200, food_per_day: 450, activity_per_day: 350 },
-    description: 'Endless tea estates, misty hills, and the Nilgiri Tahr.'
+    id:'vietnam', name:'Vietnam', country:'Vietnam', state:'Vietnam', emoji:'🛵', type:'international', tier:'budget',
+    photo:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80',
+    tags:['Ha Long Bay','Hoi An','Pho','History','Motorbikes'],
+    base:{f:15000,h:1500,fo:500,a:700},
+    desc:'Breathtaking limestone bays, ancient lantern towns and the world\'s best street food.',
+    itinerary:[
+      {title:'Hanoi Old Quarter',acts:'Fly into Hanoi → 36 Streets Old Quarter walk → Hoan Kiem Lake → egg coffee'},
+      {title:'Ha Long Bay Cruise',acts:'3-hour drive → overnight cruise on Ha Long Bay → kayaking through caves → sunset on deck'},
+      {title:'Hoi An Ancient Town',acts:'Fly to Da Nang → Hoi An lantern town by bicycle → tailoring → Cao Lau noodles'},
+      {title:'Ho Chi Minh City',acts:'Fly to HCMC → War Remnants Museum → Ben Thanh Market → rooftop bar'},
+      {title:'Mekong Delta & Departure',acts:'Mekong Delta boat tour → floating market → fruit orchards → Tan Son Nhat departure'}
+    ]
   },
   {
-    id: 'udaipur', name: 'Udaipur', state: 'Rajasthan', emoji: '🏞️',
-    tier: 'mid', tags: ['Lake City','Palaces','Romance','Heritage'],
-    base: { flight: 5000, hotel_per_day: 2000, food_per_day: 600, activity_per_day: 600 },
-    description: 'Venice of the East — lake palaces and sunset boat rides.'
+    id:'singapore', name:'Singapore', country:'Singapore', state:'Singapore', emoji:'🦁', type:'international', tier:'luxury',
+    photo:'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&q=80',
+    tags:['Gardens by the Bay','Sentosa','Food','Clean City','Marina Bay'],
+    base:{f:14000,h:4500,fo:1000,a:1500},
+    desc:'The Lion City — futuristic gardens, legendary hawker food and spotless luxury.',
+    itinerary:[
+      {title:'Marina Bay & Gardens',acts:'Marina Bay Sands Skypark → Gardens by the Bay → Supertree Grove light show'},
+      {title:'Universal Studios',acts:'Sentosa Island → Universal Studios → S.E.A. Aquarium → Resorts World'},
+      {title:'Cultural Districts',acts:'Chinatown temples → Little India → Clarke Quay riverside dinner → Singapore Flyer'},
+      {title:'Botanic Gardens & Shopping',acts:'UNESCO Botanic Gardens → Orchard Road → hawker centre lunch → Changi Airport (top attraction!)'},
+    ]
   },
   {
-    id: 'leh', name: 'Leh–Ladakh', state: 'Ladakh', emoji: '🏍️',
-    tier: 'luxury', tags: ['Mountains','Biking','High Altitude','Buddhist'],
-    base: { flight: 9000, hotel_per_day: 2000, food_per_day: 700, activity_per_day: 1200 },
-    description: 'Land of high passes — Pangong Lake and monastery silence.'
+    id:'maldives', name:'Maldives', country:'Maldives', state:'Maldives', emoji:'🏝️', type:'international', tier:'luxury',
+    photo:'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80',
+    tags:['Overwater Bungalows','Snorkeling','Crystal Water','Honeymoon','Sunset'],
+    base:{f:22000,h:8000,fo:1500,a:2000},
+    desc:'Paradise on earth — crystalline lagoons, coral reefs and iconic overwater villas.',
+    itinerary:[
+      {title:'Arrival & Water Villa',acts:'Fly to Malé → speedboat to resort → overwater villa check-in → snorkeling house reef'},
+      {title:'Diving & Marine Life',acts:'Scuba dive with manta rays → glass-bottom kayak → sunset dolphin cruise'},
+      {title:'Local Island Visit',acts:'Day trip to local Maldivian island → local café → sandbank picnic → stargazing'},
+      {title:'Spa & Sunset',acts:'Overwater spa treatment → beach bonfire dinner → departure next morning'}
+    ]
   },
   {
-    id: 'hampi', name: 'Hampi', state: 'Karnataka', emoji: '🗿',
-    tier: 'budget', tags: ['Ruins','UNESCO','Boulders','History'],
-    base: { flight: 3000, hotel_per_day: 700, food_per_day: 350, activity_per_day: 250 },
-    description: 'Ancient Vijayanagara ruins among surreal boulder landscapes.'
+    id:'paris', name:'Paris', country:'France', state:'France', emoji:'🗼', type:'international', tier:'luxury',
+    photo:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=80',
+    tags:['Eiffel Tower','Art','Fashion','Cuisine','Romance'],
+    base:{f:45000,h:6000,fo:2000,a:1500},
+    desc:'The City of Light — romantic boulevards, world-class art and the finest cuisine.',
+    itinerary:[
+      {title:'Eiffel Tower & Champs-Élysées',acts:'Eiffel Tower summit → Seine river cruise → Arc de Triomphe → Champs-Élysées walk'},
+      {title:'Louvre & Montmartre',acts:'Louvre Museum (Mona Lisa) → Tuileries Garden → Montmartre & Sacré-Coeur → wine at café'},
+      {title:'Versailles Day Trip',acts:'Palace of Versailles → Hall of Mirrors → gardens → Marais district evening'},
+      {title:'Musée d\'Orsay & Departure',acts:'Musée d\'Orsay Impressionists → Seine picnic → last café crème → Charles de Gaulle'}
+    ]
   },
   {
-    id: 'darjeeling', name: 'Darjeeling', state: 'West Bengal', emoji: '🍵',
-    tier: 'budget', tags: ['Tea','Toy Train','Himalayan View','Cozy'],
-    base: { flight: 5000, hotel_per_day: 1100, food_per_day: 400, activity_per_day: 350 },
-    description: 'Queen of Hills — Kangchenjunga views and first-flush chai.'
+    id:'srilanka', name:'Sri Lanka', country:'Sri Lanka', state:'Sri Lanka', emoji:'🌴', type:'international', tier:'budget',
+    photo:'https://images.unsplash.com/photo-1546975490-a79abf050e68?w=600&q=80',
+    tags:['Sigiriya Rock','Tea Country','Beaches','Wildlife','Spices'],
+    base:{f:10000,h:1800,fo:600,a:700},
+    desc:'Pearl of the Indian Ocean — ancient rock fortresses, whale watching and spiced cuisine.',
+    itinerary:[
+      {title:'Colombo Arrival',acts:'Fly to Colombo → Gangaramaya Temple → Galle Face Green sunset → street food tour'},
+      {title:'Sigiriya Lion Rock',acts:'Drive to Sigiriya → climb 5th-century rock fortress (200m) → Dambulla Cave Temple'},
+      {title:'Kandy & Temple of Tooth',acts:'Kandy → Temple of the Sacred Tooth Relic → Peradeniya Botanical Garden → cultural dance show'},
+      {title:'Ella Tea Country',acts:'Little Adam\'s Peak hike → Nine Arch Bridge by train → tea factory tour → Ella gap views'},
+      {title:'Mirissa Beach & Departure',acts:'Whale watching boat trip → Mirissa Beach → Galle Fort walk → fly from Colombo'}
+    ]
+  },
+  {
+    id:'nepal', name:'Nepal', country:'Nepal', state:'Nepal', emoji:'⛰️', type:'international', tier:'budget',
+    photo:'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80',
+    tags:['Everest Base Camp','Kathmandu','Trekking','Monasteries','Adventure'],
+    base:{f:12000,h:1200,fo:500,a:1000},
+    desc:'Roof of the world — Himalayan treks, ancient temples and incredible mountain views.',
+    itinerary:[
+      {title:'Kathmandu Durbar Square',acts:'Fly to Tribhuvan → Pashupatinath Temple → Boudhanath Stupa → Thamel rooftop dinner'},
+      {title:'Nagarkot Sunrise',acts:'Drive to Nagarkot → Everest sunrise viewpoint → Bhaktapur Durbar Square UNESCO site'},
+      {title:'Pokhara — Lake City',acts:'Fly or drive to Pokhara → Phewa Lake boat → Barahi Temple → paragliding over Himalaya'},
+      {title:'Annapurna Base Camp Trek',acts:'Poon Hill sunrise trek → rhododendron forests → mountain views → hot springs'},
+      {title:'Chitwan & Departure',acts:'Chitwan National Park safari (rhino, elephant) → Kathmandu departure'}
+    ]
   }
 ];
 
-const tips = [
-  { icon: '✈️', title: 'Book flights 45–60 days early', body: 'Indian domestic fares drop significantly 6–8 weeks out. Tuesday and Wednesday departures are usually cheapest.' },
-  { icon: '🏨', title: 'Use OYO / FabHotels for budget stays', body: 'Budget hotels in India average ₹600–1200/night. Always check both Goibibo and MakeMyTrip for the same property.' },
-  { icon: '🍛', title: 'Eat at local dhabas', body: 'A full meal at a dhaba costs ₹80–150 vs ₹300–600 at restaurants. The food is often better too!' },
-  { icon: '🚂', title: 'Train > Flight for <500km', body: 'AC train travel costs 60–70% less than flights for distances under 500km. Book on IRCTC.' },
-  { icon: '📱', title: 'Use Klook for activity discounts', body: 'Pre-booking activities on Klook saves 20–40% vs on-the-spot pricing.' },
-  { icon: '🧳', title: 'Pack light = save on baggage', body: 'A 7kg cabin bag saves ₹400–800 per sector on IndiGo, Air India Express.' },
-  { icon: '💳', title: 'Use travel credit cards', body: 'HDFC Regalia and SBI Card Prime give 5–10x reward points on travel spends. Apply before your trip.' },
-  { icon: '🌧️', title: 'Off-season = 30–50% cheaper', body: 'Goa in monsoon, Rajasthan in summer, Himachal in winter — massive savings with thin crowds.' }
+const TIPS=[
+  {ic:'✈️',t:'Book via Skyscanner for Best Fares',b:'Skyscanner compares 100s of airlines and travel agents. Use "Everywhere" search to find cheapest international destinations from your city.'},
+  {ic:'📅',t:'Book 6–8 Weeks Early Domestically',b:'Indian domestic fares are cheapest 45–60 days out. For international, book 3–6 months ahead for peak season travel.'},
+  {ic:'🏨',t:'Mix Hotel Types Strategically',b:'Stay at budget properties at transit cities (Mumbai, Delhi) and splurge at the destination. Saves 30–40% overall.'},
+  {ic:'🍛',t:'Eat Where Locals Eat',b:'Street food and local dhabas cost ₹80–200/meal vs ₹500–1500 at tourist restaurants — and taste far better.'},
+  {ic:'🚂',t:'Train for Distances Under 500km',b:'Indian Railways AC tier costs 60–70% less than flights. For international trips, train passes in Europe & Japan are excellent value.'},
+  {ic:'💳',t:'Get a Forex Card Before You Go',b:'Niyo, HDFC Forex, or BookMyForex cards give near-interbank rates with zero markup. Avoid airport currency exchange entirely.'},
+  {ic:'📱',t:'Klook for International Activities',b:'Klook offers 20–40% off on activities, entry tickets and transfers in Bali, Singapore, Bangkok, Dubai and Vietnam.'},
+  {ic:'🌧️',t:'Off-Season Savings Are Massive',b:'Bali (wet season Jan–Mar), Thailand (Apr–Jun), Maldives (May–Oct) — 40–60% cheaper hotels with fewer crowds.'},
+  {ic:'🛡️',t:'Never Skip Travel Insurance',b:'A ₹500–1500 policy covers medical emergencies abroad worth lakhs. Essential for international trips — compare on PolicyBazaar.'},
+  {ic:'🧳',t:'Pack a 7kg Cabin Bag Only',b:'Saves ₹800–2000 per sector on budget airlines. Roll clothes, use packing cubes, wear heaviest items while flying.'}
 ];
 
-// ── SLIDER ──
-function updateBudget(val) {
-  state.budget = parseInt(val);
-  const pct = ((val - 5000) / (150000 - 5000)) * 100;
-  document.getElementById('budgetSlider').style.setProperty('--val', pct + '%');
-  document.getElementById('budgetDisplay').textContent = '₹' + parseInt(val).toLocaleString('en-IN');
+/* ═══════════════════════════════════════════════
+   CONTROLS
+═══════════════════════════════════════════════ */
+function setDT(t){
+  S.destType=t;
+  document.getElementById('dtDom').classList.toggle('active',t==='domestic');
+  document.getElementById('dtIntl').classList.toggle('active',t==='international');
+  // Adjust budget range & labels
+  if(t==='international'){
+    document.getElementById('bRange').min=15000;
+    document.getElementById('bRange').max=300000;
+    document.getElementById('bMin').textContent='₹15K';
+    document.getElementById('bMax').textContent='₹3L';
+    if(S.budget<15000){S.budget=30000; onB(30000,true);}
+  } else {
+    document.getElementById('bRange').min=5000;
+    document.getElementById('bRange').max=200000;
+    document.getElementById('bMin').textContent='₹5K';
+    document.getElementById('bMax').textContent='₹2L';
+  }
 }
 
-function selectDays(n, el) {
-  state.days = n;
-  document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+function onB(v, noSlider){
+  S.budget=+v;
+  if(!noSlider) document.getElementById('bRange').value=v;
+  const mn=+document.getElementById('bRange').min, mx=+document.getElementById('bRange').max;
+  document.getElementById('tFill').style.width=((v-mn)/(mx-mn)*100)+'%';
+  document.getElementById('bAmt').textContent=(+v).toLocaleString('en-IN');
+  // Show approximate USD for international
+  if(S.destType==='international'){
+    const usd=Math.round(v/84);
+    document.getElementById('bUSD').textContent='≈ $'+usd.toLocaleString();
+  } else {
+    document.getElementById('bUSD').textContent='';
+  }
+}
+
+function adjDays(d){
+  S.days=Math.max(1,Math.min(21,S.days+d));
+  document.getElementById('daysNum').textContent=S.days;
+  document.querySelectorAll('#dPresets .pill').forEach(p=>p.classList.remove('active'));
+}
+function setDays(n,el){
+  S.days=n;
+  document.getElementById('daysNum').textContent=n;
+  document.querySelectorAll('#dPresets .pill').forEach(p=>p.classList.remove('active'));
   el.classList.add('active');
 }
+function setT(t,el){S.type=t;document.querySelectorAll('#tRow .pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');}
 
-function selectType(t, el) {
-  state.type = t;
-  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
+/* ═══════════════════════════════════════════════
+   COST CALCULATION
+═══════════════════════════════════════════════ */
+function calc(d){
+  const city=document.getElementById('fromCity').value;
+  const fAdj={Mumbai:0.82,Delhi:0.80,Bangalore:0.88,Chennai:1,Hyderabad:0.92,Kolkata:1.08,Pune:0.95,Ahmedabad:0.90,Kochi:0.93}[city]||1;
+  // All values are PER PERSON totals for the entire trip
+  const fl = Math.round(d.base.f  * fAdj);         // flight per person
+  const ht = Math.round(d.base.h  * S.days);        // hotel total per person
+  const fo = Math.round(d.base.fo * S.days);        // food total per person
+  const ac = Math.round(d.base.a  * S.days);        // activities total per person
+  const tot = fl + ht + fo + ac;
+  return {fl, ht, fo, ac, tot};
 }
 
-// ── COST CALC ──
-function calcCost(dest) {
-  const d = state.days;
-  const multiplier = state.type === 'solo' ? 1 : state.type === 'couple' ? 1.7 : state.type === 'family' ? 2.8 : 2.2;
-  const city = document.getElementById('departureCity').value;
-  let flightAdj = dest.base.flight;
-  if (city === 'Mumbai' || city === 'Delhi') flightAdj *= 0.85;
-  if (city === 'Kolkata') flightAdj *= 1.1;
-  const flight = Math.round(flightAdj * multiplier);
-  const hotel = Math.round(dest.base.hotel_per_day * d * (multiplier * 0.6 + 0.4));
-  const food = Math.round(dest.base.food_per_day * d * multiplier);
-  const activity = Math.round(dest.base.activity_per_day * d * multiplier);
-  const total = flight + hotel + food + activity;
-  return { flight, hotel, food, activity, total };
+/* ═══════════════════════════════════════════════
+   FIND TRIPS
+═══════════════════════════════════════════════ */
+function findTrips(){
+  const filtered=DEST.filter(d=>d.type===S.destType);
+  const results=filtered
+    .map(d=>({...d,c:calc(d)}))
+    .filter(d=>d.c.tot<=S.budget*1.2)
+    .sort((a,b)=>Math.abs(a.c.tot-S.budget*0.85)-Math.abs(b.c.tot-S.budget*0.85))
+    .slice(0,9);
+
+  const wrap=document.getElementById('resWrap');
+  wrap.style.display='block';
+  document.getElementById('rCnt').textContent=results.length+' destinations';
+  document.getElementById('resList').innerHTML=results.length
+    ? results.map(renderCard).join('')
+    : `<div class="empty"><div class="ei">🔍</div><div class="et">No matches found</div><div class="es">Try increasing your budget or fewer days</div></div>`;
+  wrap.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ── FIND TRIPS ──
-function findTrips() {
-  const budget = state.budget;
-  const results = destinations
-    .map(d => ({ ...d, cost: calcCost(d) }))
-    .filter(d => d.cost.total <= budget * 1.15)
-    .sort((a, b) => {
-      const aFit = Math.abs(a.cost.total - budget * 0.8);
-      const bFit = Math.abs(b.cost.total - budget * 0.8);
-      return aFit - bFit;
-    })
-    .slice(0, 8);
+/* ═══════════════════════════════════════════════
+   RENDER CARD
+═══════════════════════════════════════════════ */
+function renderCard(d){
+  const sv=S.saved.some(s=>s.id===d.id), cp=S.compare.some(s=>s.id===d.id);
+  const pct=Math.round((d.c.tot/S.budget)*100);
+  const tl=d.tier==='budget'?'✦ Budget Friendly':d.tier==='mid'?'✦ Mid-Range':'✦ Luxury';
+  const itinDays=d.itinerary?d.itinerary.slice(0,Math.min(S.days,d.itinerary.length)):[];
+  const city=document.getElementById('fromCity').value;
+  const cityCode={Chennai:'MAA',Mumbai:'BOM',Delhi:'DEL',Bangalore:'BLR',Hyderabad:'HYD',Kolkata:'CCU',Pune:'PNQ',Ahmedabad:'AMD',Kochi:'COK'}[city]||'MAA';
+  const skyUrl=`https://www.skyscanner.co.in/transport/flights/${cityCode.toLowerCase()}/?adults=1&cabinclass=economy`;
 
-  const section = document.getElementById('resultsSection');
-  const list = document.getElementById('resultsList');
-  section.style.display = 'block';
-  document.getElementById('resultsCount').textContent = results.length + ' found';
+  const pax = S.type==='couple'?2:S.type==='family'?4:S.type==='friends'?4:1;
+  const totalAll = d.c.tot * pax;
+  const googleHotelsUrl = `https://www.google.com/travel/hotels/entity/${encodeURIComponent(d.name+' '+d.country)}?q=${encodeURIComponent('hotels in '+d.name)}`;
 
-  if (results.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon">😔</div><div class="empty-title">No trips in this budget</div><div style="font-size:0.85rem;color:var(--muted)">Try increasing your budget or fewer days</div></div>`;
-    return;
-  }
-
-  list.innerHTML = results.map(d => renderCard(d)).join('');
-  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function renderCard(d) {
-  const isSaved = state.saved.some(s => s.id === d.id);
-  const isCompare = state.compare.some(s => s.id === d.id);
-  const pct = Math.round((d.cost.total / state.budget) * 100);
-  return `
-  <div class="dest-card ${isSaved ? 'saved' : ''}" id="card-${d.id}">
-    <div style="position:relative;">
-      <div class="dest-emoji-bg">${d.emoji}</div>
-      <div class="dest-badges">
-        <span class="badge ${d.tier}">${d.tier === 'budget' ? '💚 Budget' : d.tier === 'mid' ? '⭐ Mid-Range' : '💎 Luxury'}</span>
-        <span class="badge">${pct}% of budget</span>
+  return `<div class="dcard ${sv?'saved':''}" id="dc-${d.id}">
+  <div class="dimg-wrap">
+    <img src="${d.photo}" alt="${d.name}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=dimg-fallback>${d.emoji}</div>'">
+    <div class="dimg-overlay"></div>
+    <div class="dtier t-${d.tier[0]}">${tl}</div>
+    <div class="dintl" style="${d.type==='international'?'':'right:12px;background:rgba(8,8,16,.8)'}">${d.type==='international'?'🌏 '+d.country:'📊 '+pct+'% of budget'}</div>
+  </div>
+  <div class="dbody">
+    <div class="dtop">
+      <div>
+        <div class="dname">${d.emoji} ${d.name}</div>
+        <div class="dloc">📍 ${d.state}${d.country!=='India'?' · '+d.country:''} &nbsp;·&nbsp; <span style="color:var(--gold)">${pct}% of budget</span></div>
+      </div>
+      <div class="dprice">
+        <div class="dpl">${S.days} days · per person</div>
+        <div class="dpa">₹${d.c.tot.toLocaleString('en-IN')}</div>
+        ${pax>1?`<div class="dppp">Group total: ₹${totalAll.toLocaleString('en-IN')}</div>`:''}
       </div>
     </div>
-    <div class="dest-body">
-      <div class="dest-top">
-        <div>
-          <div class="dest-name">${d.name}</div>
-          <div class="dest-state">📍 ${d.state}</div>
-        </div>
-        <div class="dest-total">
-          <div class="total-label">Total (${state.days}d)</div>
-          <div class="total-amount">₹${d.cost.total.toLocaleString('en-IN')}</div>
-        </div>
-      </div>
-      <div class="cost-grid">
-        <div class="cost-item">
-          <div class="cost-item-label">✈️ Flights</div>
-          <div class="cost-item-value">₹${d.cost.flight.toLocaleString('en-IN')}</div>
-        </div>
-        <div class="cost-item">
-          <div class="cost-item-label">🏨 Hotel</div>
-          <div class="cost-item-value">₹${d.cost.hotel.toLocaleString('en-IN')}</div>
-        </div>
-        <div class="cost-item">
-          <div class="cost-item-label">🍛 Food</div>
-          <div class="cost-item-value">₹${d.cost.food.toLocaleString('en-IN')}</div>
-        </div>
-        <div class="cost-item">
-          <div class="cost-item-label">🎯 Activities</div>
-          <div class="cost-item-value">₹${d.cost.activity.toLocaleString('en-IN')}</div>
-        </div>
-      </div>
-      <div class="dest-tags">
-        ${d.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-      </div>
-      <div style="font-size:0.78rem;color:var(--muted);margin-bottom:12px;">${d.description}</div>
-      <div class="dest-actions">
-        <button class="btn-save ${isSaved ? 'saved' : ''}" onclick="toggleSave('${d.id}', event)">
-          ${isSaved ? '✅ Saved' : '🔖 Save'}
-        </button>
-        <button class="btn-compare ${isCompare ? 'saved' : ''}" onclick="toggleCompare('${d.id}', event)">
-          ${isCompare ? '✅ Added' : '⚖️ Compare'}
-        </button>
-        <button class="btn-share" onclick="openShare('${d.id}', event)">📤 Share</button>
-      </div>
+
+    <div class="bdown">
+      <div class="bi"><div class="bil">✈ Flights (total)</div><div class="biv">₹${d.c.fl.toLocaleString('en-IN')}</div></div>
+      <div class="bi"><div class="bil">🏨 Hotel (${S.days} nights)</div><div class="biv">₹${d.c.ht.toLocaleString('en-IN')}</div></div>
+      <div class="bi"><div class="bil">🍛 Food (${S.days} days)</div><div class="biv">₹${d.c.fo.toLocaleString('en-IN')}</div></div>
+      <div class="bi"><div class="bil">🎯 Activities (total)</div><div class="biv">₹${d.c.ac.toLocaleString('en-IN')}</div></div>
     </div>
-  </div>`;
+
+    <div class="dtags">${d.tags.map(t=>`<span class="dtag">${t}</span>`).join('')}</div>
+    <div class="ddesc">${d.desc}</div>
+
+    ${itinDays.length?`
+    <div class="itin-toggle" onclick="toggleItin('itin-${d.id}',this)">
+      <div class="itin-lbl">📅 ${S.days}-Day Itinerary</div>
+      <div class="itin-arr" id="arr-itin-${d.id}">▾</div>
+    </div>
+    <div class="itin-body" id="itin-${d.id}">
+      ${itinDays.map((day,i)=>`
+      <div class="iday">
+        <div class="iday-num">${i+1}</div>
+        <div class="iday-txt">
+          <div class="iday-title">${day.title}</div>
+          ${day.acts}
+        </div>
+      </div>`).join('')}
+      ${S.days>d.itinerary.length?`<div style="font-size:.72rem;color:var(--muted);margin-top:6px;font-style:italic">+ ${S.days-d.itinerary.length} more leisure days to explore freely</div>`:''}
+    </div>`:''}
+
+    <div style="display:flex;gap:8px;margin-bottom:11px">
+      <a class="sky-btn" href="${skyUrl}" target="_blank" style="flex:1;margin:0">
+        <span>✈️</span> Search Cheap Flights <span style="margin-left:auto;opacity:.7">→</span>
+      </a>
+      <a class="sky-btn" href="${googleHotelsUrl}" target="_blank" style="flex:1;margin:0;background:linear-gradient(135deg,#0a1628,#0d2137);border-color:rgba(66,133,244,.35);color:#7cb8ff">
+        <span>🏨</span> Find Hotels <span style="margin-left:auto;opacity:.7">→</span>
+      </a>
+    </div>
+
+    <div class="dacts">
+      <button class="dab dab-sv ${sv?'on':''}" onclick="tSv('${d.id}',event)">${sv?'✓ Saved':'🔖 Save'}</button>
+      <button class="dab dab-cp ${cp?'on':''}" onclick="tCp('${d.id}',event)">${cp?'✓ Added':'⚖ Compare'}</button>
+      <button class="dab dab-sh" onclick="oSh('${d.id}',event)">↑ Share</button>
+    </div>
+  </div>
+</div>`;
 }
 
-// ── SAVE ──
-function toggleSave(id, e) {
-  e && e.stopPropagation();
-  const dest = destinations.find(d => d.id === id);
-  const cost = calcCost(dest);
-  const idx = state.saved.findIndex(s => s.id === id);
-  if (idx >= 0) {
-    state.saved.splice(idx, 1);
-    showToast('Removed from saved trips');
-  } else {
-    state.saved.push({ ...dest, cost, days: state.days, type: state.type, savedAt: Date.now() });
-    showToast('✅ Trip saved!');
-  }
-  localStorage.setItem('ts_saved', JSON.stringify(state.saved));
-  const btn = document.querySelector(`#card-${id} .btn-save`);
-  const card = document.getElementById('card-' + id);
-  if (btn) {
-    const isSaved = state.saved.some(s => s.id === id);
-    btn.innerHTML = isSaved ? '✅ Saved' : '🔖 Save';
-    btn.classList.toggle('saved', isSaved);
-    card && card.classList.toggle('saved', isSaved);
-  }
+/* ═══════════════════════════════════════════════
+   ITINERARY TOGGLE
+═══════════════════════════════════════════════ */
+function toggleItin(id,el){
+  const body=document.getElementById(id);
+  const arr=el.querySelector('.itin-arr');
+  const open=body.classList.toggle('open');
+  arr.classList.toggle('open',open);
 }
 
-function toggleCompare(id, e) {
-  e && e.stopPropagation();
-  const dest = destinations.find(d => d.id === id);
-  const cost = calcCost(dest);
-  const idx = state.compare.findIndex(s => s.id === id);
-  if (idx >= 0) {
-    state.compare.splice(idx, 1);
-    showToast('Removed from compare');
-  } else {
-    if (state.compare.length >= 2) {
-      state.compare.shift();
-    }
-    state.compare.push({ ...dest, cost, days: state.days, type: state.type });
-    showToast('⚖️ Added to compare');
-  }
-  localStorage.setItem('ts_compare', JSON.stringify(state.compare));
-  const btn = document.querySelector(`#card-${id} .btn-compare`);
-  if (btn) {
-    const isC = state.compare.some(s => s.id === id);
-    btn.innerHTML = isC ? '✅ Added' : '⚖️ Compare';
-    btn.classList.toggle('saved', isC);
-  }
+/* ═══════════════════════════════════════════════
+   SAVE / COMPARE
+═══════════════════════════════════════════════ */
+function tSv(id,e){
+  e?.stopPropagation();
+  const d=DEST.find(x=>x.id===id), idx=S.saved.findIndex(s=>s.id===id);
+  if(idx>=0){S.saved.splice(idx,1);showT('Removed from wishlist');}
+  else{S.saved.push({...d,c:calc(d),days:S.days,type:S.type});showT('✦ Journey saved!');}
+  localStorage.setItem('ts3_sv',JSON.stringify(S.saved));
+  const b=document.querySelector(`#dc-${id} .dab-sv`), card=document.getElementById(`dc-${id}`);
+  if(b){const s=S.saved.some(x=>x.id===id);b.innerHTML=s?'✓ Saved':'🔖 Save';b.classList.toggle('on',s);card?.classList.toggle('saved',s);}
+}
+function tCp(id,e){
+  e?.stopPropagation();
+  const d=DEST.find(x=>x.id===id), idx=S.compare.findIndex(s=>s.id===id);
+  if(idx>=0){S.compare.splice(idx,1);showT('Removed from compare');}
+  else{if(S.compare.length>=2)S.compare.shift();S.compare.push({...d,c:calc(d),days:S.days,type:S.type});showT('⚖ Added to compare');}
+  localStorage.setItem('ts3_cp',JSON.stringify(S.compare));
+  const b=document.querySelector(`#dc-${id} .dab-cp`);
+  if(b){const c=S.compare.some(x=>x.id===id);b.innerHTML=c?'✓ Added':'⚖ Compare';b.classList.toggle('on',c);}
 }
 
-// ── SHARE ──
-let shareDestId = null;
-function openShare(id, e) {
-  e && e.stopPropagation();
-  shareDestId = id;
-  document.getElementById('shareModal').classList.add('open');
-}
-function closeShare(e) {
-  if (!e || e.target === document.getElementById('shareModal')) {
-    document.getElementById('shareModal').classList.remove('open');
-  }
-}
-function shareVia(method) {
-  const dest = destinations.find(d => d.id === shareDestId);
-  if (!dest) return;
-  const cost = calcCost(dest);
-  const text = `✈️ Planning a trip to ${dest.name} (${dest.state})!\n💰 Total cost: ₹${cost.total.toLocaleString('en-IN')} for ${state.days} days\n✈️ Flights: ₹${cost.flight.toLocaleString('en-IN')} | 🏨 Hotel: ₹${cost.hotel.toLocaleString('en-IN')}\n\nPlanned using TripSmart India 🇮🇳`;
-  if (method === 'whatsapp') {
-    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
-  } else if (method === 'copy') {
-    navigator.clipboard.writeText(text).then(() => showToast('📋 Copied to clipboard!'));
-  } else if (method === 'native' && navigator.share) {
-    navigator.share({ title: `Trip to ${dest.name}`, text });
-  }
+/* ═══════════════════════════════════════════════
+   SHARE
+═══════════════════════════════════════════════ */
+function oSh(id,e){e?.stopPropagation();S.shareId=id;document.getElementById('shareModal').classList.add('open');}
+function closeShare(){document.getElementById('shareModal').classList.remove('open');}
+function maybeClose(e){if(e.target===document.getElementById('shareModal'))closeShare();}
+function doShare(via){
+  const d=DEST.find(x=>x.id===S.shareId);if(!d)return;
+  const c=calc(d);
+  const txt=`✈️ Planning a trip to ${d.name}, ${d.country}!\n\n💰 Per person: ₹${c.tot.toLocaleString('en-IN')} for ${S.days} days\n✈️ Flights ₹${c.fl.toLocaleString('en-IN')} · 🏨 Hotel ₹${c.ht.toLocaleString('en-IN')} · 🍛 Food ₹${c.fo.toLocaleString('en-IN')} · 🎯 Activities ₹${c.ac.toLocaleString('en-IN')}\n\nSearch flights: https://skyscanner.co.in\nPlanned with TripSmart India 🇮🇳`;
+  if(via==='whatsapp')window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+  else if(via==='copy')navigator.clipboard.writeText(txt).then(()=>showT('📋 Copied!'));
+  else if(via==='native'&&navigator.share)navigator.share({title:`Trip to ${d.name}`,text:txt});
   closeShare();
 }
 
-// ── SCREENS ──
-function openScreen(name, tabEl, navId) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + name).classList.add('active');
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  if (tabEl) tabEl.classList.add('active');
-  if (navId) document.getElementById(navId).classList.add('active');
-  else document.getElementById('nav-' + name) && document.getElementById('nav-' + name).classList.add('active');
-  if (name === 'saved') renderSaved();
-  if (name === 'compare') renderCompare();
-  if (name === 'tips') renderTips();
+/* ═══════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════ */
+function go(name){
+  document.querySelectorAll('.screen,.tab,.bni').forEach(el=>el.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  document.getElementById('tab-'+name)?.classList.add('active');
+  document.getElementById('nav-'+name)?.classList.add('active');
+  if(name==='saved')renderSv();
+  if(name==='compare')renderCmp();
+  if(name==='tips')renderTips();
 }
 
-// ── RENDER SAVED ──
-function renderSaved() {
-  const list = document.getElementById('savedList');
-  const empty = document.getElementById('savedEmpty');
-  if (state.saved.length === 0) {
-    list.innerHTML = ''; empty.style.display = 'block'; return;
-  }
-  empty.style.display = 'none';
-  list.innerHTML = state.saved.map(d => `
-    <div class="dest-card saved" style="margin-bottom:14px;">
-      <div style="display:flex;align-items:center;gap:12px;padding:16px;">
-        <div style="font-size:2.5rem;">${d.emoji}</div>
-        <div style="flex:1;">
-          <div style="font-family:var(--font-head);font-weight:700;font-size:1rem;">${d.name}</div>
-          <div style="font-size:0.75rem;color:var(--muted);">📍 ${d.state} · ${d.days} days · ${d.type}</div>
-          <div style="color:var(--saffron);font-weight:700;font-size:1.05rem;margin-top:4px;">₹${d.cost.total.toLocaleString('en-IN')}</div>
-        </div>
-        <button onclick="removeSaved('${d.id}')" style="background:rgba(244,67,54,0.15);border:1px solid rgba(244,67,54,0.3);color:#ef5350;padding:8px 12px;border-radius:10px;cursor:pointer;font-size:0.75rem;font-family:var(--font-body);">Remove</button>
+/* ═══════════════════════════════════════════════
+   RENDER SAVED
+═══════════════════════════════════════════════ */
+function renderSv(){
+  const el=document.getElementById('svList'), em=document.getElementById('svEmpty');
+  if(!S.saved.length){el.innerHTML='';em.style.display='block';return;}
+  em.style.display='none';
+  el.innerHTML=S.saved.map(d=>`
+    <div class="svi">
+      <div class="svemoji">${d.emoji}</div>
+      <div class="svinfo">
+        <div class="svname">${d.name}</div>
+        <div class="svmeta">📍 ${d.state} · ${d.days} days · ${d.type}</div>
+        <div class="svprice">₹${d.c.tot.toLocaleString('en-IN')}/person</div>
       </div>
-    </div>
-  `).join('');
+      <button class="svrm" onclick="rmSv('${d.id}')">Remove</button>
+    </div>`).join('');
 }
+function rmSv(id){S.saved=S.saved.filter(s=>s.id!==id);localStorage.setItem('ts3_sv',JSON.stringify(S.saved));renderSv();showT('Removed');}
 
-function removeSaved(id) {
-  state.saved = state.saved.filter(s => s.id !== id);
-  localStorage.setItem('ts_saved', JSON.stringify(state.saved));
-  renderSaved();
-  showToast('Removed from saved');
-}
-
-// ── RENDER COMPARE ──
-function renderCompare() {
-  const el = document.getElementById('compareContent');
-  if (state.compare.length < 2) {
-    el.innerHTML = `<div class="empty-state"><div class="empty-icon">⚖️</div><div class="empty-title">Add 2 destinations to compare</div><div style="font-size:0.85rem;">Tap ⚖️ Compare on any destination card</div></div>`;
+/* ═══════════════════════════════════════════════
+   RENDER COMPARE
+═══════════════════════════════════════════════ */
+function renderCmp(){
+  const el=document.getElementById('cmpWrap');
+  if(S.compare.length<2){
+    el.innerHTML=`<div class="empty"><div class="ei">⚖️</div><div class="et">Add two destinations</div><div class="es">Tap ⚖ Compare on any destination card</div></div>`;
     return;
   }
-  const [a, b] = state.compare;
-  const rows = [
-    ['Total Cost', `₹${a.cost.total.toLocaleString('en-IN')}`, `₹${b.cost.total.toLocaleString('en-IN')}`],
-    ['Flights', `₹${a.cost.flight.toLocaleString('en-IN')}`, `₹${b.cost.flight.toLocaleString('en-IN')}`],
-    ['Hotel', `₹${a.cost.hotel.toLocaleString('en-IN')}`, `₹${b.cost.hotel.toLocaleString('en-IN')}`],
-    ['Food', `₹${a.cost.food.toLocaleString('en-IN')}`, `₹${b.cost.food.toLocaleString('en-IN')}`],
-    ['Activities', `₹${a.cost.activity.toLocaleString('en-IN')}`, `₹${b.cost.activity.toLocaleString('en-IN')}`],
-    ['Tier', a.tier, b.tier],
-    ['Days', a.days + ' days', b.days + ' days'],
+  const [a,b]=S.compare;
+  const rows=[
+    ['Per Person',`₹${a.c.tot.toLocaleString('en-IN')}`,`₹${b.c.tot.toLocaleString('en-IN')}`,true],
+    ['Flights',`₹${a.c.fl.toLocaleString('en-IN')}`,`₹${b.c.fl.toLocaleString('en-IN')}`,false],
+    ['Hotel/night',`₹${a.c.ht.toLocaleString('en-IN')}`,`₹${b.c.ht.toLocaleString('en-IN')}`,false],
+    ['Food/day',`₹${a.c.fo.toLocaleString('en-IN')}`,`₹${b.c.fo.toLocaleString('en-IN')}`,false],
+    ['Activities',`₹${a.c.ac.toLocaleString('en-IN')}`,`₹${b.c.ac.toLocaleString('en-IN')}`,false],
+    ['Type',a.type,b.type,false],['Category',a.tier,b.tier,false],
+    ['Duration',a.days+' days',b.days+' days',false]
   ];
-  el.innerHTML = `
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;">
-        <div style="font-size:2rem;">${a.emoji}</div>
-        <div style="font-family:var(--font-head);font-weight:700;">${a.name}</div>
-        <div style="font-size:0.72rem;color:var(--muted);">${a.state}</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;">
-        <div style="font-size:2rem;">${b.emoji}</div>
-        <div style="font-family:var(--font-head);font-weight:700;">${b.name}</div>
-        <div style="font-size:0.72rem;color:var(--muted);">${b.state}</div>
-      </div>
+  const win=a.c.tot<=b.c.tot?a:b,sav=Math.abs(a.c.tot-b.c.tot).toLocaleString('en-IN');
+  el.innerHTML=`<div class="cmpw">
+    <div class="cmph">
+      <div class="cmpc"><div class="cmpe">${a.emoji}</div><div class="cmpn">${a.name}</div><div class="cmpl">${a.country}</div></div>
+      <div class="cmpc"><div class="cmpe">${b.emoji}</div><div class="cmpn">${b.name}</div><div class="cmpl">${b.country}</div></div>
     </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;">
-      ${rows.map((r, i) => `
-        <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:12px 14px;border-bottom:${i < rows.length-1 ? '1px solid var(--border)' : 'none'};">
-          <div style="font-size:0.75rem;color:var(--muted);">${r[0]}</div>
-          <div style="font-size:0.82rem;font-weight:600;color:${r[0]==='Total Cost' ? 'var(--saffron)' : '#fff'};">${r[1]}</div>
-          <div style="font-size:0.82rem;font-weight:600;color:${r[0]==='Total Cost' ? 'var(--saffron)' : '#fff'};">${r[2]}</div>
-        </div>`).join('')}
-    </div>
-    <div style="margin-top:16px;padding:14px;background:rgba(76,175,130,0.1);border:1px solid rgba(76,175,130,0.2);border-radius:12px;font-size:0.82rem;color:var(--green);">
-      💡 ${a.cost.total < b.cost.total ? a.name : b.name} is cheaper by ₹${Math.abs(a.cost.total - b.cost.total).toLocaleString('en-IN')}
-    </div>`;
+    <div class="cmptbl">${rows.map(r=>`<div class="cmpr"><div class="crk">${r[0]}</div><div class="crv ${r[3]?'hl':''}">${r[1]}</div><div class="crv ${r[3]?'hl':''}">${r[2]}</div></div>`).join('')}</div>
+    <div class="cmpw-win">✦ ${win.name} saves you ₹${sav} per person</div>
+    <a class="sky-btn" href="https://www.skyscanner.co.in" target="_blank" style="margin-top:12px">
+      <span>🔵</span> Search & compare flights on Skyscanner <span style="margin-left:auto;opacity:.7">→</span>
+    </a>
+  </div>`;
 }
 
-// ── RENDER TIPS ──
-function renderTips() {
-  document.getElementById('tipsList').innerHTML = tips.map(t => `
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start;">
-      <div style="font-size:1.6rem;flex-shrink:0;">${t.icon}</div>
-      <div>
-        <div style="font-family:var(--font-head);font-weight:700;font-size:0.95rem;margin-bottom:5px;">${t.title}</div>
-        <div style="font-size:0.82rem;color:var(--muted);line-height:1.5;">${t.body}</div>
-      </div>
+/* ═══════════════════════════════════════════════
+   RENDER TIPS
+═══════════════════════════════════════════════ */
+function renderTips(){
+  document.getElementById('tipsList').innerHTML=TIPS.map(t=>`
+    <div class="tipc">
+      <div class="tipic">${t.ic}</div>
+      <div><div class="tipt">${t.t}</div><div class="tipb">${t.b}</div></div>
     </div>`).join('');
 }
 
-// ── TOAST ──
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
+/* ═══════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════ */
+function showT(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2400);}
 
-// ── INIT ──
-updateBudget(15000);
+/* ── INIT ── */
+document.getElementById('bRange').addEventListener('input',e=>onB(e.target.value));
 renderTips();
 </script>
-
-<!-- PWA Service Worker Registration -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
-  });
-}
-</script>
-
+<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});</script>
 </body>
 </html>
