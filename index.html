@@ -838,10 +838,10 @@ function calc(d){
   const city=document.getElementById('fromCity').value;
   const fAdj={Mumbai:0.82,Delhi:0.80,Bangalore:0.88,Chennai:1,Hyderabad:0.92,Kolkata:1.08,Pune:0.95,Ahmedabad:0.90,Kochi:0.93}[city]||1;
   // All values are PER PERSON totals for the entire trip
-  const fl = Math.round(d.base.f  * fAdj);         // flight per person
-  const ht = Math.round(d.base.h  * S.days);        // hotel total per person
-  const fo = Math.round(d.base.fo * S.days);        // food total per person
-  const ac = Math.round(d.base.a  * S.days);        // activities total per person
+  const fl = Math.round(d.base.f * fAdj * 2);       // round-trip flight per person (×2)
+  const ht = Math.round(d.base.h  * S.days);         // hotel total per person
+  const fo = Math.round(d.base.fo * S.days);         // food total per person
+  const ac = Math.round(d.base.a  * S.days);         // activities total per person
   const tot = fl + ht + fo + ac;
   return {fl, ht, fo, ac, tot};
 }
@@ -885,11 +885,21 @@ function renderCard(d){
   const itinDays=d.itinerary?d.itinerary.slice(0,Math.min(S.days,d.itinerary.length)):[];
   const city=document.getElementById('fromCity').value;
   const cityCode={Chennai:'MAA',Mumbai:'BOM',Delhi:'DEL',Bangalore:'BLR',Hyderabad:'HYD',Kolkata:'CCU',Pune:'PNQ',Ahmedabad:'AMD',Kochi:'COK'}[city]||'MAA';
-  const skyUrl=`https://www.skyscanner.co.in/transport/flights/${cityCode.toLowerCase()}/?adults=1&cabinclass=economy`;
+
+  // Destination IATA codes
+  const destIATA={goa:'GOI',manali:'KUU',ooty:'CJB',alleppey:'COK',jaipur:'JAI',andaman:'IXZ',pondi:'MAA',leh:'IXL',bali:'DPS',bangkok:'BKK',dubai:'DXB',vietnam:'HAN',singapore:'SIN',maldives:'MLE',paris:'CDG',srilanka:'CMB',nepal:'KTM'};
+  const toCode = destIATA[d.id] || '';
+
+  // Round-trip Skyscanner URL with origin → destination
+  const skyUrl = toCode
+    ? `https://www.skyscanner.co.in/transport/flights/${cityCode.toLowerCase()}/${toCode.toLowerCase()}/?adults=1&cabinclass=economy&rtn=1`
+    : `https://www.skyscanner.co.in/flights/${cityCode.toLowerCase()}/anywhere/`;
 
   const pax = S.type==='couple'?2:S.type==='family'?4:S.type==='friends'?4:1;
   const totalAll = d.c.tot * pax;
-  const googleHotelsUrl = `https://www.google.com/travel/hotels/entity/${encodeURIComponent(d.name+' '+d.country)}?q=${encodeURIComponent('hotels in '+d.name)}`;
+
+  // Google Hotels — working search URL
+  const googleHotelsUrl = `https://www.google.com/travel/hotels?q=hotels+in+${encodeURIComponent(d.name)}+${encodeURIComponent(d.country)}&hl=en-IN`;
 
   return `<div class="dcard ${sv?'saved':''}" id="dc-${d.id}">
   <div class="dimg-wrap">
@@ -912,7 +922,7 @@ function renderCard(d){
     </div>
 
     <div class="bdown">
-      <div class="bi"><div class="bil">✈ Flights (total)</div><div class="biv">₹${d.c.fl.toLocaleString('en-IN')}</div></div>
+      <div class="bi"><div class="bil">✈ Flights (round-trip)</div><div class="biv">₹${d.c.fl.toLocaleString('en-IN')}</div></div>
       <div class="bi"><div class="bil">🏨 Hotel (${S.days} nights)</div><div class="biv">₹${d.c.ht.toLocaleString('en-IN')}</div></div>
       <div class="bi"><div class="bil">🍛 Food (${S.days} days)</div><div class="biv">₹${d.c.fo.toLocaleString('en-IN')}</div></div>
       <div class="bi"><div class="bil">🎯 Activities (total)</div><div class="biv">₹${d.c.ac.toLocaleString('en-IN')}</div></div>
@@ -975,7 +985,7 @@ function renderCard(d){
       <button class="dab dab-sv ${sv?'on':''}" onclick="tSv('${d.id}',event)">${sv?'✓ Saved':'🔖 Save'}</button>
       <button class="dab dab-cp ${cp?'on':''}" onclick="tCp('${d.id}',event)">${cp?'✓ Added':'⚖ Compare'}</button>
       <button class="dab dab-sh" onclick="oSh('${d.id}',event)">↑ Share</button>
-      <button class="dab dab-expert" style="flex:1 1 100%;margin-top:6px" onclick="expertHelp('${d.id}')">🟢 Get Expert Help — Chat on WhatsApp</button>
+      <button class="dab dab-expert" style="flex:1 1 100%;margin-top:6px" onclick="expertHelp('${d.id}')">🟢 Get Expert Help</button>
     </div>
   </div>
 </div>`;
@@ -1189,7 +1199,7 @@ function generatePDF(d,c){
   <div class="section">
     <div class="sec-title">Cost Breakdown — Per Person</div>
     <div class="cost-grid">
-      <div class="cost-item"><div class="cost-lbl">✈ Flights (total)</div><div class="cost-val">₹${c.fl.toLocaleString('en-IN')}</div></div>
+      <div class="cost-item"><div class="cost-lbl">✈ Flights (round-trip)</div><div class="cost-val">₹${c.fl.toLocaleString('en-IN')}</div></div>
       <div class="cost-item">
         <div class="cost-lbl">🏨 Hotel (${S.days} nights)</div>
         <div class="cost-val">₹${c.ht.toLocaleString('en-IN')}</div>
@@ -1258,7 +1268,7 @@ function renderSv(){
         <button class="dab dab-sh" style="padding:7px 10px;font-size:.66rem" onclick="S.shareId='${d.id}';document.getElementById('shareModal').classList.add('open')">↑ Share</button>
         <button class="svrm" onclick="rmSv('${d.id}')">Remove</button>
       </div>
-      <button class="dab dab-expert" style="flex:1 1 100%;margin-top:8px;padding:10px" onclick="expertHelp('${d.id}')">🟢 Get Expert Help on WhatsApp</button>
+      <button class="dab dab-expert" style="flex:1 1 100%;margin-top:8px;padding:10px" onclick="expertHelp('${d.id}')">🟢 Get Expert Help</button>
     </div>`).join('');
 }
 function rmSv(id){S.saved=S.saved.filter(s=>s.id!==id);localStorage.setItem('ts3_sv',JSON.stringify(S.saved));renderSv();showT('Removed');}
@@ -1290,14 +1300,14 @@ function renderCmp(){
     </div>
     <div class="cmptbl">${rows.map(r=>`<div class="cmpr"><div class="crk">${r[0]}</div><div class="crv ${r[3]?'hl':''}">${r[1]}</div><div class="crv ${r[3]?'hl':''}">${r[2]}</div></div>`).join('')}</div>
     <div class="cmpw-win">✦ ${win.name} saves you ₹${sav} per person</div>
-    <a class="sky-btn" href="https://www.skyscanner.co.in" target="_blank" style="margin-top:12px">
+    <a class="sky-btn" href="https://www.skyscanner.co.in/flights/" target="_blank" style="margin-top:12px">
       <span>✈️</span> Search & compare cheap flights <span style="margin-left:auto;opacity:.7">→</span>
     </a>
     <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
       <button class="dab dab-sh" style="flex:1;padding:11px" onclick="S.shareId='${a.id}';document.getElementById('shareModal').classList.add('open')">↑ Share ${a.name}</button>
       <button class="dab dab-sh" style="flex:1;padding:11px" onclick="S.shareId='${b.id}';document.getElementById('shareModal').classList.add('open')">↑ Share ${b.name}</button>
     </div>
-    <button class="dab dab-expert" style="width:100%;margin-top:8px;padding:12px;font-size:.78rem" onclick="expertHelpCompare('${a.id}','${b.id}')">🟢 Get Expert Help — Chat on WhatsApp</button>
+    <button class="dab dab-expert" style="width:100%;margin-top:8px;padding:12px;font-size:.78rem" onclick="expertHelpCompare('${a.id}','${b.id}')">🟢 Get Expert Help</button>
   </div>`;
 }
 
