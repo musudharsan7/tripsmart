@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <meta name="theme-color" content="#080810">
 <title>TripSmart India — Plan Any Trip</title>
 <link rel="manifest" href="manifest.json">
@@ -173,7 +174,12 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 /* Skyscanner CTA */
 .sky-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:11px;border-radius:11px;background:linear-gradient(135deg,#000e36,#05203c);border:1px solid rgba(0,112,255,.3);color:#60a5fa;font-size:.75rem;font-weight:500;cursor:pointer;margin-bottom:11px;transition:all .2s;text-decoration:none;font-family:var(--B)}
 .sky-btn:hover{border-color:rgba(0,112,255,.6);background:linear-gradient(135deg,#001050,#062844);box-shadow:0 4px 16px rgba(0,112,255,.2)}
-.ghotels-btn:hover{border-color:rgba(66,133,244,.6);background:linear-gradient(135deg,#0c1e3a,#0d2a42);box-shadow:0 4px 16px rgba(66,133,244,.2)}
+.visa-free{background:rgba(45,106,79,.07);border:1px solid rgba(45,106,79,.25);border-radius:12px;padding:12px 13px;margin-bottom:12px}
+.visa-voa{background:rgba(139,105,20,.07);border:1px solid rgba(139,105,20,.25);border-radius:12px;padding:12px 13px;margin-bottom:12px}
+.visa-evisa{background:rgba(122,59,0,.07);border:1px solid rgba(122,59,0,.25);border-radius:12px;padding:12px 13px;margin-bottom:12px}
+.visa-required{background:rgba(107,26,26,.07);border:1px solid rgba(107,26,26,.25);border-radius:12px;padding:12px 13px;margin-bottom:12px}
+.visa-badge{font-size:.8rem;font-weight:600;color:var(--silk);margin-bottom:5px}
+.visa-detail{font-size:.74rem;color:var(--muted);line-height:1.55}
 .sky-logo{font-size:1rem}
 
 .dacts{display:flex;gap:7px}
@@ -254,6 +260,47 @@ main{padding-bottom:70px}
 .ei{font-size:3.2rem;margin-bottom:14px;opacity:.4}
 .et{font-family:var(--H);font-size:1.25rem;color:var(--silk);margin-bottom:7px;font-weight:400}
 .es{font-size:.8rem;color:var(--muted);font-style:italic}
+
+/* Expert Help button */
+.dab-expert{background:linear-gradient(135deg,rgba(37,99,60,.15),rgba(37,99,60,.08));border-color:rgba(74,222,128,.3);color:#4ade80}
+.dab-expert:hover{background:linear-gradient(135deg,rgba(37,99,60,.28),rgba(37,99,60,.15));border-color:rgba(74,222,128,.55)}
+
+/* ══ RESPONSIVE DESKTOP ══ */
+@media(min-width:768px){
+  header{padding:0 40px;height:64px}
+  .logo{font-size:1.5rem}
+  .logo-mark{width:34px;height:34px;font-size:1rem}
+  .tabs{padding:0 40px;top:64px}
+  .tab{padding:15px 22px;font-size:.72rem}
+  main{padding-bottom:20px}
+  .bnav{display:none}
+  .hero{padding:52px 40px 32px;max-width:700px;margin:0 auto}
+  .hero h1{font-size:3.2rem}
+  .plan-layout{display:grid!important;grid-template-columns:380px 1fr;gap:28px;padding:0 40px 40px;align-items:start}
+  .plan-left{position:sticky;top:130px}
+  .planner{margin:0;border-radius:24px}
+  .aff-plan{margin:0 0 13px!important}
+  #resWrap{margin-top:0}
+  #resList{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .dcard{margin:0}
+  .cmpw,.svw,.tipsw-inner{max-width:860px;margin:0 auto}
+  .sech{padding:28px 40px 6px;font-size:1.7rem}
+  .secs{padding:0 40px 18px}
+  .tips-aff,.cmp-aff{max-width:860px;margin:0 auto 14px!important}
+  .mbg{align-items:center}
+  .msh{border-radius:24px;max-width:460px;margin:auto;transform:scale(.94)}
+  .mbg.open .msh{transform:scale(1)}
+  .mhand{display:none}
+  .toast{bottom:40px}
+  #svList{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .svi{margin:0}
+  #tipsList{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .tipc{margin:0}
+}
+@media(min-width:1024px){
+  #resList{grid-template-columns:1fr 1fr 1fr}
+  .plan-layout{grid-template-columns:400px 1fr!important;gap:36px;padding:0 48px 48px!important}
+}
 </style>
 </head>
 <body>
@@ -284,6 +331,9 @@ main{padding-bottom:70px}
     <h1>Where shall<br>you <em>wander</em> next?</h1>
     <p>Enter your budget — we reveal your perfect journey</p>
   </div>
+
+  <div class="plan-layout" style="display:block">
+  <div class="plan-left">
 
   <div class="planner">
     <div class="ph"><span style="font-size:1.1rem">💎</span><div class="ph-title">Curate My Journey</div></div>
@@ -354,12 +404,14 @@ main{padding-bottom:70px}
   </div>
 
   <!-- Skyscanner affiliate -->
-  <a class="aff" href="https://www.skyscanner.co.in" target="_blank" style="text-decoration:none">
+  <a class="aff aff-plan" href="https://www.skyscanner.co.in" target="_blank" style="text-decoration:none;display:flex">
     <div class="aff-ic">✈️</div>
-    <div class="aff-b"><div class="aff-t">Search Flights on Skyscanner</div><div class="aff-s">Compare 100s of airlines — find the cheapest fare</div></div>
+    <div class="aff-b"><div class="aff-t">Search Cheap Flights</div><div class="aff-s">Compare 100s of airlines — find the lowest fare</div></div>
     <div class="aff-btn">Search →</div>
   </a>
+  </div><!-- /plan-left -->
 
+  <div class="plan-right">
   <div id="resWrap" style="display:none;margin-top:6px">
     <div class="orn"><div class="ol"></div><div class="oi">✦ Destinations Curated for You ✦</div><div class="ol"></div></div>
     <div class="rmeta">
@@ -378,7 +430,9 @@ main{padding-bottom:70px}
       <div class="aff-b"><div class="aff-t">Book Experiences on Klook</div><div class="aff-s">Tours, tickets & adventures — save 30%</div></div>
       <div class="aff-btn" style="background:linear-gradient(135deg,#2D6A4F,#52b788);color:#fff">Explore</div>
     </div>
-  </div>
+  </div><!-- /resWrap -->
+  </div><!-- /plan-right -->
+  </div><!-- /plan-layout -->
 </div>
 
 <!-- ══ SAVED ══ -->
@@ -412,10 +466,11 @@ main{padding-bottom:70px}
   <div class="msh">
     <div class="mhand"></div>
     <div class="mtitle">Share This Journey</div>
-    <div class="sgrid">
+    <div class="sgrid" style="grid-template-columns:repeat(2,1fr)">
+      <div class="sopt" onclick="doShare('pdf')"><div class="soptI">📄</div><div class="soptL">Download PDF</div></div>
       <div class="sopt" onclick="doShare('whatsapp')"><div class="soptI">💬</div><div class="soptL">WhatsApp</div></div>
       <div class="sopt" onclick="doShare('copy')"><div class="soptI">📋</div><div class="soptL">Copy Text</div></div>
-      <div class="sopt" onclick="doShare('native')"><div class="soptI">📤</div><div class="soptL">Share...</div></div>
+      <div class="sopt" onclick="doShare('native')"><div class="soptI">📤</div><div class="soptL">More...</div></div>
     </div>
     <button class="mcancel" onclick="closeShare()">Cancel</button>
   </div>
@@ -451,6 +506,7 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&q=80',
     tags:['Beach','Nightlife','Water Sports','Seafood','Portuguese Heritage'],
     base:{f:4500,h:1800,fo:700,a:500},
+    peak:'Nov – Feb', avoid:'Jun – Sep (monsoon)',
     desc:'India\'s beach capital — white sands, beach shacks and electric sunsets.',
     itinerary:[
       {title:'Arrival & North Goa Beaches',acts:'Land at Dabolim → check in → Baga & Calangute Beach → beach shack dinner'},
@@ -464,6 +520,7 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&q=80',
     tags:['Mountains','Snow','Trekking','Adventure','Cafés'],
     base:{f:5500,h:1200,fo:500,a:600},
+    peak:'Mar – Jun & Oct – Nov', avoid:'Jan – Feb (heavy snow)',
     desc:'Snow-capped peaks, Rohtang Pass and cosy riverside cafés.',
     itinerary:[
       {title:'Arrival & Old Manali',acts:'Arrive Bhuntar airport → drive to Manali → Old Manali cafés → Hidimba Temple'},
@@ -477,6 +534,7 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1583314965950-cd453a564428?w=600&q=80',
     tags:['Nilgiris','Tea Gardens','Toy Train','Botanical Garden'],
     base:{f:0,h:900,fo:400,a:300},
+    peak:'Apr – Jun & Sep – Nov', avoid:'Jul – Aug (heavy rain)',
     desc:'Queen of Hills — toy train, tea estates and cool mountain breeze.',
     itinerary:[
       {title:'Arrival & Botanical Garden',acts:'Arrive Coimbatore → drive to Ooty → Government Rose Garden → Botanical Garden'},
@@ -490,6 +548,7 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=80',
     tags:['Backwaters','Houseboat','Ayurveda','Seafood'],
     base:{f:3000,h:2500,fo:600,a:800},
+    peak:'Nov – Feb', avoid:'Jun – Aug (monsoon)',
     desc:'Glide through emerald backwaters on a traditional rice-boat houseboat.',
     itinerary:[
       {title:'Arrival & Houseboat Check-in',acts:'Fly to Kochi → drive to Alleppey → overnight houseboat boarding → sunset cruise'},
@@ -503,6 +562,7 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&q=80',
     tags:['Heritage','Amber Fort','Culture','Shopping','Cuisine'],
     base:{f:4000,h:1500,fo:500,a:700},
+    peak:'Oct – Mar', avoid:'Apr – Jun (extreme heat 45°C+)',
     desc:'The Pink City — Amber Fort, royal palaces and vibrant bazaars.',
     itinerary:[
       {title:'Amber & Jaigarh Forts',acts:'Elephant ride to Amber Fort → Jaigarh Fort cannon → City Palace & Jantar Mantar'},
@@ -516,6 +576,7 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80',
     tags:['Beach','Scuba Diving','Snorkeling','Bioluminescence'],
     base:{f:12000,h:3000,fo:800,a:1500},
+    peak:'Nov – May', avoid:'Jun – Sep (cyclone season)',
     desc:'Turquoise paradise — pristine coral reefs and secret jungle coves.',
     itinerary:[
       {title:'Port Blair & Cellular Jail',acts:'Fly to Port Blair → Cellular Jail light & sound show → seafood dinner'},
@@ -529,6 +590,7 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600&q=80',
     tags:['French Quarter','Promenade','Cafés','Auroville','Yoga'],
     base:{f:0,h:1000,fo:450,a:300},
+    peak:'Oct – Mar', avoid:'Oct – Dec (NE monsoon)',
     desc:'French colonial promenade, sunrise walks and Auroville peace.',
     itinerary:[
       {title:'White Town & French Quarter',acts:'Sunrise promenade walk → Sacré-Coeur church → French café breakfast → Alliance Française'},
@@ -542,6 +604,7 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
     tags:['High Altitude','Pangong Lake','Monasteries','Biking'],
     base:{f:9000,h:2000,fo:700,a:1200},
+    peak:'Jun – Sep', avoid:'Nov – Mar (roads closed, -20°C)',
     desc:'Land of high passes — Pangong Lake and ancient monastery silence.',
     itinerary:[
       {title:'Arrival & Acclimatization',acts:'Fly to Leh (3524m) → rest day → Shanti Stupa sunset → local market'},
@@ -558,6 +621,8 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80',
     tags:['Temples','Rice Terraces','Beaches','Nightlife','Spa'],
     base:{f:18000,h:2500,fo:800,a:1000},
+    peak:'Apr – Oct (dry season)', avoid:'Jan – Mar (heavy rain)',
+    visa:{type:'Visa Free',detail:'Indians get 30-day free visa on arrival. Extendable once for 30 more days. No pre-approval needed.',color:'#2D6A4F',badge:'✅ Visa Free'},
     desc:'Island of the Gods — sacred temples, lush rice terraces and world-class beaches.',
     itinerary:[
       {title:'Arrival & Seminyak',acts:'Fly into Ngurah Rai → Seminyak beach clubs → Ku De Ta sunset → rooftop dinner'},
@@ -572,6 +637,8 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80',
     tags:['Temples','Street Food','Nightlife','Shopping','Massage'],
     base:{f:14000,h:2000,fo:600,a:800},
+    peak:'Nov – Feb (cool & dry)', avoid:'Apr – Jun (very hot)',
+    visa:{type:'Visa Free',detail:'Indians get 30-day visa exemption. No e-visa needed for stays up to 30 days. Passport must be valid 6 months.',color:'#2D6A4F',badge:'✅ Visa Free'},
     desc:'City of angels — glittering temples, legendary street food and vibrant nightlife.',
     itinerary:[
       {title:'Grand Palace & Temples',acts:'Fly into Suvarnabhumi → Grand Palace & Wat Phra Kaew → Wat Pho reclining Buddha → sunset on Chao Phraya'},
@@ -586,6 +653,8 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80',
     tags:['Burj Khalifa','Desert Safari','Shopping','Luxury','Modern Wonders'],
     base:{f:16000,h:5000,fo:1200,a:2000},
+    peak:'Nov – Apr', avoid:'Jun – Aug (50°C heat)',
+    visa:{type:'Visa on Arrival',detail:'Indians with valid US/UK/EU/Schengen visa get free 14-day VOA. Others apply for UAE e-Visa (₹4,000–6,000, processed in 3–5 days).',color:'#8B6914',badge:'🟡 Visa on Arrival / e-Visa'},
     desc:'City of superlatives — the world\'s tallest tower, golden deserts and ultra-luxury malls.',
     itinerary:[
       {title:'Arrival & Downtown',acts:'Fly into DXB → Burj Khalifa At The Top → Dubai Mall & Dubai Fountain show'},
@@ -600,6 +669,8 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80',
     tags:['Ha Long Bay','Hoi An','Pho','History','Motorbikes'],
     base:{f:15000,h:1500,fo:500,a:700},
+    peak:'Nov – Apr (north); Jan – Aug (south)', avoid:'Oct – Nov (typhoon season)',
+    visa:{type:'e-Visa Required',detail:'Indians must apply for Vietnam e-Visa online at evisa.xuatnhapcanh.gov.vn. Cost ~$25 (₹2,100). Valid 90 days, single entry. Processed in 3 working days.',color:'#7A3B00',badge:'🟠 e-Visa Required'},
     desc:'Breathtaking limestone bays, ancient lantern towns and the world\'s best street food.',
     itinerary:[
       {title:'Hanoi Old Quarter',acts:'Fly into Hanoi → 36 Streets Old Quarter walk → Hoan Kiem Lake → egg coffee'},
@@ -614,12 +685,14 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&q=80',
     tags:['Gardens by the Bay','Sentosa','Food','Clean City','Marina Bay'],
     base:{f:14000,h:4500,fo:1000,a:1500},
+    peak:'Feb – Apr & Sep – Nov', avoid:'Nov – Jan (heavy rain)',
+    visa:{type:'Visa Free',detail:'Indians get 30-day visa-free entry. No prior application needed. Passport valid 6 months + return ticket required at immigration.',color:'#2D6A4F',badge:'✅ Visa Free'},
     desc:'The Lion City — futuristic gardens, legendary hawker food and spotless luxury.',
     itinerary:[
       {title:'Marina Bay & Gardens',acts:'Marina Bay Sands Skypark → Gardens by the Bay → Supertree Grove light show'},
       {title:'Universal Studios',acts:'Sentosa Island → Universal Studios → S.E.A. Aquarium → Resorts World'},
       {title:'Cultural Districts',acts:'Chinatown temples → Little India → Clarke Quay riverside dinner → Singapore Flyer'},
-      {title:'Botanic Gardens & Shopping',acts:'UNESCO Botanic Gardens → Orchard Road → hawker centre lunch → Changi Airport (top attraction!)'},
+      {title:'Botanic Gardens & Shopping',acts:'UNESCO Botanic Gardens → Orchard Road → hawker centre lunch → Changi Airport (top attraction!)'}
     ]
   },
   {
@@ -627,6 +700,8 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80',
     tags:['Overwater Bungalows','Snorkeling','Crystal Water','Honeymoon','Sunset'],
     base:{f:22000,h:8000,fo:1500,a:2000},
+    peak:'Nov – Apr (dry season)', avoid:'Jun – Aug (choppy seas)',
+    visa:{type:'Visa Free',detail:'Indians get free 30-day visa on arrival at Velana International Airport. No pre-application. Just valid passport + confirmed hotel booking.',color:'#2D6A4F',badge:'✅ Visa Free'},
     desc:'Paradise on earth — crystalline lagoons, coral reefs and iconic overwater villas.',
     itinerary:[
       {title:'Arrival & Water Villa',acts:'Fly to Malé → speedboat to resort → overwater villa check-in → snorkeling house reef'},
@@ -640,6 +715,8 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=80',
     tags:['Eiffel Tower','Art','Fashion','Cuisine','Romance'],
     base:{f:45000,h:6000,fo:2000,a:1500},
+    peak:'Apr – Jun & Sep – Oct', avoid:'Jul – Aug (crowds & heat)',
+    visa:{type:'Schengen Visa Required',detail:'Indians must apply for Schengen Visa at the French Consulate/VFS. Cost ₹7,000–8,500. Documents: 3 months bank statements, ITR, travel insurance, hotel bookings. Processing: 10–15 working days.',color:'#6B1A1A',badge:'🔴 Schengen Visa Required'},
     desc:'The City of Light — romantic boulevards, world-class art and the finest cuisine.',
     itinerary:[
       {title:'Eiffel Tower & Champs-Élysées',acts:'Eiffel Tower summit → Seine river cruise → Arc de Triomphe → Champs-Élysées walk'},
@@ -653,6 +730,8 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1546975490-a79abf050e68?w=600&q=80',
     tags:['Sigiriya Rock','Tea Country','Beaches','Wildlife','Spices'],
     base:{f:10000,h:1800,fo:600,a:700},
+    peak:'Dec – Mar (west & south)', avoid:'May – Sep (SW monsoon)',
+    visa:{type:'ETA Required',detail:'Indians apply for Sri Lanka ETA online at eta.gov.lk. Cost $20 (₹1,680). Approved instantly or within 24 hrs. Valid 30 days, double entry.',color:'#8B6914',badge:'🟡 ETA Required (Easy Online)'},
     desc:'Pearl of the Indian Ocean — ancient rock fortresses, whale watching and spiced cuisine.',
     itinerary:[
       {title:'Colombo Arrival',acts:'Fly to Colombo → Gangaramaya Temple → Galle Face Green sunset → street food tour'},
@@ -667,6 +746,8 @@ const DEST=[
     photo:'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80',
     tags:['Everest Base Camp','Kathmandu','Trekking','Monasteries','Adventure'],
     base:{f:12000,h:1200,fo:500,a:1000},
+    peak:'Oct – Nov & Mar – May', avoid:'Jun – Sep (monsoon, landslides)',
+    visa:{type:'Visa Free',detail:'Indians do NOT need a visa or passport to enter Nepal. A valid government-issued photo ID (Aadhaar, Voter ID) is sufficient. Unlimited stay.',color:'#2D6A4F',badge:'✅ No Visa / No Passport Needed'},
     desc:'Roof of the world — Himalayan treks, ancient temples and incredible mountain views.',
     itinerary:[
       {title:'Kathmandu Durbar Square',acts:'Fly to Tribhuvan → Pashupatinath Temple → Boudhanath Stupa → Thamel rooftop dinner'},
@@ -679,7 +760,7 @@ const DEST=[
 ];
 
 const TIPS=[
-  {ic:'✈️',t:'Book via Skyscanner for Best Fares',b:'Skyscanner compares 100s of airlines and travel agents. Use "Everywhere" search to find cheapest international destinations from your city.'},
+  {ic:'✈️',t:'Use Flight Comparison Sites',b:'Compare 100s of airlines and travel agents in one search. Use the "Everywhere" option to find the cheapest destination from your city on any given date.'},
   {ic:'📅',t:'Book 6–8 Weeks Early Domestically',b:'Indian domestic fares are cheapest 45–60 days out. For international, book 3–6 months ahead for peak season travel.'},
   {ic:'🏨',t:'Mix Hotel Types Strategically',b:'Stay at budget properties at transit cities (Mumbai, Delhi) and splurge at the destination. Saves 30–40% overall.'},
   {ic:'🍛',t:'Eat Where Locals Eat',b:'Street food and local dhabas cost ₹80–200/meal vs ₹500–1500 at tourist restaurants — and taste far better.'},
@@ -773,7 +854,13 @@ function findTrips(){
   document.getElementById('resList').innerHTML=results.length
     ? results.map(renderCard).join('')
     : `<div class="empty"><div class="ei">🔍</div><div class="et">No matches found</div><div class="es">Try increasing your budget or fewer days</div></div>`;
-  wrap.scrollIntoView({behavior:'smooth',block:'start'});
+
+  // On mobile scroll to results; on desktop scroll to top of plan screen
+  if(window.innerWidth<768){
+    wrap.scrollIntoView({behavior:'smooth',block:'start'});
+  } else {
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -822,6 +909,30 @@ function renderCard(d){
     <div class="dtags">${d.tags.map(t=>`<span class="dtag">${t}</span>`).join('')}</div>
     <div class="ddesc">${d.desc}</div>
 
+    <!-- Peak Season -->
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:6px;background:rgba(200,164,90,.06);border:1px solid rgba(200,164,90,.15);border-radius:10px;padding:7px 11px;flex:1;min-width:140px">
+        <span style="font-size:.95rem">🌤️</span>
+        <div>
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:1px">Peak Season</div>
+          <div style="font-size:.75rem;font-weight:500;color:var(--silk)">${d.peak}</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;background:rgba(139,48,64,.07);border:1px solid rgba(139,48,64,.18);border-radius:10px;padding:7px 11px;flex:1;min-width:140px">
+        <span style="font-size:.95rem">⚠️</span>
+        <div>
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:#fca5a5;margin-bottom:1px">Avoid</div>
+          <div style="font-size:.75rem;font-weight:500;color:var(--silk)">${d.avoid}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visa Info (international only) -->
+    ${d.visa?`<div class="visa-${d.visa.color==='#2D6A4F'?'free':d.visa.color==='#8B6914'?'voa':d.visa.color==='#7A3B00'?'evisa':'required'}">
+      <div class="visa-badge">${d.visa.badge}</div>
+      <div class="visa-detail">${d.visa.detail}</div>
+    </div>`:''}
+
     ${itinDays.length?`
     <div class="itin-toggle" onclick="toggleItin('itin-${d.id}',this)">
       <div class="itin-lbl">📅 ${S.days}-Day Itinerary</div>
@@ -841,17 +952,18 @@ function renderCard(d){
 
     <div style="display:flex;gap:8px;margin-bottom:11px">
       <a class="sky-btn" href="${skyUrl}" target="_blank" style="flex:1;margin:0">
-        <span>✈️</span> Search Cheap Flights <span style="margin-left:auto;opacity:.7">→</span>
+        <span>✈️</span> Search Cheap Flights &nbsp;<span style="opacity:.5;font-size:.65rem">via flight comparison</span> <span style="margin-left:auto;opacity:.7">→</span>
       </a>
       <a class="sky-btn" href="${googleHotelsUrl}" target="_blank" style="flex:1;margin:0;background:linear-gradient(135deg,#0a1628,#0d2137);border-color:rgba(66,133,244,.35);color:#7cb8ff">
         <span>🏨</span> Find Hotels <span style="margin-left:auto;opacity:.7">→</span>
       </a>
     </div>
 
-    <div class="dacts">
+    <div class="dacts" style="flex-wrap:wrap">
       <button class="dab dab-sv ${sv?'on':''}" onclick="tSv('${d.id}',event)">${sv?'✓ Saved':'🔖 Save'}</button>
       <button class="dab dab-cp ${cp?'on':''}" onclick="tCp('${d.id}',event)">${cp?'✓ Added':'⚖ Compare'}</button>
       <button class="dab dab-sh" onclick="oSh('${d.id}',event)">↑ Share</button>
+      <button class="dab dab-expert" style="flex:1 1 100%;margin-top:6px" onclick="expertHelp('${d.id}')">🟢 Get Expert Help — Chat on WhatsApp</button>
     </div>
   </div>
 </div>`;
@@ -890,19 +1002,209 @@ function tCp(id,e){
 }
 
 /* ═══════════════════════════════════════════════
+   HOTEL TYPE HELPER
+═══════════════════════════════════════════════ */
+function hotelType(d){
+  const t=d.tier;
+  if(t==='budget') return {type:'Budget / Guesthouse',eg:'₹800–1,500/night (OYO, FabHotel, Zostel)',base:d.base.h};
+  if(t==='mid')    return {type:'Mid-range / 3-star Hotel',eg:'₹1,500–3,500/night (ibis, Lemon Tree, local resorts)',base:d.base.h};
+  return             {type:'Luxury / 4–5 star Resort',eg:'₹3,500–10,000+/night (Taj, Marriott, boutique resort)',base:d.base.h};
+}
+
+/* ═══════════════════════════════════════════════
    SHARE
 ═══════════════════════════════════════════════ */
 function oSh(id,e){e?.stopPropagation();S.shareId=id;document.getElementById('shareModal').classList.add('open');}
 function closeShare(){document.getElementById('shareModal').classList.remove('open');}
 function maybeClose(e){if(e.target===document.getElementById('shareModal'))closeShare();}
+
+function buildShareText(d){
+  const c=calc(d);
+  const ht=hotelType(d);
+  const pax=S.type==='couple'?2:S.type==='family'?4:S.type==='friends'?4:1;
+  const visa=d.visa?`\n🛂 Visa: ${d.visa.badge} — ${d.visa.type}`:'';
+  return `✈️ *Trip Plan: ${d.name}, ${d.country}*\n\n`+
+    `👥 Travellers: ${S.type} (${pax} person${pax>1?'s':''})\n`+
+    `📅 Duration: ${S.days} days\n`+
+    `🌤️ Peak Season: ${d.peak}\n${visa}\n\n`+
+    `💰 *Cost Per Person: ₹${c.tot.toLocaleString('en-IN')}*\n`+
+    `✈️ Flights: ₹${c.fl.toLocaleString('en-IN')}\n`+
+    `🏨 Hotel (${S.days} nights): ₹${c.ht.toLocaleString('en-IN')}\n`+
+    `   → Type: ${ht.type}\n`+
+    `   → ${ht.eg}\n`+
+    `🍛 Food: ₹${c.fo.toLocaleString('en-IN')}\n`+
+    `🎯 Activities: ₹${c.ac.toLocaleString('en-IN')}\n`+
+    (pax>1?`\n👥 Total for group: ₹${(c.tot*pax).toLocaleString('en-IN')}\n`:'')+
+    `\n📊 Budget used: ${Math.round((c.tot/S.budget)*100)}% of ₹${S.budget.toLocaleString('en-IN')}\n`+
+    `\nPlanned with TripSmart India 🇮🇳`;
+}
+
 function doShare(via){
   const d=DEST.find(x=>x.id===S.shareId);if(!d)return;
   const c=calc(d);
-  const txt=`✈️ Planning a trip to ${d.name}, ${d.country}!\n\n💰 Per person: ₹${c.tot.toLocaleString('en-IN')} for ${S.days} days\n✈️ Flights ₹${c.fl.toLocaleString('en-IN')} · 🏨 Hotel ₹${c.ht.toLocaleString('en-IN')} · 🍛 Food ₹${c.fo.toLocaleString('en-IN')} · 🎯 Activities ₹${c.ac.toLocaleString('en-IN')}\n\nSearch flights: https://skyscanner.co.in\nPlanned with TripSmart India 🇮🇳`;
+  if(via==='pdf'){generatePDF(d,c);closeShare();return;}
+  const txt=buildShareText(d);
   if(via==='whatsapp')window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
   else if(via==='copy')navigator.clipboard.writeText(txt).then(()=>showT('📋 Copied!'));
   else if(via==='native'&&navigator.share)navigator.share({title:`Trip to ${d.name}`,text:txt});
   closeShare();
+}
+
+/* ═══════════════════════════════════════════════
+   EXPERT HELP
+═══════════════════════════════════════════════ */
+const EXPERT_WA = '918608748355';
+
+function expertHelp(id){
+  const d=DEST.find(x=>x.id===id); if(!d) return;
+  const c=calc(d);
+  const ht=hotelType(d);
+  const pax=S.type==='couple'?2:S.type==='family'?4:S.type==='friends'?4:1;
+  const visa=d.visa?`\nVisa: ${d.visa.type}`:'';
+  const msg=`Hi! I'm planning a trip and need expert help 🙏\n\n`+
+    `*Destination:* ${d.emoji} ${d.name}, ${d.country}\n`+
+    `*Travellers:* ${S.type} (${pax} person${pax>1?'s':''})\n`+
+    `*Duration:* ${S.days} days\n`+
+    `*My budget:* ₹${S.budget.toLocaleString('en-IN')} per person${visa}\n\n`+
+    `*Estimated cost breakdown:*\n`+
+    `✈️ Flights: ₹${c.fl.toLocaleString('en-IN')}/person\n`+
+    `🏨 Hotel (${S.days} nights): ₹${c.ht.toLocaleString('en-IN')}\n`+
+    `   Type preferred: ${ht.type}\n`+
+    `🍛 Food: ₹${c.fo.toLocaleString('en-IN')}\n`+
+    `🎯 Activities: ₹${c.ac.toLocaleString('en-IN')}\n`+
+    `💰 Total/person: ₹${c.tot.toLocaleString('en-IN')}\n\n`+
+    `Please help me plan this trip in detail!`;
+  window.open('https://wa.me/'+EXPERT_WA+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+function expertHelpCompare(id1,id2){
+  const a=DEST.find(x=>x.id===id1), b=DEST.find(x=>x.id===id2);
+  if(!a||!b) return;
+  const ca=calc(a), cb=calc(b);
+  const pax=S.type==='couple'?2:S.type==='family'?4:S.type==='friends'?4:1;
+  const msg=`Hi! I'm comparing two destinations and need expert advice 🙏\n\n`+
+    `*Travellers:* ${S.type} (${pax} person${pax>1?'s':''})\n`+
+    `*Duration:* ${S.days} days\n`+
+    `*Budget:* ₹${S.budget.toLocaleString('en-IN')}/person\n\n`+
+    `*Option 1: ${a.emoji} ${a.name}, ${a.country}*\n`+
+    `Total/person: ₹${ca.tot.toLocaleString('en-IN')} · Hotel: ${hotelType(a).type}${a.visa?'\nVisa: '+a.visa.type:''}\n\n`+
+    `*Option 2: ${b.emoji} ${b.name}, ${b.country}*\n`+
+    `Total/person: ₹${cb.tot.toLocaleString('en-IN')} · Hotel: ${hotelType(b).type}${b.visa?'\nVisa: '+b.visa.type:''}\n\n`+
+    `Can you help me decide which is better and plan the full trip?`;
+  window.open('https://wa.me/'+EXPERT_WA+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+/* ═══════════════════════════════════════════════
+   PDF GENERATION
+═══════════════════════════════════════════════ */
+function generatePDF(d,c){
+  const ht=hotelType(d);
+  const pax=S.type==='couple'?2:S.type==='family'?4:S.type==='friends'?4:1;
+  const itinHTML=d.itinerary?d.itinerary.slice(0,Math.min(S.days,d.itinerary.length)).map((day,i)=>`
+    <div style="display:flex;gap:12px;margin-bottom:10px">
+      <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#C8A45A,#E2C07A);color:#080810;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</div>
+      <div><strong style="color:#E2C07A;font-size:12px">${day.title}</strong><br><span style="font-size:11px;color:#9994b0;line-height:1.5">${day.acts}</span></div>
+    </div>`).join(''):'';
+  const visa=d.visa?`<div style="background:rgba(200,164,90,.08);border:1px solid rgba(200,164,90,.2);border-radius:10px;padding:12px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:#EDE8DA;margin-bottom:4px">${d.visa.badge}</div><div style="font-size:11px;color:#9994b0">${d.visa.detail}</div></div>`:'';
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#080810;color:#EDE8DA;font-family:'Segoe UI',sans-serif;font-size:13px;line-height:1.5;padding:32px}
+    .header{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid rgba(200,164,90,.25)}
+    .logo-box{width:44px;height:44px;background:linear-gradient(135deg,#C8A45A,#E2C07A);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+    .logo-txt{font-size:1.3rem;font-weight:700;color:#EDE8DA}
+    .logo-txt em{color:#E2C07A;font-style:italic}
+    .dest-hero{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+    .dest-name{font-size:2rem;font-weight:700;color:#EDE8DA}
+    .dest-loc{font-size:13px;color:#7A7590;margin-top:3px}
+    .price-box{text-align:right}
+    .price-lbl{font-size:11px;color:#7A7590;text-transform:uppercase;letter-spacing:.08em}
+    .price-amt{font-size:1.6rem;font-weight:700;color:#E2C07A}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+    .stat{background:rgba(200,164,90,.06);border:1px solid rgba(200,164,90,.14);border-radius:10px;padding:10px 12px}
+    .stat-lbl{font-size:10px;color:#7A7590;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+    .stat-val{font-size:14px;font-weight:600;color:#EDE8DA}
+    .section{margin-bottom:18px}
+    .sec-title{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#C8A45A;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(200,164,90,.15)}
+    .cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .cost-item{background:rgba(200,164,90,.04);border:1px solid rgba(200,164,90,.1);border-radius:8px;padding:9px 11px}
+    .cost-lbl{font-size:10px;color:#7A7590;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+    .cost-val{font-size:13px;font-weight:600}
+    .hotel-note{font-size:11px;color:#9994b0;margin-top:4px;font-style:italic}
+    .season-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+    .season-box{background:rgba(200,164,90,.05);border:1px solid rgba(200,164,90,.15);border-radius:10px;padding:10px 12px}
+    .season-lbl{font-size:10px;color:#C8A45A;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+    .season-val{font-size:12px;font-weight:500}
+    .avoid-box{background:rgba(139,48,64,.07);border:1px solid rgba(139,48,64,.2);border-radius:10px;padding:10px 12px}
+    .avoid-lbl{font-size:10px;color:#fca5a5;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+    .tag{display:inline-block;padding:3px 8px;border-radius:12px;font-size:10px;border:1px solid rgba(255,255,255,.08);color:#7A7590;margin:2px}
+    .footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(200,164,90,.15);font-size:11px;color:#7A7590;display:flex;justify-content:space-between}
+    .wa-cta{background:linear-gradient(135deg,rgba(37,99,60,.3),rgba(37,99,60,.15));border:1px solid rgba(74,222,128,.3);border-radius:10px;padding:12px 16px;margin-top:14px;font-size:12px;color:#4ade80}
+    @media print{body{background:#080810!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style></head><body>
+  <div class="header">
+    <div class="logo-box">✈</div>
+    <div><div class="logo-txt">Trip<em>Smart</em> India</div><div style="font-size:11px;color:#7A7590">Your Royal Travel Planner</div></div>
+  </div>
+
+  <div class="dest-hero">
+    <div>
+      <div class="dest-name">${d.emoji} ${d.name}</div>
+      <div class="dest-loc">📍 ${d.state}${d.country!=='India'?', '+d.country:''}</div>
+    </div>
+    <div class="price-box">
+      <div class="price-lbl">${S.days} days · per person</div>
+      <div class="price-amt">₹${c.tot.toLocaleString('en-IN')}</div>
+      ${pax>1?`<div style="font-size:11px;color:#7A7590">Group total: ₹${(c.tot*pax).toLocaleString('en-IN')}</div>`:''}
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="stat"><div class="stat-lbl">Travellers</div><div class="stat-val">${S.type} · ${pax} person${pax>1?'s':''}</div></div>
+    <div class="stat"><div class="stat-lbl">Duration</div><div class="stat-val">${S.days} days</div></div>
+    <div class="stat"><div class="stat-lbl">Category</div><div class="stat-val">${d.tier==='budget'?'Budget Friendly':d.tier==='mid'?'Mid-Range':'Luxury'}</div></div>
+    <div class="stat"><div class="stat-lbl">Budget Used</div><div class="stat-val" style="color:#E2C07A">${Math.round((c.tot/S.budget)*100)}% of ₹${S.budget.toLocaleString('en-IN')}</div></div>
+  </div>
+
+  <div class="season-row">
+    <div class="season-box"><div class="season-lbl">🌤 Peak Season</div><div class="season-val">${d.peak}</div></div>
+    <div class="avoid-box"><div class="avoid-lbl">⚠ Avoid</div><div class="season-val">${d.avoid}</div></div>
+  </div>
+
+  ${visa}
+
+  <div class="section">
+    <div class="sec-title">Cost Breakdown — Per Person</div>
+    <div class="cost-grid">
+      <div class="cost-item"><div class="cost-lbl">✈ Flights (total)</div><div class="cost-val">₹${c.fl.toLocaleString('en-IN')}</div></div>
+      <div class="cost-item">
+        <div class="cost-lbl">🏨 Hotel (${S.days} nights)</div>
+        <div class="cost-val">₹${c.ht.toLocaleString('en-IN')}</div>
+        <div class="hotel-note">${ht.type}<br>${ht.eg}</div>
+      </div>
+      <div class="cost-item"><div class="cost-lbl">🍛 Food (${S.days} days)</div><div class="cost-val">₹${c.fo.toLocaleString('en-IN')}</div></div>
+      <div class="cost-item"><div class="cost-lbl">🎯 Activities (total)</div><div class="cost-val">₹${c.ac.toLocaleString('en-IN')}</div></div>
+    </div>
+  </div>
+
+  ${d.tags?`<div class="section"><div class="sec-title">Highlights</div><div>${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>`:''}
+
+  ${d.itinerary?`<div class="section"><div class="sec-title">${S.days}-Day Itinerary</div>${itinHTML}</div>`:''}
+
+  <div class="wa-cta">🟢 Need help booking? Chat with our travel expert on WhatsApp: <strong>+91 86087 48355</strong></div>
+
+  <div class="footer">
+    <span>Generated by TripSmart India</span>
+    <span>${new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</span>
+  </div>
+  </body></html>`;
+
+  const w=window.open('','_blank');
+  w.document.write(html);
+  w.document.close();
+  w.onload=()=>{w.print();};
+  showT('📄 PDF ready — save or print!');
 }
 
 /* ═══════════════════════════════════════════════
@@ -926,14 +1228,18 @@ function renderSv(){
   if(!S.saved.length){el.innerHTML='';em.style.display='block';return;}
   em.style.display='none';
   el.innerHTML=S.saved.map(d=>`
-    <div class="svi">
+    <div class="svi" style="flex-wrap:wrap">
       <div class="svemoji">${d.emoji}</div>
       <div class="svinfo">
         <div class="svname">${d.name}</div>
         <div class="svmeta">📍 ${d.state} · ${d.days} days · ${d.type}</div>
         <div class="svprice">₹${d.c.tot.toLocaleString('en-IN')}/person</div>
       </div>
-      <button class="svrm" onclick="rmSv('${d.id}')">Remove</button>
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        <button class="dab dab-sh" style="padding:7px 10px;font-size:.66rem" onclick="S.shareId='${d.id}';document.getElementById('shareModal').classList.add('open')">↑ Share</button>
+        <button class="svrm" onclick="rmSv('${d.id}')">Remove</button>
+      </div>
+      <button class="dab dab-expert" style="flex:1 1 100%;margin-top:8px;padding:10px" onclick="expertHelp('${d.id}')">🟢 Get Expert Help on WhatsApp</button>
     </div>`).join('');
 }
 function rmSv(id){S.saved=S.saved.filter(s=>s.id!==id);localStorage.setItem('ts3_sv',JSON.stringify(S.saved));renderSv();showT('Removed');}
@@ -966,8 +1272,13 @@ function renderCmp(){
     <div class="cmptbl">${rows.map(r=>`<div class="cmpr"><div class="crk">${r[0]}</div><div class="crv ${r[3]?'hl':''}">${r[1]}</div><div class="crv ${r[3]?'hl':''}">${r[2]}</div></div>`).join('')}</div>
     <div class="cmpw-win">✦ ${win.name} saves you ₹${sav} per person</div>
     <a class="sky-btn" href="https://www.skyscanner.co.in" target="_blank" style="margin-top:12px">
-      <span>🔵</span> Search & compare flights on Skyscanner <span style="margin-left:auto;opacity:.7">→</span>
+      <span>✈️</span> Search & compare cheap flights <span style="margin-left:auto;opacity:.7">→</span>
     </a>
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+      <button class="dab dab-sh" style="flex:1;padding:11px" onclick="S.shareId='${a.id}';document.getElementById('shareModal').classList.add('open')">↑ Share ${a.name}</button>
+      <button class="dab dab-sh" style="flex:1;padding:11px" onclick="S.shareId='${b.id}';document.getElementById('shareModal').classList.add('open')">↑ Share ${b.name}</button>
+    </div>
+    <button class="dab dab-expert" style="width:100%;margin-top:8px;padding:12px;font-size:.78rem" onclick="expertHelpCompare('${a.id}','${b.id}')">🟢 Get Expert Help — Chat on WhatsApp</button>
   </div>`;
 }
 
