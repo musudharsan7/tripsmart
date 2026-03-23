@@ -276,10 +276,19 @@ main{padding-bottom:70px}
   .bnav{display:none}
   .hero{padding:52px 40px 32px;max-width:700px;margin:0 auto}
   .hero h1{font-size:3.2rem}
-  .plan-layout{display:grid!important;grid-template-columns:380px 1fr;gap:28px;padding:0 40px 40px;align-items:start}
-  .plan-left{position:sticky;top:130px}
-  .planner{margin:0;border-radius:24px}
-  .aff-plan{margin:0 0 13px!important}
+
+  /* Before search: planner centered */
+  .plan-layout{display:flex!important;flex-direction:column;align-items:center;padding:0 40px 40px}
+  .plan-left{width:100%;max-width:560px}
+  .planner{margin:0;border-radius:24px;width:100%}
+  .aff-plan{margin:0 0 13px!important;width:100%;max-width:560px}
+  .plan-right{width:100%;max-width:960px}
+
+  /* After search: switch to side-by-side */
+  .plan-layout.has-results{display:grid!important;flex-direction:unset;align-items:start;grid-template-columns:360px 1fr;gap:28px;padding:0 40px 40px}
+  .plan-layout.has-results .plan-left{max-width:none;position:sticky;top:130px}
+  .plan-layout.has-results .aff-plan{max-width:none}
+
   #resWrap{margin-top:0}
   #resList{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .dcard{margin:0}
@@ -298,8 +307,8 @@ main{padding-bottom:70px}
   .tipc{margin:0}
 }
 @media(min-width:1024px){
-  #resList{grid-template-columns:1fr 1fr 1fr}
-  .plan-layout{grid-template-columns:400px 1fr!important;gap:36px;padding:0 48px 48px!important}
+  /* Keep 2 columns — no 3-col override */
+  .plan-layout.has-results{grid-template-columns:380px 1fr!important;gap:36px;padding:0 48px 48px!important}
 }
 </style>
 </head>
@@ -855,7 +864,10 @@ function findTrips(){
     ? results.map(renderCard).join('')
     : `<div class="empty"><div class="ei">🔍</div><div class="et">No matches found</div><div class="es">Try increasing your budget or fewer days</div></div>`;
 
-  // On mobile scroll to results; on desktop scroll to top of plan screen
+  // Switch layout to side-by-side on desktop
+  document.querySelector('.plan-layout').classList.add('has-results');
+
+  // On mobile scroll to results; on desktop scroll to top
   if(window.innerWidth<768){
     wrap.scrollIntoView({behavior:'smooth',block:'start'});
   } else {
@@ -1215,6 +1227,13 @@ function go(name){
   document.getElementById('screen-'+name).classList.add('active');
   document.getElementById('tab-'+name)?.classList.add('active');
   document.getElementById('nav-'+name)?.classList.add('active');
+  // Reset layout when returning to plan with no results shown
+  if(name==='plan'){
+    const resWrap=document.getElementById('resWrap');
+    if(resWrap.style.display==='none'||!resWrap.style.display){
+      document.querySelector('.plan-layout')?.classList.remove('has-results');
+    }
+  }
   if(name==='saved')renderSv();
   if(name==='compare')renderCmp();
   if(name==='tips')renderTips();
