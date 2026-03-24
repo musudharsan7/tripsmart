@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <meta name="theme-color" content="#080810">
-<title>TripSmart India by Mahiyu Holidays</title>
+<title>Trip Smart by Mahiyu Holidays — Plan Any Trip</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -25,32 +26,34 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background:radial-gradient(ellipse 80% 50% at 10% -5%,rgba(200,164,90,.09) 0%,transparent 60%),
              radial-gradient(ellipse 60% 40% at 90% 105%,rgba(200,164,90,.06) 0%,transparent 55%)}
 
-/* ── TOPLINE ── */
 .tl{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold2) 50%,var(--gold) 70%,transparent 100%);position:relative;z-index:20}
 
-/* ── HEADER ── */
 header{position:sticky;top:0;z-index:100;background:rgba(8,8,16,.93);backdrop-filter:blur(28px);border-bottom:1px solid var(--border);height:58px;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:var(--H);font-size:1.3rem;font-weight:600;letter-spacing:.03em;display:flex;align-items:center;gap:9px}
-.logo-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;box-shadow:0 0 16px rgba(200,164,90,.45)}
+.logo{font-family:var(--H);font-size:1.1rem;font-weight:600;letter-spacing:.03em;display:flex;align-items:center;gap:9px}
+.logo-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;box-shadow:0 0 16px rgba(200,164,90,.45);flex-shrink:0}
 .logo em{color:var(--gold2);font-style:italic}
+.logo-sub{font-size:.72rem;color:var(--muted);font-weight:300;letter-spacing:.02em;line-height:1;margin-top:1px}
 .hbts{display:flex;gap:7px}
-.hbt{width:36px;height:36px;border-radius:9px;background:rgba(200,164,90,.06);border:1px solid var(--border);color:var(--gold);font-size:.9rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
+.hbt{width:36px;height:36px;border-radius:9px;background:rgba(200,164,90,.06);border:1px solid var(--border);color:var(--gold);font-size:.9rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;position:relative}
 .hbt:hover{background:rgba(200,164,90,.12);border-color:rgba(200,164,90,.3)}
+/* Compare count badge */
+.cmp-badge{position:absolute;top:-5px;right:-5px;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);display:none}
+.cmp-badge.show{display:flex}
 
-/* ── TABS ── */
 .tabs{display:flex;background:rgba(8,8,16,.75);border-bottom:1px solid var(--border);padding:0 14px;overflow-x:auto;position:sticky;top:58px;z-index:99}
 .tabs::-webkit-scrollbar{display:none}
-.tab{padding:13px 17px;font-size:.7rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid transparent;cursor:pointer;transition:all .25s;white-space:nowrap}
+.tab{padding:13px 17px;font-size:.7rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid transparent;cursor:pointer;transition:all .25s;white-space:nowrap;position:relative}
 .tab.active{color:var(--gold2);border-bottom-color:var(--gold)}
 .tab:hover:not(.active){color:var(--silk)}
+/* Compare tab badge */
+.tab-badge{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);font-size:.55rem;font-weight:700;margin-left:5px;vertical-align:middle;opacity:0;transition:opacity .2s}
+.tab-badge.show{opacity:1}
 
-/* ── SCREENS ── */
 main{position:relative;z-index:2}
 .screen{display:none;animation:up .38s cubic-bezier(.22,1,.36,1)}
 .screen.active{display:block}
 @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── HERO ── */
 .hero{padding:32px 22px 22px;text-align:center}
 .eyebrow{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:11px;display:flex;align-items:center;justify-content:center;gap:9px}
 .eyebrow::before,.eyebrow::after{content:'';width:26px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
@@ -59,13 +62,11 @@ main{position:relative;z-index:2}
 .hero h1 em{font-style:italic;color:var(--gold2)}
 .hero p{font-size:.8rem;color:var(--muted);line-height:1.6}
 
-/* ── PLANNER CARD ── */
 .planner{margin:0 15px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 10px 50px rgba(0,0,0,.7)}
 .ph{padding:14px 18px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(200,164,90,.07),transparent);display:flex;align-items:center;gap:9px}
 .ph-title{font-family:var(--H);font-size:1rem;font-weight:600;color:var(--gold3)}
 .pb{padding:18px;display:flex;flex-direction:column;gap:18px}
 
-/* Toggle: Domestic / International */
 .dest-toggle{display:flex;background:rgba(200,164,90,.06);border:1px solid var(--border);border-radius:50px;padding:4px;gap:0}
 .dt-btn{flex:1;padding:9px 12px;border-radius:50px;font-size:.75rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .25s;text-align:center;border:none;background:transparent;font-family:var(--B)}
 .dt-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);box-shadow:0 2px 12px rgba(200,164,90,.35)}
@@ -88,7 +89,6 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .rsel{width:100%;padding:11px 34px 11px 14px;background:rgba(200,164,90,.04);border:1px solid rgba(200,164,90,.15);border-radius:12px;color:var(--silk);font-size:.8rem;font-family:var(--B);font-weight:300;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23C8A45A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
 .rsel option{background:var(--bg2)}
 
-/* Days custom input */
 .days-ctrl{display:flex;align-items:center;gap:12px}
 .days-num{font-family:var(--H);font-size:1.6rem;font-weight:600;color:var(--gold2);min-width:36px;text-align:center}
 .days-pm{width:34px;height:34px;border-radius:50%;border:1px solid rgba(200,164,90,.3);background:rgba(200,164,90,.07);color:var(--gold2);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:var(--B)}
@@ -101,7 +101,6 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .cta:hover::before{opacity:1}
 .cta:active{transform:scale(.99)}
 
-/* ── AD / AFFILIATE ── */
 .aff{margin:0 15px 13px;background:linear-gradient(135deg,rgba(200,164,90,.07),rgba(200,164,90,.02));border:1px solid rgba(200,164,90,.18);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px}
 .aff-ic{font-size:1.7rem;flex-shrink:0}
 .aff-b{flex:1}
@@ -109,12 +108,10 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .aff-s{font-size:.7rem;color:var(--muted)}
 .aff-btn{padding:9px 13px;border-radius:10px;white-space:nowrap;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);font-size:.7rem;font-weight:600;border:none;cursor:pointer;font-family:var(--B);flex-shrink:0;box-shadow:0 2px 10px rgba(200,164,90,.3);text-decoration:none;display:inline-flex;align-items:center}
 
-/* ── ORNAMENT ── */
 .orn{display:flex;align-items:center;gap:11px;padding:0 15px;margin:6px 0 14px}
 .ol{flex:1;height:1px;background:var(--border)}
 .oi{color:var(--gold);font-size:.68rem;letter-spacing:.12em;font-family:var(--H);font-style:italic;white-space:nowrap}
 
-/* ── RESULTS META ── */
 .rmeta{padding:0 15px;margin-bottom:13px;display:flex;align-items:baseline;justify-content:space-between}
 .rhead{font-family:var(--H);font-size:1.2rem;font-weight:600}
 .rbadge{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,164,90,.28);padding:4px 11px;border-radius:20px}
@@ -124,8 +121,6 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .dcard:hover{transform:translateY(-3px);border-color:rgba(200,164,90,.35);box-shadow:0 14px 40px rgba(0,0,0,.65)}
 .dcard.saved{border-color:rgba(200,164,90,.45)}
 
-/* Photo banner */
-.dimg{width:100%;height:180px;object-fit:cover;display:block;position:relative}
 .dimg-wrap{position:relative;height:180px;overflow:hidden;background:var(--bg3)}
 .dimg-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
 .dcard:hover .dimg-wrap img{transform:scale(1.04)}
@@ -137,9 +132,8 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .t-l{background:rgba(109,40,55,.85);color:#fca5a5;border:1px solid rgba(252,165,165,.2)}
 .dintl{position:absolute;top:12px;right:12px;z-index:2;background:rgba(8,8,16,.8);border:1px solid var(--border);border-radius:20px;padding:4px 9px;font-size:.62rem;color:var(--gold)}
 
-/* Card body */
 .dbody{padding:15px 17px 17px}
-.dtop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:13px}
+.dtop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
 .dname{font-family:var(--H);font-size:1.3rem;font-weight:600;line-height:1.1}
 .dloc{font-size:.7rem;color:var(--muted);margin-top:3px}
 .dprice{text-align:right}
@@ -147,11 +141,17 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .dpa{font-family:var(--H);font-size:1.2rem;font-weight:700;color:var(--gold2)}
 .dppp{font-size:.62rem;color:var(--muted);margin-top:1px}
 
-.bdown{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px}
-.bi{background:rgba(200,164,90,.04);border:1px solid rgba(200,164,90,.08);border-radius:10px;padding:8px 10px;transition:border-color .2s}
-.bi:hover{border-color:rgba(200,164,90,.2)}
-.bil{font-size:.6rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:3px}
-.biv{font-size:.86rem;font-weight:500}
+/* Cost breakdown cells — solid visible background */
+.bdown{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+.bi{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:9px 11px;transition:border-color .2s}
+.bi:hover{border-color:rgba(200,164,90,.25)}
+.bil{font-size:.6rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px}
+.biv{font-family:var(--H);font-size:.95rem;font-weight:600;color:var(--silk)}
+
+/* Total bar — gold gradient confirms sum */
+.btotal{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,rgba(200,164,90,.18),rgba(226,192,122,.12));border:1px solid rgba(200,164,90,.35);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.btotal-lbl{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.btotal-val{font-family:var(--H);font-size:1.1rem;font-weight:700;color:var(--gold2)}
 
 .dtags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
 .dtag{font-size:.63rem;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);color:var(--muted)}
@@ -171,24 +171,27 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .iday-txt{font-size:.75rem;color:var(--silk);line-height:1.5;flex:1}
 .iday-title{font-weight:500;color:var(--gold3);margin-bottom:2px;font-size:.78rem}
 
-/* Skyscanner CTA */
+/* Flight + Hotel buttons */
 .sky-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:11px;border-radius:11px;background:linear-gradient(135deg,#000e36,#05203c);border:1px solid rgba(0,112,255,.3);color:#60a5fa;font-size:.75rem;font-weight:500;cursor:pointer;margin-bottom:11px;transition:all .2s;text-decoration:none;font-family:var(--B)}
 .sky-btn:hover{border-color:rgba(0,112,255,.6);background:linear-gradient(135deg,#001050,#062844);box-shadow:0 4px 16px rgba(0,112,255,.2)}
+
+/* Visa blocks */
 .visa-free{background:rgba(45,106,79,.07);border:1px solid rgba(45,106,79,.25);border-radius:12px;padding:12px 13px;margin-bottom:12px}
 .visa-voa{background:rgba(139,105,20,.07);border:1px solid rgba(139,105,20,.25);border-radius:12px;padding:12px 13px;margin-bottom:12px}
 .visa-evisa{background:rgba(122,59,0,.07);border:1px solid rgba(122,59,0,.25);border-radius:12px;padding:12px 13px;margin-bottom:12px}
 .visa-required{background:rgba(107,26,26,.07);border:1px solid rgba(107,26,26,.25);border-radius:12px;padding:12px 13px;margin-bottom:12px}
 .visa-badge{font-size:.8rem;font-weight:600;color:var(--silk);margin-bottom:5px}
 .visa-detail{font-size:.74rem;color:var(--muted);line-height:1.55}
-.sky-logo{font-size:1rem}
 
+/* Card action buttons */
 .dacts{display:flex;gap:7px}
 .dab{flex:1;padding:9px 7px;border-radius:10px;font-size:.68rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s;border:1px solid;display:flex;align-items:center;justify-content:center;gap:4px;font-family:var(--B)}
 .dab-sv{background:rgba(61,139,110,.08);border-color:rgba(61,139,110,.25);color:#86efac}
 .dab-sv.on{background:rgba(61,139,110,.2);border-color:rgba(134,239,172,.4)}
 .dab-cp{background:rgba(200,164,90,.06);border-color:rgba(200,164,90,.2);color:var(--gold2)}
-.dab-cp.on{background:rgba(200,164,90,.15)}
 .dab-sh{background:rgba(96,130,220,.06);border-color:rgba(96,130,220,.2);color:#93c5fd}
+.dab-expert{background:linear-gradient(135deg,rgba(200,164,90,.15),rgba(200,164,90,.08));border-color:rgba(200,164,90,.4);color:var(--gold2)}
+.dab-expert:hover{background:linear-gradient(135deg,rgba(200,164,90,.25),rgba(200,164,90,.15));border-color:var(--gold);box-shadow:0 3px 12px rgba(200,164,90,.25)}
 
 /* ── COMPARE ── */
 .cmpw{padding:18px 15px}
@@ -232,7 +235,7 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .mbg.open .msh{transform:translateY(0)}
 .mhand{width:34px;height:3px;background:var(--dim);border-radius:2px;margin:0 auto 18px}
 .mtitle{font-family:var(--H);font-size:1.15rem;font-weight:600;text-align:center;margin-bottom:18px}
-.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
 .sopt{background:rgba(200,164,90,.04);border:1px solid var(--border);border-radius:13px;padding:17px 9px;text-align:center;cursor:pointer;transition:all .2s}
 .sopt:hover{background:rgba(200,164,90,.1);border-color:rgba(200,164,90,.3)}
 .soptI{font-size:1.7rem;margin-bottom:5px}
@@ -245,30 +248,27 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 
 /* ── BOTTOM NAV ── */
 .bnav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(8,8,16,.97);backdrop-filter:blur(24px);border-top:1px solid var(--border);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
-.bni{flex:1;padding:11px 4px 9px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:all .25s;color:var(--muted);font-size:.57rem;letter-spacing:.08em;text-transform:uppercase;font-family:var(--B);font-weight:500}
+.bni{flex:1;padding:11px 4px 9px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:all .25s;color:var(--muted);font-size:.57rem;letter-spacing:.08em;text-transform:uppercase;font-family:var(--B);font-weight:500;position:relative}
 .bni.active{color:var(--gold2)}
 .bnic{font-size:1.15rem;transition:transform .25s}
 .bni.active .bnic{transform:translateY(-1px)}
+/* Bottom nav compare badge */
+.bnav-badge{position:absolute;top:6px;right:calc(50% - 16px);width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);font-size:.55rem;font-weight:700;display:none;align-items:center;justify-content:center;border:2px solid var(--bg)}
+.bnav-badge.show{display:flex}
 main{padding-bottom:70px}
 
-/* SEC */
 .sech{padding:20px 15px 4px;font-family:var(--H);font-size:1.45rem;font-weight:600}
 .secs{padding:0 15px 14px;font-size:.77rem;color:var(--muted);font-style:italic}
 
-/* EMPTY */
 .empty{text-align:center;padding:60px 22px}
 .ei{font-size:3.2rem;margin-bottom:14px;opacity:.4}
 .et{font-family:var(--H);font-size:1.25rem;color:var(--silk);margin-bottom:7px;font-weight:400}
 .es{font-size:.8rem;color:var(--muted);font-style:italic}
 
-/* Expert Help button */
-.dab-expert{background:linear-gradient(135deg,rgba(37,99,60,.15),rgba(37,99,60,.08));border-color:rgba(74,222,128,.3);color:#4ade80}
-.dab-expert:hover{background:linear-gradient(135deg,rgba(37,99,60,.28),rgba(37,99,60,.15));border-color:rgba(74,222,128,.55)}
-
 /* ══ RESPONSIVE DESKTOP ══ */
 @media(min-width:768px){
   header{padding:0 40px;height:64px}
-  .logo{font-size:1.5rem}
+  .logo{font-size:1.2rem}
   .logo-mark{width:34px;height:34px;font-size:1rem}
   .tabs{padding:0 40px;top:64px}
   .tab{padding:15px 22px;font-size:.72rem}
@@ -276,19 +276,14 @@ main{padding-bottom:70px}
   .bnav{display:none}
   .hero{padding:52px 40px 32px;max-width:700px;margin:0 auto}
   .hero h1{font-size:3.2rem}
-
-  /* Before search: planner centered */
   .plan-layout{display:flex!important;flex-direction:column;align-items:center;padding:0 40px 40px}
   .plan-left{width:100%;max-width:560px}
   .planner{margin:0;border-radius:24px;width:100%}
   .aff-plan{margin:0 0 13px!important;width:100%;max-width:560px}
   .plan-right{width:100%;max-width:960px}
-
-  /* After search: switch to side-by-side */
   .plan-layout.has-results{display:grid!important;flex-direction:unset;align-items:start;grid-template-columns:360px 1fr;gap:28px;padding:0 40px 40px}
   .plan-layout.has-results .plan-left{max-width:none;position:sticky;top:130px}
   .plan-layout.has-results .aff-plan{max-width:none}
-
   #resWrap{margin-top:0}
   #resList{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .dcard{margin:0}
@@ -307,7 +302,6 @@ main{padding-bottom:70px}
   .tipc{margin:0}
 }
 @media(min-width:1024px){
-  /* Keep 2 columns — no 3-col override */
   .plan-layout.has-results{grid-template-columns:380px 1fr!important;gap:36px;padding:0 48px 48px!important}
 }
 </style>
@@ -317,17 +311,28 @@ main{padding-bottom:70px}
 <div class="tl"></div>
 
 <header>
-  <div class="logo"><div class="logo-mark">✈</div><em>Trip Smart </em> by Mahiyu Holidays</div>
+  <div class="logo">
+    <div class="logo-mark">✈</div>
+    <div>
+      <div style="font-family:var(--H);font-size:1.1rem;font-weight:600;letter-spacing:.02em;line-height:1.1;color:var(--silk)">
+        <em>Trip Smart</em>
+      </div>
+      <div class="logo-sub">by Mahiyu Holidays</div>
+    </div>
+  </div>
   <div class="hbts">
     <div class="hbt" onclick="go('saved')">🔖</div>
-    <div class="hbt" onclick="go('compare')">⚖️</div>
+    <div class="hbt" onclick="go('compare')" id="hbt-compare" title="Compare destinations">
+      ⚖️
+      <div class="cmp-badge" id="cmpBadgeHeader">0</div>
+    </div>
   </div>
 </header>
 
 <div class="tabs">
   <div class="tab active" id="tab-plan"    onclick="go('plan')">✦ Plan Trip</div>
   <div class="tab"        id="tab-saved"   onclick="go('saved')">Saved</div>
-  <div class="tab"        id="tab-compare" onclick="go('compare')">Compare</div>
+  <div class="tab"        id="tab-compare" onclick="go('compare')">Compare <span class="tab-badge" id="cmpBadgeTab">0</span></div>
   <div class="tab"        id="tab-tips"    onclick="go('tips')">Travel Tips</div>
 </div>
 
@@ -490,7 +495,11 @@ main{padding-bottom:70px}
 <nav class="bnav">
   <div class="bni active" id="nav-plan"    onclick="go('plan')"><div class="bnic">🗺️</div><span>Plan</span></div>
   <div class="bni"        id="nav-saved"   onclick="go('saved')"><div class="bnic">🔖</div><span>Saved</span></div>
-  <div class="bni"        id="nav-compare" onclick="go('compare')"><div class="bnic">⚖️</div><span>Compare</span></div>
+  <div class="bni"        id="nav-compare" onclick="go('compare')">
+    <div class="bnic">⚖️</div>
+    <div class="bnav-badge" id="cmpBadgeNav">0</div>
+    <span>Compare</span>
+  </div>
   <div class="bni"        id="nav-tips"    onclick="go('tips')"><div class="bnic">💡</div><span>Tips</span></div>
 </nav>
 
@@ -906,18 +915,17 @@ function renderCard(d){
     <img src="${d.photo}" alt="${d.name}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=dimg-fallback>${d.emoji}</div>'">
     <div class="dimg-overlay"></div>
     <div class="dtier t-${d.tier[0]}">${tl}</div>
-    <div class="dintl" style="${d.type==='international'?'':'right:12px;background:rgba(8,8,16,.8)'}">${d.type==='international'?'🌏 '+d.country:'📊 '+pct+'% of budget'}</div>
+    <div class="dintl" style="${d.type==='international'?'':'right:12px'}">${d.type==='international'?'🌏 '+d.country:'📊 '+pct+'% of budget'}</div>
   </div>
   <div class="dbody">
     <div class="dtop">
-      <div>
+      <div style="flex:1">
         <div class="dname">${d.emoji} ${d.name}</div>
-        <div class="dloc">📍 ${d.state}${d.country!=='India'?' · '+d.country:''} &nbsp;·&nbsp; <span style="color:var(--gold)">${pct}% of budget</span></div>
+        <div class="dloc">📍 ${d.state}${d.country!=='India'?' · '+d.country:''} &nbsp;·&nbsp; <span style="color:var(--primary);font-weight:700">${pct}% of budget</span></div>
       </div>
       <div class="dprice">
         <div class="dpl">${S.days} days · per person</div>
         <div class="dpa">₹${d.c.tot.toLocaleString('en-IN')}</div>
-        ${pax>1?`<div class="dppp">Group total: ₹${totalAll.toLocaleString('en-IN')}</div>`:''}
       </div>
     </div>
 
@@ -927,24 +935,29 @@ function renderCard(d){
       <div class="bi"><div class="bil">🍛 Food (${S.days} days)</div><div class="biv">₹${d.c.fo.toLocaleString('en-IN')}</div></div>
       <div class="bi"><div class="bil">🎯 Activities (total)</div><div class="biv">₹${d.c.ac.toLocaleString('en-IN')}</div></div>
     </div>
+    <div class="btotal">
+      <div class="btotal-lbl">Total per person · ${S.days} days</div>
+      <div class="btotal-val">₹${d.c.tot.toLocaleString('en-IN')}</div>
+    </div>
+    ${pax>1?`<div style="text-align:right;font-size:.72rem;color:var(--muted);margin-top:-8px;margin-bottom:12px;font-weight:500">Group total (${pax} people): <span style="color:var(--gold2);font-weight:600">₹${totalAll.toLocaleString('en-IN')}</span></div>`:''}
 
     <div class="dtags">${d.tags.map(t=>`<span class="dtag">${t}</span>`).join('')}</div>
     <div class="ddesc">${d.desc}</div>
 
     <!-- Peak Season -->
     <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:6px;background:rgba(200,164,90,.06);border:1px solid rgba(200,164,90,.15);border-radius:10px;padding:7px 11px;flex:1;min-width:140px">
+      <div style="display:flex;align-items:center;gap:8px;background:var(--surface-highest);border-radius:var(--r-lg);padding:9px 13px;flex:1;min-width:140px">
         <span style="font-size:.95rem">🌤️</span>
         <div>
-          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:1px">Peak Season</div>
-          <div style="font-size:.75rem;font-weight:500;color:var(--silk)">${d.peak}</div>
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--primary);margin-bottom:2px;font-weight:700">Peak Season</div>
+          <div style="font-size:.78rem;font-weight:600;color:var(--on-surface)">${d.peak}</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:6px;background:rgba(139,48,64,.07);border:1px solid rgba(139,48,64,.18);border-radius:10px;padding:7px 11px;flex:1;min-width:140px">
+      <div style="display:flex;align-items:center;gap:8px;background:var(--surface-highest);border-radius:var(--r-lg);padding:9px 13px;flex:1;min-width:140px">
         <span style="font-size:.95rem">⚠️</span>
         <div>
-          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:#fca5a5;margin-bottom:1px">Avoid</div>
-          <div style="font-size:.75rem;font-weight:500;color:var(--silk)">${d.avoid}</div>
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--on-surface-dim);margin-bottom:2px;font-weight:700">Avoid</div>
+          <div style="font-size:.78rem;font-weight:600;color:var(--on-surface)">${d.avoid}</div>
         </div>
       </div>
     </div>
@@ -969,7 +982,7 @@ function renderCard(d){
           ${day.acts}
         </div>
       </div>`).join('')}
-      ${S.days>d.itinerary.length?`<div style="font-size:.72rem;color:var(--muted);margin-top:6px;font-style:italic">+ ${S.days-d.itinerary.length} more leisure days to explore freely</div>`:''}
+      ${S.days>d.itinerary.length?`<div style="font-size:.72rem;color:var(--on-surface-dim);margin-top:6px;font-style:italic">+ ${S.days-d.itinerary.length} more leisure days to explore freely</div>`:''}
     </div>`:''}
 
     <div style="display:flex;gap:8px;margin-bottom:11px">
@@ -983,7 +996,7 @@ function renderCard(d){
 
     <div class="dacts" style="flex-wrap:wrap">
       <button class="dab dab-sv ${sv?'on':''}" onclick="tSv('${d.id}',event)">${sv?'✓ Saved':'🔖 Save'}</button>
-      <button class="dab dab-cp ${cp?'on':''}" onclick="tCp('${d.id}',event)">${cp?'✓ Added':'⚖ Compare'}</button>
+      <button class="dab dab-cp" style="${cp?'background:var(--primary);color:var(--on-primary);box-shadow:0 2px 10px rgba(242,202,80,0.3)':''}" onclick="tCp('${d.id}',event)">⚖ ${cp?'Added ✓':'Compare'}</button>
       <button class="dab dab-sh" onclick="oSh('${d.id}',event)">↑ Share</button>
       <button class="dab dab-expert" style="flex:1 1 100%;margin-top:6px" onclick="expertHelp('${d.id}')">🟢 Get Expert Help</button>
     </div>
@@ -1017,10 +1030,27 @@ function tCp(id,e){
   e?.stopPropagation();
   const d=DEST.find(x=>x.id===id), idx=S.compare.findIndex(s=>s.id===id);
   if(idx>=0){S.compare.splice(idx,1);showT('Removed from compare');}
-  else{if(S.compare.length>=2)S.compare.shift();S.compare.push({...d,c:calc(d),days:S.days,type:S.type});showT('⚖ Added to compare');}
+  else{if(S.compare.length>=2)S.compare.shift();S.compare.push({...d,c:calc(d),days:S.days,type:S.type});showT('⚖ Added to compare!');}
   localStorage.setItem('ts3_cp',JSON.stringify(S.compare));
   const b=document.querySelector(`#dc-${id} .dab-cp`);
-  if(b){const c=S.compare.some(x=>x.id===id);b.innerHTML=c?'✓ Added':'⚖ Compare';b.classList.toggle('on',c);}
+  if(b){
+    const c=S.compare.some(x=>x.id===id);
+    b.innerHTML=`⚖ ${c?'Added ✓':'Compare'}`;
+    b.style.cssText=c?'background:rgba(200,164,90,.2);border-color:var(--gold);color:var(--gold2);box-shadow:0 2px 10px rgba(200,164,90,.2)':'';
+  }
+  updateCmpBadge();
+}
+
+/* ── UPDATE COMPARE BADGE ── */
+function updateCmpBadge(){
+  const n=S.compare.length;
+  const ids=['cmpBadgeHeader','cmpBadgeTab','cmpBadgeNav'];
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.textContent=n;
+    el.classList.toggle('show',n>0);
+  });
 }
 
 /* ═══════════════════════════════════════════════
@@ -1158,7 +1188,7 @@ function generatePDF(d,c){
     .season-box{background:rgba(200,164,90,.05);border:1px solid rgba(200,164,90,.15);border-radius:10px;padding:10px 12px}
     .season-lbl{font-size:10px;color:#C8A45A;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
     .season-val{font-size:12px;font-weight:500}
-    .avoid-box{background:rgba(139,48,64,.07);border:1px solid rgba(139,48,64,.2);border-radius:10px;padding:10px 12px}
+    .avoid-box{background:rgba(242,202,80,0.06);border-radius:10px;padding:10px 12px}
     .avoid-lbl{font-size:10px;color:#fca5a5;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
     .tag{display:inline-block;padding:3px 8px;border-radius:12px;font-size:10px;border:1px solid rgba(255,255,255,.08);color:#7A7590;margin:2px}
     .footer{margin-top:24px;padding-top:14px;border-top:1px solid rgba(200,164,90,.15);font-size:11px;color:#7A7590;display:flex;justify-content:space-between}
@@ -1330,6 +1360,7 @@ function showT(msg){const el=document.getElementById('toast');el.textContent=msg
 /* ── INIT ── */
 document.getElementById('bRange').addEventListener('input',e=>onB(e.target.value));
 renderTips();
+updateCmpBadge();
 </script>
 <script>if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});</script>
 </body>
