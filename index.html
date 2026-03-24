@@ -9,7 +9,6 @@
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#080810; --bg2:#0F0F1A; --bg3:#161624; --bg4:#1E1E30;
@@ -142,11 +141,11 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .dppp{font-size:.62rem;color:var(--muted);margin-top:1px}
 
 /* Cost breakdown cells — solid visible background */
-.bdown{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
-.bi{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:9px 11px;transition:border-color .2s}
-.bi:hover{border-color:rgba(200,164,90,.25)}
-.bil{font-size:.6rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px}
-.biv{font-family:var(--H);font-size:.95rem;font-weight:600;color:var(--silk)}
+.bdown{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.bi{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:11px 13px;transition:border-color .2s}
+.bi:hover{border-color:rgba(200,164,90,.3)}
+.bil{font-size:.62rem;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:500}
+.biv{font-family:var(--H);font-size:1.1rem;font-weight:600;color:var(--silk);line-height:1}
 
 /* Total bar — gold gradient confirms sum */
 .btotal{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,rgba(200,164,90,.18),rgba(226,192,122,.12));border:1px solid rgba(200,164,90,.35);border-radius:12px;padding:10px 14px;margin-bottom:12px}
@@ -189,6 +188,7 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .dab-sv{background:rgba(61,139,110,.08);border-color:rgba(61,139,110,.25);color:#86efac}
 .dab-sv.on{background:rgba(61,139,110,.2);border-color:rgba(134,239,172,.4)}
 .dab-cp{background:rgba(200,164,90,.06);border-color:rgba(200,164,90,.2);color:var(--gold2)}
+.dab-cp.cp-on{background:rgba(200,164,90,.22);border-color:var(--gold);color:var(--gold2);box-shadow:0 2px 10px rgba(200,164,90,.2)}
 .dab-sh{background:rgba(96,130,220,.06);border-color:rgba(96,130,220,.2);color:#93c5fd}
 .dab-expert{background:linear-gradient(135deg,rgba(200,164,90,.15),rgba(200,164,90,.08));border-color:rgba(200,164,90,.4);color:var(--gold2)}
 .dab-expert:hover{background:linear-gradient(135deg,rgba(200,164,90,.25),rgba(200,164,90,.15));border-color:var(--gold);box-shadow:0 3px 12px rgba(200,164,90,.25)}
@@ -946,26 +946,26 @@ function renderCard(d){
 
     <!-- Peak Season -->
     <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:8px;background:var(--surface-highest);border-radius:var(--r-lg);padding:9px 13px;flex:1;min-width:140px">
-        <span style="font-size:.95rem">🌤️</span>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:9px 13px;flex:1;min-width:130px">
+        <span style="font-size:.9rem">🌤️</span>
         <div>
-          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--primary);margin-bottom:2px;font-weight:700">Peak Season</div>
-          <div style="font-size:.78rem;font-weight:600;color:var(--on-surface)">${d.peak}</div>
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:3px;font-weight:600">Peak Season</div>
+          <div style="font-size:.8rem;font-weight:500;color:var(--silk)">${d.peak}</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:8px;background:var(--surface-highest);border-radius:var(--r-lg);padding:9px 13px;flex:1;min-width:140px">
-        <span style="font-size:.95rem">⚠️</span>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:9px 13px;flex:1;min-width:130px">
+        <span style="font-size:.9rem">⚠️</span>
         <div>
-          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--on-surface-dim);margin-bottom:2px;font-weight:700">Avoid</div>
-          <div style="font-size:.78rem;font-weight:600;color:var(--on-surface)">${d.avoid}</div>
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px;font-weight:600">Avoid</div>
+          <div style="font-size:.8rem;font-weight:500;color:var(--silk)">${d.avoid}</div>
         </div>
       </div>
     </div>
 
     <!-- Visa Info (international only) -->
-    ${d.visa?`<div class="visa-${d.visa.color==='#2D6A4F'?'free':d.visa.color==='#8B6914'?'voa':d.visa.color==='#7A3B00'?'evisa':'required'}">
-      <div class="visa-badge">${d.visa.badge}</div>
-      <div class="visa-detail">${d.visa.detail}</div>
+    ${d.visa?`<div style="display:inline-flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:7px 12px;margin-bottom:12px">
+      <span style="font-size:.82rem;font-weight:600;color:var(--silk)">${d.visa.badge}</span>
+      <span style="font-size:.7rem;color:var(--muted);font-weight:400">${d.visa.type}</span>
     </div>`:''}
 
     ${itinDays.length?`
@@ -996,7 +996,7 @@ function renderCard(d){
 
     <div class="dacts" style="flex-wrap:wrap">
       <button class="dab dab-sv ${sv?'on':''}" onclick="tSv('${d.id}',event)">${sv?'✓ Saved':'🔖 Save'}</button>
-      <button class="dab dab-cp" style="${cp?'background:var(--primary);color:var(--on-primary);box-shadow:0 2px 10px rgba(242,202,80,0.3)':''}" onclick="tCp('${d.id}',event)">⚖ ${cp?'Added ✓':'Compare'}</button>
+      <button class="dab dab-cp ${cp?'cp-on':''}" onclick="tCp('${d.id}',event)">⚖ ${cp?'Added ✓':'Compare'}</button>
       <button class="dab dab-sh" onclick="oSh('${d.id}',event)">↑ Share</button>
       <button class="dab dab-expert" style="flex:1 1 100%;margin-top:6px" onclick="expertHelp('${d.id}')">🟢 Get Expert Help</button>
     </div>
@@ -1036,7 +1036,7 @@ function tCp(id,e){
   if(b){
     const c=S.compare.some(x=>x.id===id);
     b.innerHTML=`⚖ ${c?'Added ✓':'Compare'}`;
-    b.style.cssText=c?'background:rgba(200,164,90,.2);border-color:var(--gold);color:var(--gold2);box-shadow:0 2px 10px rgba(200,164,90,.2)':'';
+    b.classList.toggle('cp-on',c);
   }
   updateCmpBadge();
 }
