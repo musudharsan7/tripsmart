@@ -115,7 +115,27 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .rhead{font-family:var(--H);font-size:1.2rem;font-weight:600}
 .rbadge{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,164,90,.28);padding:4px 11px;border-radius:20px}
 
-/* ── DESTINATION CARD ── */
+/* ── FILTERS ── */
+.filter-section{border-top:1px solid var(--border);margin-top:4px;padding-top:14px}
+.filter-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin-bottom:0;user-select:none}
+.filter-toggle-label{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);font-weight:600;display:flex;align-items:center;gap:7px}
+.filter-toggle-arrow{font-size:.75rem;color:var(--gold);transition:transform .3s}
+.filter-toggle-arrow.open{transform:rotate(180deg)}
+.filter-active-count{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);font-size:.58rem;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:4px}
+.filter-body{display:none;margin-top:14px;display:flex;flex-direction:column;gap:14px}
+.filter-body.open{display:flex}
+.filter-body{display:none}
+.dual-range-wrap{position:relative;height:36px;margin:8px 0 4px}
+.dual-range-track{position:absolute;top:50%;left:0;right:0;height:3px;background:var(--dim);border-radius:3px;transform:translateY(-50%)}
+.dual-range-fill{position:absolute;top:50%;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:3px;transform:translateY(-50%);pointer-events:none}
+.dual-range-wrap input[type=range]{position:absolute;width:100%;top:50%;transform:translateY(-50%);opacity:0;height:20px;cursor:pointer;margin:0;pointer-events:all}
+.dual-range-labels{display:flex;justify-content:space-between;font-size:.65rem;color:var(--silk);font-weight:500;margin-top:2px}
+.filter-chips{display:flex;flex-wrap:wrap;gap:6px}
+.fchip{padding:6px 13px;border-radius:50px;background:rgba(200,164,90,.06);border:1px solid rgba(200,164,90,.22);color:var(--silk);font-size:.72rem;font-weight:500;cursor:pointer;transition:all .2s;font-family:var(--B)}
+.fchip:hover{border-color:rgba(200,164,90,.5);color:var(--gold2)}
+.fchip.active{background:linear-gradient(135deg,rgba(200,164,90,.25),rgba(200,164,90,.14));border-color:var(--gold2);color:var(--gold2);font-weight:600}
+.filter-reset{font-size:.65rem;color:var(--muted);text-decoration:underline;cursor:pointer;text-underline-offset:3px;transition:color .2s;background:none;border:none;font-family:var(--B);padding:0}
+.filter-reset:hover{color:var(--gold2)}
 .dcard{margin:0 15px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.5);transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .3s}
 .dcard:hover{transform:translateY(-3px);border-color:rgba(200,164,90,.35);box-shadow:0 14px 40px rgba(0,0,0,.65)}
 .dcard.saved{border-color:rgba(200,164,90,.45)}
@@ -448,6 +468,76 @@ main{padding-bottom:70px}
         </select>
       </div>
 
+      <!-- ── FILTERS ── -->
+      <div class="filter-section">
+        <div class="filter-toggle" onclick="toggleFilters()">
+          <div class="filter-toggle-label">
+            🎯 Filters
+            <span class="filter-active-count" id="filterCount" style="display:none">0</span>
+          </div>
+          <div class="filter-toggle-arrow" id="filterArrow">▾</div>
+        </div>
+
+        <div class="filter-body" id="filterBody">
+
+          <!-- Budget Range -->
+          <div>
+            <div class="fl" style="margin-bottom:4px">Budget Range &nbsp;<span style="color:var(--silk);font-weight:600" id="budgetRangeLabel">Any</span></div>
+            <div class="dual-range-wrap" id="dualRangeWrap">
+              <div class="dual-range-track"></div>
+              <div class="dual-range-fill" id="dualFill"></div>
+              <input type="range" id="fMinB" min="0" max="100" value="0" oninput="onDualRange()">
+              <input type="range" id="fMaxB" min="0" max="100" value="100" oninput="onDualRange()">
+            </div>
+            <div class="dual-range-labels"><span id="fMinLbl">₹0</span><span id="fMaxLbl">Any</span></div>
+          </div>
+
+          <!-- Trip Tier -->
+          <div>
+            <div class="fl">Trip Tier</div>
+            <div class="filter-chips" id="tierChips">
+              <div class="fchip active" data-tier="all"    onclick="setFChip('tier',this)">✦ All</div>
+              <div class="fchip"        data-tier="budget" onclick="setFChip('tier',this)">🟢 Budget</div>
+              <div class="fchip"        data-tier="mid"    onclick="setFChip('tier',this)">🟡 Mid-Range</div>
+              <div class="fchip"        data-tier="luxury" onclick="setFChip('tier',this)">💎 Luxury</div>
+            </div>
+          </div>
+
+          <!-- Visa Type (international only) -->
+          <div id="visaFilterRow">
+            <div class="fl">Visa Type</div>
+            <div class="filter-chips" id="visaChips">
+              <div class="fchip active" data-visa="all"      onclick="setFChip('visa',this)">✦ All</div>
+              <div class="fchip"        data-visa="free"     onclick="setFChip('visa',this)">✅ Visa Free</div>
+              <div class="fchip"        data-visa="arrival"  onclick="setFChip('visa',this)">🟡 On Arrival</div>
+              <div class="fchip"        data-visa="required" onclick="setFChip('visa',this)">🔴 Visa Required</div>
+            </div>
+          </div>
+
+          <!-- Season -->
+          <div>
+            <div class="fl">Best Travel Month</div>
+            <div class="filter-chips" id="seasonChips">
+              <div class="fchip active" data-season="all" onclick="setFChip('season',this)">✦ Any</div>
+              <div class="fchip" data-season="Jan" onclick="setFChip('season',this)">Jan</div>
+              <div class="fchip" data-season="Feb" onclick="setFChip('season',this)">Feb</div>
+              <div class="fchip" data-season="Mar" onclick="setFChip('season',this)">Mar</div>
+              <div class="fchip" data-season="Apr" onclick="setFChip('season',this)">Apr</div>
+              <div class="fchip" data-season="May" onclick="setFChip('season',this)">May</div>
+              <div class="fchip" data-season="Jun" onclick="setFChip('season',this)">Jun</div>
+              <div class="fchip" data-season="Jul" onclick="setFChip('season',this)">Jul</div>
+              <div class="fchip" data-season="Aug" onclick="setFChip('season',this)">Aug</div>
+              <div class="fchip" data-season="Sep" onclick="setFChip('season',this)">Sep</div>
+              <div class="fchip" data-season="Oct" onclick="setFChip('season',this)">Oct</div>
+              <div class="fchip" data-season="Nov" onclick="setFChip('season',this)">Nov</div>
+              <div class="fchip" data-season="Dec" onclick="setFChip('season',this)">Dec</div>
+            </div>
+          </div>
+
+          <button class="filter-reset" onclick="resetFilters()">↺ Reset all filters</button>
+        </div>
+      </div>
+
       <button class="cta" onclick="findTrips()">Discover Destinations ✦</button>
     </div>
   </div>
@@ -557,7 +647,8 @@ const S={
   budget:25000, days:4, type:'solo', destType:'domestic',
   saved:   JSON.parse(localStorage.getItem('ts3_sv')||'[]'),
   compare: JSON.parse(localStorage.getItem('ts3_cp')||'[]'),
-  shareId: null
+  shareId: null,
+  filters:{ tier:'all', visa:'all', season:'all', minBudget:0, maxBudget:Infinity }
 };
 
 /* ═══════════════════════════════════════════════
@@ -1043,6 +1134,7 @@ function setDT(t){
   S.destType=t;
   document.getElementById('dtDom').classList.toggle('active',t==='domestic');
   document.getElementById('dtIntl').classList.toggle('active',t==='international');
+  updateVisaFilterVisibility();
   // Adjust budget range & labels
   if(t==='international'){
     document.getElementById('bRange').min=15000;
@@ -1109,16 +1201,118 @@ function calc(d){
 }
 
 /* ═══════════════════════════════════════════════
+   FILTERS
+═══════════════════════════════════════════════ */
+function toggleFilters(){
+  const body=document.getElementById('filterBody');
+  const arrow=document.getElementById('filterArrow');
+  const open=body.classList.toggle('open');
+  arrow.classList.toggle('open',open);
+}
+
+function setFChip(type, el){
+  const parent=el.parentElement;
+  parent.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  S.filters[type]=el.dataset[type];
+  updateFilterCount();
+}
+
+const BUDGET_STEPS=[0,5000,10000,15000,20000,30000,50000,75000,100000,150000,200000,300000,Infinity];
+function stepToVal(pct){ return BUDGET_STEPS[Math.round(pct/100*(BUDGET_STEPS.length-1))]; }
+function valLabel(v){ return v===Infinity?'Any':v>=100000?'₹'+(v/100000).toFixed(v%100000===0?0:1)+'L':'₹'+(v/1000)+'K'; }
+
+function onDualRange(){
+  let mn=+document.getElementById('fMinB').value;
+  let mx=+document.getElementById('fMaxB').value;
+  if(mn>mx-5){
+    if(document.activeElement===document.getElementById('fMinB')) mn=mx-5;
+    else mx=mn+5;
+    document.getElementById('fMinB').value=mn;
+    document.getElementById('fMaxB').value=mx;
+  }
+  const minV=stepToVal(mn), maxV=stepToVal(mx);
+  S.filters.minBudget=minV; S.filters.maxBudget=maxV;
+  document.getElementById('fMinLbl').textContent=valLabel(minV);
+  document.getElementById('fMaxLbl').textContent=valLabel(maxV);
+  document.getElementById('budgetRangeLabel').textContent=
+    (minV===0&&maxV===Infinity)?'Any':valLabel(minV)+' – '+valLabel(maxV);
+  // update fill bar
+  document.getElementById('dualFill').style.left=mn+'%';
+  document.getElementById('dualFill').style.width=(mx-mn)+'%';
+  updateFilterCount();
+}
+
+function updateFilterCount(){
+  let n=0;
+  if(S.filters.tier!=='all') n++;
+  if(S.filters.visa!=='all') n++;
+  if(S.filters.season!=='all') n++;
+  if(S.filters.minBudget!==0||S.filters.maxBudget!==Infinity) n++;
+  const el=document.getElementById('filterCount');
+  el.textContent=n; el.style.display=n?'inline':'none';
+}
+
+function resetFilters(){
+  S.filters={tier:'all',visa:'all',season:'all',minBudget:0,maxBudget:Infinity};
+  ['tierChips','visaChips','seasonChips'].forEach(id=>{
+    const chips=document.getElementById(id).querySelectorAll('.fchip');
+    chips.forEach(c=>c.classList.remove('active'));
+    chips[0].classList.add('active');
+  });
+  document.getElementById('fMinB').value=0;
+  document.getElementById('fMaxB').value=100;
+  document.getElementById('fMinLbl').textContent='₹0';
+  document.getElementById('fMaxLbl').textContent='Any';
+  document.getElementById('budgetRangeLabel').textContent='Any';
+  document.getElementById('dualFill').style.left='0%';
+  document.getElementById('dualFill').style.width='100%';
+  updateFilterCount();
+}
+
+// Show/hide visa filter for domestic (no visa needed)
+function updateVisaFilterVisibility(){
+  document.getElementById('visaFilterRow').style.display=
+    S.destType==='international'?'block':'none';
+}
+
+// Map peak season text to months for filtering
+function peakMonths(peak){
+  const MAP={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+  const months=[];
+  Object.keys(MAP).forEach(m=>{ if(peak.includes(m)) months.push(m); });
+  return months;
+}
+
+function visaCategory(d){
+  if(!d.visa) return 'free';
+  const t=d.visa.type.toLowerCase();
+  if(t.includes('free')) return 'free';
+  if(t.includes('arrival')||t.includes('eta')||t.includes('evisa')||t.includes('e-visa')) return 'arrival';
+  return 'required';
+}
+
+/* ═══════════════════════════════════════════════
    FIND TRIPS
 ═══════════════════════════════════════════════ */
 function findTrips(){
-  const filtered=DEST.filter(d=>d.type===S.destType);
-  const results=filtered
+  const f=S.filters;
+  const filtered=DEST
+    .filter(d=>d.type===S.destType)
     .map(d=>({...d,c:calc(d)}))
     .filter(d=>d.c.tot<=S.budget*1.2)
+    // budget range filter
+    .filter(d=> d.c.tot>=f.minBudget && (f.maxBudget===Infinity||d.c.tot<=f.maxBudget))
+    // tier filter
+    .filter(d=> f.tier==='all'||d.tier===f.tier)
+    // visa filter (only for international)
+    .filter(d=> S.destType==='domestic'||f.visa==='all'||visaCategory(d)===f.visa)
+    // season filter
+    .filter(d=> f.season==='all'||peakMonths(d.peak).includes(f.season))
     .sort((a,b)=>Math.abs(a.c.tot-S.budget*0.85)-Math.abs(b.c.tot-S.budget*0.85))
     .slice(0,9);
 
+  const results=filtered;
   const wrap=document.getElementById('resWrap');
   wrap.style.display='block';
   document.getElementById('rCnt').textContent=results.length+' destinations';
@@ -1635,6 +1829,8 @@ function showT(msg){const el=document.getElementById('toast');el.textContent=msg
 
 /* ── INIT ── */
 document.getElementById('bRange').addEventListener('input',e=>onB(e.target.value));
+updateVisaFilterVisibility();
+onDualRange();
 renderTips();
 updateCmpBadge();
 </script>
