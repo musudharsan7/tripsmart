@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
+  (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.src = 'https://tp-em.com/NTExNDU0.js?t=511454';
+      document.head.appendChild(script);
+  })();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -359,6 +367,41 @@ main{padding-bottom:70px}
 @media(min-width:1024px){
   .plan-layout.has-results{grid-template-columns:380px 1fr!important;gap:36px;padding:0 48px 48px!important}
 }
+/* ── FLIGHT DEALS ── */
+.fd-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.fd-row{display:flex;gap:12px;flex-wrap:wrap}
+.fd-field{display:flex;flex-direction:column;gap:6px;min-width:130px}
+.fd-label{font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);font-weight:600}
+.fd-months{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.fd-months::-webkit-scrollbar{display:none}
+.fd-month{flex-shrink:0;padding:8px 14px;border-radius:50px;background:rgba(200,164,90,.06);border:1px solid rgba(200,164,90,.22);color:var(--silk);font-size:.75rem;font-weight:500;cursor:pointer;transition:all .2s;text-align:center}
+.fd-month:hover{border-color:rgba(200,164,90,.5);color:var(--gold2)}
+.fd-month.active{background:linear-gradient(135deg,rgba(200,164,90,.28),rgba(200,164,90,.14));border-color:var(--gold2);color:var(--gold2);font-weight:600}
+.fd-month-price{font-size:.6rem;color:#86efac;display:block;margin-top:2px;font-weight:600}
+.fd-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+@media(min-width:768px){.fd-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1100px){.fd-grid{grid-template-columns:repeat(4,1fr)}}
+.fd-deal{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;position:relative}
+.fd-deal:hover{transform:translateY(-3px);border-color:rgba(200,164,90,.4);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.fd-deal-img{width:100%;height:110px;object-fit:cover;display:block;background:var(--bg3)}
+.fd-deal-img-fb{width:100%;height:110px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;background:linear-gradient(135deg,var(--bg3),var(--bg4))}
+.fd-deal-body{padding:11px 12px 8px}
+.fd-deal-name{font-family:var(--H);font-size:.95rem;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fd-deal-loc{font-size:.65rem;color:var(--muted);margin-bottom:8px}
+.fd-deal-price{font-family:var(--H);font-size:1.15rem;font-weight:700;color:var(--gold2)}
+.fd-deal-orig{font-size:.65rem;color:var(--muted);text-decoration:line-through;margin-left:5px}
+.fd-deal-save{font-size:.63rem;color:#86efac;font-weight:600;margin-top:2px}
+.fd-deal-date{font-size:.63rem;color:var(--muted);margin-top:4px}
+.fd-deal-badge{position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#1a3a1a,#2d6a4f);border:1px solid rgba(134,239,172,.3);color:#86efac;font-size:.58rem;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase}
+.fd-deal-intl{position:absolute;top:8px;right:8px;background:rgba(8,8,16,.8);border:1px solid var(--border);color:var(--gold);font-size:.58rem;padding:3px 8px;border-radius:20px}
+.fd-book-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:calc(100% - 24px);margin:8px 12px 12px;padding:9px;border-radius:10px;background:linear-gradient(135deg,#000e36,#05203c);border:1px solid rgba(0,112,255,.3);color:#60a5fa;font-size:.7rem;font-weight:500;cursor:pointer;text-decoration:none;font-family:var(--B);transition:all .2s}
+.fd-book-btn:hover{border-color:rgba(0,112,255,.6);box-shadow:0 3px 12px rgba(0,112,255,.2)}
+.fd-summary{background:linear-gradient(135deg,rgba(200,164,90,.07),rgba(200,164,90,.02));border:1px solid rgba(200,164,90,.18);border-radius:14px;padding:13px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.fd-summary-txt{font-size:.78rem;color:var(--silk)}
+.fd-summary-txt span{color:var(--gold2);font-weight:600}
+.fd-loading{text-align:center;padding:48px 20px;color:var(--muted);font-size:.85rem}
+.fd-spin{font-size:2rem;display:block;margin-bottom:10px;animation:fdspin 1.2s linear infinite}
+@keyframes fdspin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -386,6 +429,7 @@ main{padding-bottom:70px}
 
 <div class="tabs">
   <div class="tab active" id="tab-plan"    onclick="go('plan')">✦ Plan Trip</div>
+  <div class="tab"        id="tab-flights" onclick="go('flights')">✈ Flight Deals</div>
   <div class="tab"        id="tab-saved"   onclick="go('saved')">Saved</div>
   <div class="tab"        id="tab-compare" onclick="go('compare')">Compare <span class="tab-badge" id="cmpBadgeTab">0</span></div>
   <div class="tab"        id="tab-tips"    onclick="go('tips')">Travel Tips</div>
@@ -598,6 +642,51 @@ main{padding-bottom:70px}
   <div class="tipsw" id="tipsList"></div>
 </div>
 
+<!-- ══ FLIGHT DEALS ══ -->
+<div class="screen" id="screen-flights">
+  <div class="sech">✈ Flight Deals Explorer</div>
+  <div class="secs">Cheapest fares from your city — next 6 months</div>
+
+  <!-- Source selector -->
+  <div style="padding:0 15px 16px">
+    <div class="fd-card">
+      <div class="fd-row">
+        <div class="fd-field" style="flex:1">
+          <div class="fd-label">✈ From</div>
+          <select class="rsel" id="fdFrom" onchange="exploreFlights()">
+            <option>Chennai</option><option>Mumbai</option><option>Delhi</option>
+            <option>Bangalore</option><option>Hyderabad</option><option>Kolkata</option>
+            <option>Pune</option><option>Ahmedabad</option><option>Kochi</option>
+          </select>
+        </div>
+        <div class="fd-field" style="flex:1">
+          <div class="fd-label">🗂 Trip Type</div>
+          <select class="rsel" id="fdType" onchange="exploreFlights()">
+            <option value="all">All Destinations</option>
+            <option value="domestic">Domestic Only</option>
+            <option value="international">International Only</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Month strip -->
+      <div class="fd-label" style="margin-top:14px;margin-bottom:8px">📅 Travel Month</div>
+      <div class="fd-months" id="fdMonths"></div>
+
+      <!-- Class selector -->
+      <div class="fd-label" style="margin-top:14px;margin-bottom:8px">💺 Cabin Class</div>
+      <div class="filter-chips" id="fdClass">
+        <div class="fchip active" data-class="economy"  onclick="setFdClass(this)">Economy</div>
+        <div class="fchip"        data-class="premium"  onclick="setFdClass(this)">Premium Economy</div>
+        <div class="fchip"        data-class="business" onclick="setFdClass(this)">Business</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="fdResults" style="padding:0 15px 24px"></div>
+</div>
+
 </main>
 
 <!-- Share Modal -->
@@ -630,6 +719,7 @@ main{padding-bottom:70px}
 
 <nav class="bnav">
   <div class="bni active" id="nav-plan"    onclick="go('plan')"><div class="bnic">🗺️</div><span>Plan</span></div>
+  <div class="bni"        id="nav-flights" onclick="go('flights')"><div class="bnic">✈️</div><span>Flights</span></div>
   <div class="bni"        id="nav-saved"   onclick="go('saved')"><div class="bnic">🔖</div><span>Saved</span></div>
   <div class="bni"        id="nav-compare" onclick="go('compare')">
     <div class="bnic">⚖️</div>
@@ -1747,6 +1837,7 @@ function go(name){
   if(name==='saved')renderSv();
   if(name==='compare')renderCmp();
   if(name==='tips')renderTips();
+  if(name==='flights')initFlightDeals();
 }
 
 /* ═══════════════════════════════════════════════
@@ -1827,12 +1918,141 @@ function renderTips(){
 ═══════════════════════════════════════════════ */
 function showT(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2400);}
 
+/* ═══════════════════════════════════════════════
+   FLIGHT DEALS EXPLORER
+═══════════════════════════════════════════════ */
+const CITY_IATA={Chennai:'MAA',Mumbai:'BOM',Delhi:'DEL',Bangalore:'BLR',Hyderabad:'HYD',Kolkata:'CCU',Pune:'PNQ',Ahmedabad:'AMD',Kochi:'COK'};
+const DEST_IATA={goa:'GOI',manali:'KUU',ooty:'CJB',alleppey:'COK',jaipur:'JAI',andaman:'IXZ',pondi:'MAA',leh:'IXL',bali:'DPS',bangkok:'BKK',dubai:'DXB',vietnam:'HAN',singapore:'SIN',maldives:'MLE',paris:'CDG',srilanka:'CMB',nepal:'KTM',malaysia:'KUL',japan:'NRT',turkey:'IST',greece:'ATH',mauritius:'MRU'};
+
+// Seasonal fare multipliers per month (1=base, <1=cheap, >1=expensive)
+const MONTH_MULT=[1.15,1.0,1.05,0.9,0.85,1.1,1.2,1.15,0.9,1.0,1.25,1.3];
+// Month names for next 6 months
+const MONTH_NAMES=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+let FD={from:'Chennai',type:'all',month:null,cabinClass:'economy',selectedMonth:null};
+
+// Cabin multipliers
+const CABIN_MULT={economy:1,premium:1.6,business:2.8};
+
+function initFlightDeals(){
+  // Build month strip for next 6 months
+  const now=new Date();
+  const strip=document.getElementById('fdMonths');
+  strip.innerHTML='';
+  for(let i=0;i<6;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()+i,1);
+    const mIdx=d.getMonth();
+    const mName=MONTH_NAMES[mIdx];
+    const yr=d.getFullYear();
+    const mult=MONTH_MULT[mIdx];
+    const cheap=mult<1.0;
+    const div=document.createElement('div');
+    div.className='fd-month'+(i===0?' active':'')+(cheap?' cheap':'');
+    div.dataset.month=mIdx;
+    div.dataset.year=yr;
+    div.innerHTML=`${mName} '${String(yr).slice(2)}<span class="fd-month-price">${cheap?'🟢 Low':''}${!cheap&&mult>=1.2?'🔴 Peak':''}</span>`;
+    div.onclick=function(){
+      document.querySelectorAll('.fd-month').forEach(m=>m.classList.remove('active'));
+      this.classList.add('active');
+      FD.month=+this.dataset.month;
+      FD.year=+this.dataset.year;
+      exploreFlights();
+    };
+    strip.appendChild(div);
+  }
+  // Set default month
+  FD.month=now.getMonth();
+  FD.year=now.getFullYear();
+  exploreFlights();
+}
+
+function setFdClass(el){
+  document.querySelectorAll('#fdClass .fchip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  FD.cabinClass=el.dataset.class;
+  exploreFlights();
+}
+
+function fdFare(dest,fromCity,mIdx,cabinClass){
+  const cityAdj={Mumbai:0.82,Delhi:0.80,Bangalore:0.88,Chennai:1,Hyderabad:0.92,Kolkata:1.08,Pune:0.95,Ahmedabad:0.90,Kochi:0.93}[fromCity]||1;
+  const baseFare=dest.base.f*cityAdj*2; // round trip
+  const seasonal=MONTH_MULT[mIdx];
+  const cabin=CABIN_MULT[cabinClass]||1;
+  const fare=Math.round(baseFare*seasonal*cabin);
+  // "normal" price = peak month price for comparison
+  const normal=Math.round(baseFare*1.25*cabin);
+  const saving=Math.max(0,normal-fare);
+  const pct=Math.round((saving/normal)*100);
+  return{fare,normal,saving,pct,cheap:seasonal<1.05};
+}
+
+function exploreFlights(){
+  FD.from=document.getElementById('fdFrom').value;
+  FD.type=document.getElementById('fdType').value;
+  const el=document.getElementById('fdResults');
+  el.innerHTML=`<div class="fd-loading"><span class="fd-spin">✈️</span>Finding best deals…</div>`;
+
+  setTimeout(()=>{
+    const mIdx=FD.month??new Date().getMonth();
+    const yr=FD.year??new Date().getFullYear();
+    const mName=MONTH_NAMES[mIdx];
+    const fromCode=CITY_IATA[FD.from]||'MAA';
+
+    let deals=DEST
+      .filter(d=>FD.type==='all'||d.type===FD.type)
+      .filter(d=>DEST_IATA[d.id]) // must have IATA
+      .map(d=>{
+        const f=fdFare(d,FD.from,mIdx,FD.cabinClass);
+        return{...d,...f};
+      })
+      .sort((a,b)=>a.fare-b.fare);
+
+    const cheapCount=deals.filter(d=>d.cheap).length;
+    const cheapest=deals[0];
+
+    el.innerHTML=`
+      <div class="fd-summary">
+        <div class="fd-summary-txt">
+          <span>${deals.length} destinations</span> from <span>${FD.from}</span> in <span>${mName} '${String(yr).slice(2)}</span>
+          · <span>${cheapCount} low-fare</span> routes
+        </div>
+        <div style="font-size:.72rem;color:var(--muted)">Cheapest from <span style="color:var(--gold2);font-weight:600">₹${cheapest?.fare.toLocaleString('en-IN')}</span></div>
+      </div>
+      <div class="fd-grid">
+        ${deals.map(d=>{
+          const toCode=DEST_IATA[d.id]||'';
+          const skyUrl=`https://www.skyscanner.co.in/transport/flights/${fromCode.toLowerCase()}/${toCode.toLowerCase()}/?adults=1&cabinclass=${FD.cabinClass}&rtn=1`;
+          const isIntl=d.type==='international';
+          const saveTag=d.pct>=10?`<div class="fd-deal-save">Save ${d.pct}% vs peak</div>`:'';
+          return`<div class="fd-deal">
+            ${d.pct>=15?'<div class="fd-deal-badge">🔥 Hot Deal</div>':''}
+            ${isIntl?`<div class="fd-deal-intl">🌏 ${d.country}</div>`:''}
+            <img class="fd-deal-img" src="${d.photo}" alt="${d.name}" loading="lazy"
+              onerror="this.outerHTML='<div class=fd-deal-img-fb>${d.emoji}</div>'">
+            <div class="fd-deal-body">
+              <div class="fd-deal-name">${d.emoji} ${d.name}</div>
+              <div class="fd-deal-loc">📍 ${d.state}</div>
+              <div>
+                <span class="fd-deal-price">₹${d.fare.toLocaleString('en-IN')}</span>
+                ${d.pct>=5?`<span class="fd-deal-orig">₹${d.normal.toLocaleString('en-IN')}</span>`:''}
+              </div>
+              ${saveTag}
+              <div class="fd-deal-date">✈ Round-trip · ${mName} · ${FD.cabinClass}</div>
+            </div>
+            <a class="fd-book-btn" href="${skyUrl}" target="_blank">✈ Search on Skyscanner →</a>
+          </div>`;
+        }).join('')}
+      </div>`;
+  },400);
+}
+
 /* ── INIT ── */
 document.getElementById('bRange').addEventListener('input',e=>onB(e.target.value));
 updateVisaFilterVisibility();
 onDualRange();
 renderTips();
 updateCmpBadge();
+initFlightDeals();
 </script>
 <script>if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});</script>
 </body>
