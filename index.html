@@ -1530,6 +1530,12 @@ function go(name){
   document.getElementById('screen-'+name).classList.add('active');
   document.getElementById('tab-'+name)?.classList.add('active');
   document.getElementById('nav-'+name)?.classList.add('active');
+  // Hide compare island when on compare page
+  const island=document.getElementById('cmpIsland');
+  if(island){
+    if(name==='compare') island.style.display='none';
+    else { island.style.display=''; updateCmpBadge(); }
+  }
   // Reset layout when returning to plan with no results shown
   if(name==='plan'){
     const resWrap=document.getElementById('resWrap');
