@@ -275,6 +275,8 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .cmp-island-names{font-family:var(--H);font-size:.88rem;font-weight:600;color:var(--gold2)}
 .cmp-island-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);border:none;border-radius:30px;padding:9px 18px;font-size:.75rem;font-weight:700;font-family:var(--B);letter-spacing:.06em;cursor:pointer;transition:box-shadow .2s}
 .cmp-island-btn:hover{box-shadow:0 4px 16px rgba(200,164,90,.5)}
+.cmp-island-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:var(--muted);font-size:.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;margin-left:2px}
+.cmp-island-close:hover{background:rgba(255,80,80,.18);border-color:rgba(255,80,80,.35);color:#fca5a5}
 .toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%) translateY(16px);background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);padding:9px 20px;border-radius:50px;font-size:.76rem;font-weight:600;letter-spacing:.04em;opacity:0;transition:all .3s cubic-bezier(.22,1,.36,1);z-index:300;white-space:nowrap;box-shadow:0 4px 18px rgba(200,164,90,.42)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:767px){.cmp-island{display:none!important}}
@@ -531,6 +533,7 @@ main{padding-bottom:70px}
     <div class="cmp-island-names" id="cmpIslandNames">—</div>
   </div>
   <button class="cmp-island-btn" onclick="go('compare')">Compare Now →</button>
+  <button class="cmp-island-close" onclick="closeCmpIsland(event)" title="Dismiss">✕</button>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -1291,6 +1294,10 @@ function tCp(id,e){
   updateCmpBadge();
 }
 
+function closeCmpIsland(e){
+  e.stopPropagation();
+  document.getElementById('cmpIsland').classList.remove('visible');
+}
 /* ── UPDATE COMPARE BADGE ── */
 function updateCmpBadge(){
   const n=S.compare.length;
