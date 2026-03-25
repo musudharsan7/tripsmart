@@ -1936,21 +1936,26 @@ const CABIN_MULT={economy:1,premium:1.6,business:2.8};
 let FD={from:'Chennai',type:'all',month:null,year:null,cabinClass:'economy'};
 let FD_CACHE={}; // cache: "MAA-2025-06" → {GOI:{price,airline}, ...}
 
-/* ── Fetch matrix from Travelpayouts via Worker ── */
+/* ── Fetch prices for ALL destinations in parallel via /multi ── */
 async function fetchTPMatrix(fromCode, yearMonth){
   const cacheKey=`${fromCode}-${yearMonth}`;
   if(FD_CACHE[cacheKey]) return FD_CACHE[cacheKey];
-
-  // If no worker deployed yet, return null (will use fallback)
   if(!PROXY_BASE) return null;
 
+  // Collect all IATA codes we need
+  const destinations = DEST
+    .filter(d => DEST_IATA[d.id])
+    .map(d => DEST_IATA[d.id])
+    .filter((v,i,a) => a.indexOf(v)===i) // dedupe
+    .join(',');
+
   try{
-    const url=`${PROXY_BASE}/month-matrix?origin=${fromCode}&depart_date=${yearMonth}&currency=inr`;
-    const res=await fetch(url,{signal:AbortSignal.timeout(6000)});
+    const url=`${PROXY_BASE}/multi?origin=${fromCode}&destinations=${destinations}&depart_date=${yearMonth}&currency=inr`;
+    const res=await fetch(url,{signal:AbortSignal.timeout(10000)});
     if(!res.ok) return null;
     const json=await res.json();
-    // API returns: { "success": true, "data": { "GOI": { "0": { price, airline, ... } } } }
-    const matrix=json.data||{};
+    // json.data = { "GOI": { price, airline, found }, "BKK": { found: false }, ... }
+    const matrix = json.data || {};
     FD_CACHE[cacheKey]=matrix;
     return matrix;
   }catch(e){
@@ -2023,7 +2028,7 @@ async function exploreFlights(){
     .map(d=>{
       const toCode=DEST_IATA[d.id];
       // Check if live data exists for this route
-      const liveEntry=matrix&&matrix[toCode]&&(matrix[toCode]['0']||Object.values(matrix[toCode])[0]);
+      const liveEntry = matrix && matrix[toCode] && matrix[toCode].found ? matrix[toCode] : null;
       let fare,normal,saving,pct,live=false,airline='';
       if(liveEntry&&liveEntry.price){
         // Apply cabin multiplier on top of live economy price
