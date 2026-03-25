@@ -70,7 +70,7 @@ main{position:relative;z-index:2}
 .dt-btn{flex:1;padding:9px 12px;border-radius:50px;font-size:.75rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .25s;text-align:center;border:none;background:transparent;font-family:var(--B)}
 .dt-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);box-shadow:0 2px 12px rgba(200,164,90,.35)}
 
-.fl{font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:9px;font-weight:500}
+.fl{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);margin-bottom:9px;font-weight:600}
 .ba{font-family:var(--H);font-size:1.9rem;font-weight:600;color:var(--gold2);margin-bottom:12px;line-height:1}
 .ba span{font-size:.95rem;font-weight:300;color:var(--gold)}
 .ba small{font-size:.75rem;color:var(--muted);font-family:var(--B);font-weight:300;margin-left:4px}
@@ -78,21 +78,21 @@ main{position:relative;z-index:2}
 .trk{position:relative;height:2px;background:var(--dim);border-radius:2px;margin-bottom:6px}
 .tf{position:absolute;left:0;top:0;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .07s}
 input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height:24px;cursor:pointer}
-.tlbls{display:flex;justify-content:space-between;font-size:.63rem;color:var(--muted);margin-top:5px}
+.tlbls{display:flex;justify-content:space-between;font-size:.63rem;color:var(--silk);margin-top:5px;font-weight:500}
 
 .pills{display:flex;flex-wrap:wrap;gap:7px}
-.pill{padding:7px 14px;border-radius:50px;background:rgba(200,164,90,.04);border:1px solid rgba(200,164,90,.12);color:var(--muted);font-size:.73rem;cursor:pointer;transition:all .2s;font-family:var(--B)}
-.pill:hover{border-color:rgba(200,164,90,.3);color:var(--silk)}
-.pill.active{background:rgba(200,164,90,.12);border-color:var(--gold);color:var(--gold2)}
+.pill{padding:8px 16px;border-radius:50px;background:rgba(200,164,90,.08);border:1px solid rgba(200,164,90,.30);color:var(--silk);font-size:.78rem;font-weight:500;cursor:pointer;transition:all .2s;font-family:var(--B)}
+.pill:hover{border-color:rgba(200,164,90,.6);color:var(--gold2);background:rgba(200,164,90,.14)}
+.pill.active{background:linear-gradient(135deg,rgba(200,164,90,.28),rgba(200,164,90,.18));border-color:var(--gold2);color:var(--gold2);font-weight:600;box-shadow:0 2px 10px rgba(200,164,90,.2)}
 
 .rsel{width:100%;padding:11px 34px 11px 14px;background:rgba(200,164,90,.04);border:1px solid rgba(200,164,90,.15);border-radius:12px;color:var(--silk);font-size:.8rem;font-family:var(--B);font-weight:300;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23C8A45A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
 .rsel option{background:var(--bg2)}
 
 .days-ctrl{display:flex;align-items:center;gap:12px}
 .days-num{font-family:var(--H);font-size:1.6rem;font-weight:600;color:var(--gold2);min-width:36px;text-align:center}
-.days-pm{width:34px;height:34px;border-radius:50%;border:1px solid rgba(200,164,90,.3);background:rgba(200,164,90,.07);color:var(--gold2);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:var(--B)}
-.days-pm:hover{background:rgba(200,164,90,.18);border-color:var(--gold)}
-.days-label{font-size:.75rem;color:var(--muted)}
+.days-pm{width:34px;height:34px;border-radius:50%;border:1px solid rgba(200,164,90,.5);background:rgba(200,164,90,.12);color:var(--gold2);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:var(--B)}
+.days-pm:hover{background:rgba(200,164,90,.28);border-color:var(--gold)}
+.days-label{font-size:.78rem;color:var(--silk);font-weight:500}
 
 .cta{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:14px;color:var(--bg);font-family:var(--H);font-size:1rem;font-weight:600;letter-spacing:.07em;cursor:pointer;transition:all .3s;box-shadow:0 4px 22px rgba(200,164,90,.32);position:relative;overflow:hidden}
 .cta::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .3s}
@@ -152,9 +152,9 @@ input[type=range]{position:absolute;top:-11px;left:0;width:100%;opacity:0;height
 .btotal-lbl{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500}
 .btotal-val{font-family:var(--H);font-size:1.1rem;font-weight:700;color:var(--gold2)}
 
-.dtags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
-.dtag{font-size:.63rem;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);color:var(--muted)}
-.ddesc{font-size:.77rem;color:var(--muted);line-height:1.6;margin-bottom:12px;font-style:italic}
+.dtags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.dtag{font-size:.68rem;padding:5px 12px;border-radius:20px;background:rgba(200,164,90,.10);border:1px solid rgba(200,164,90,.28);color:var(--gold3);font-weight:500;letter-spacing:.02em}
+.ddesc{font-size:.8rem;color:var(--silk);line-height:1.65;margin-bottom:12px;font-style:italic;opacity:.85}
 
 /* Itinerary */
 .itin-toggle{display:flex;align-items:center;gap:7px;cursor:pointer;margin-bottom:10px;padding:9px 12px;background:rgba(200,164,90,.05);border:1px solid rgba(200,164,90,.1);border-radius:10px;transition:background .2s}
@@ -523,105 +523,147 @@ const DEST=[
     id:'goa', name:'Goa', country:'India', state:'Goa', emoji:'🏖️', type:'domestic', tier:'mid',
     photo:'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&q=80',
     tags:['Beach','Nightlife','Water Sports','Seafood','Portuguese Heritage'],
-    base:{f:4500,h:1800,fo:700,a:500},
+    base:{f:3500,h:3500,fo:1200,a:800},
     peak:'Nov – Feb', avoid:'Jun – Sep (monsoon)',
     desc:'India\'s beach capital — white sands, beach shacks and electric sunsets.',
     itinerary:[
       {title:'Arrival & North Goa Beaches',acts:'Land at Dabolim → check in → Baga & Calangute Beach → beach shack dinner'},
       {title:'Water Sports & Forts',acts:'Parasailing at Candolim → Aguada Fort → Vagator sunset → night market at Anjuna'},
       {title:'Old Goa & South Beaches',acts:'Se Cathedral & Basilica of Bom Jesus → Colva Beach → Palolem sunset walk'},
-      {title:'Cruise & Departure',acts:'Mandovi river cruise → Panaji market → seafood lunch → airport'}
+      {title:'Cruise & River',acts:'Mandovi river cruise → Panaji market → seafood lunch → Latin Quarter walk'},
+      {title:'Dudhsagar Waterfalls',acts:'Jeep safari to Dudhsagar Falls → spice plantation lunch → kayaking on Sal River'},
+      {title:'Scuba Diving Day',acts:'Scuba dive at Grande Island → underwater coral reefs → Grand Island snorkeling'},
+      {title:'South Goa Tranquility',acts:'Agonda & Butterfly Beach boat → Cabo de Rama Fort → Goan fish curry village lunch'},
+      {title:'Cashew & Wine Trail',acts:'Cashew feni distillery → Salcete village churches trail → traditional Goan sweet market'},
+      {title:'Chapora Fort & Cafés',acts:'Chapora Fort viewpoint → Vagator cliffs → Curlies beach shack → bonfire night'},
+      {title:'Sunrise Beach & Departure',acts:'Sunrise at Morjim (turtle nesting beach) → yoga session → airport departure'}
     ]
   },
   {
     id:'manali', name:'Manali', country:'India', state:'Himachal Pradesh', emoji:'🏔️', type:'domestic', tier:'budget',
     photo:'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&q=80',
     tags:['Mountains','Snow','Trekking','Adventure','Cafés'],
-    base:{f:5500,h:1200,fo:500,a:600},
+    base:{f:5500,h:2500,fo:900,a:700},
     peak:'Mar – Jun & Oct – Nov', avoid:'Jan – Feb (heavy snow)',
     desc:'Snow-capped peaks, Rohtang Pass and cosy riverside cafés.',
     itinerary:[
       {title:'Arrival & Old Manali',acts:'Arrive Bhuntar airport → drive to Manali → Old Manali cafés → Hidimba Temple'},
       {title:'Rohtang Pass',acts:'Early drive to Rohtang Pass (3978m) → snow play → Solang Valley paragliding'},
       {title:'Kullu & Manikaran',acts:'Kullu Valley drive → Manikaran hot springs → local market shopping'},
-      {title:'Beas River & Departure',acts:'River rafting on Beas → Naggar Castle → departure'}
+      {title:'Beas River & Naggar',acts:'River rafting on Beas → Naggar Castle → Nicholas Roerich Art Gallery'},
+      {title:'Spiti Valley Entry',acts:'Drive towards Spiti via Kunzum Pass → Key Monastery perched on cliff'},
+      {title:'Kaza & Kibber Village',acts:'Kaza market → Kibber village (one of world\'s highest motorable villages) → stargazing'},
+      {title:'Pin Valley',acts:'Pin Valley National Park → snow leopard territory → Mud village homestay'},
+      {title:'Chandratal Lake',acts:'Chandratal "Moon Lake" at 4300m → camping under the Milky Way → mountain sunrise'},
+      {title:'Hampta Pass Trek',acts:'Hampta Pass crossing (4270m) → Lahaul Valley views → shepherd trail descent'},
+      {title:'Manali Market & Departure',acts:'Tibetan market for woollens and trinkets → café breakfast → Bhuntar airport departure'}
     ]
   },
   {
     id:'ooty', name:'Ooty', country:'India', state:'Tamil Nadu', emoji:'🌿', type:'domestic', tier:'budget',
     photo:'https://images.unsplash.com/photo-1583314965950-cd453a564428?w=600&q=80',
     tags:['Nilgiris','Tea Gardens','Toy Train','Botanical Garden'],
-    base:{f:0,h:900,fo:400,a:300},
+    base:{f:2200,h:1800,fo:700,a:400},
     peak:'Apr – Jun & Sep – Nov', avoid:'Jul – Aug (heavy rain)',
     desc:'Queen of Hills — toy train, tea estates and cool mountain breeze.',
     itinerary:[
       {title:'Arrival & Botanical Garden',acts:'Arrive Coimbatore → drive to Ooty → Government Rose Garden → Botanical Garden'},
       {title:'Toy Train & Tea',acts:'UNESCO Nilgiri Mountain Railway → Doddabetta Peak → tea factory tour & tasting'},
       {title:'Ooty Lake & Markets',acts:'Boating at Ooty Lake → Tribal Research Centre → Charing Cross shopping'},
-      {title:'Emerald Lake & Return',acts:'Emerald Lake sunrise → Pine Forest walk → drive back to Coimbatore'}
+      {title:'Emerald Lake & Pine Forest',acts:'Emerald Lake sunrise → Pine Forest walk → Avalanche Lake picnic'},
+      {title:'Mudumalai Wildlife Sanctuary',acts:'Jeep safari at Mudumalai → elephant sighting → tribal village visit'},
+      {title:'Kodanad Elephant Camp',acts:'Kodanad elephant training centre → Mettupalayam waterfalls → spice garden'},
+      {title:'Coonoor Day Trip',acts:'Coonoor tea estate walk → Lamb\'s Rock viewpoint → Sim\'s Park flowers → Highfield Tea'},
+      {title:'Pykara Lake & Falls',acts:'Pykara Lake boat ride → Pykara Falls → Upper Bhavani Lake → sunset trek'},
+      {title:'Kotagiri Village',acts:'Drive to Kotagiri → Kodanad viewpoint (360° Nilgiris) → Catherine Falls hike'},
+      {title:'Market Walk & Return',acts:'Ooty market for homemade chocolates & essential oils → drive back to Coimbatore'}
     ]
   },
   {
     id:'alleppey', name:'Alleppey', country:'India', state:'Kerala', emoji:'🛶', type:'domestic', tier:'mid',
     photo:'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=80',
     tags:['Backwaters','Houseboat','Ayurveda','Seafood'],
-    base:{f:3000,h:2500,fo:600,a:800},
+    base:{f:2800,h:4500,fo:1000,a:900},
     peak:'Nov – Feb', avoid:'Jun – Aug (monsoon)',
     desc:'Glide through emerald backwaters on a traditional rice-boat houseboat.',
     itinerary:[
       {title:'Arrival & Houseboat Check-in',acts:'Fly to Kochi → drive to Alleppey → overnight houseboat boarding → sunset cruise'},
       {title:'Backwater Village Life',acts:'Morning village walk → watch fishermen → toddy shop lunch → canoe ride'},
       {title:'Marari Beach',acts:'Marari Beach sunrise → Ayurvedic massage → fresh catch seafood dinner'},
-      {title:'Kochi Exploration',acts:'Drive to Kochi → Fort Kochi walk → Chinese fishing nets → Kathakali show'}
+      {title:'Kochi Exploration',acts:'Drive to Kochi → Fort Kochi walk → Chinese fishing nets → Kathakali show'},
+      {title:'Mattancherry & Spice Market',acts:'Jew Town antiques → Mattancherry Dutch Palace → Kochi spice market → sunset harbour'},
+      {title:'Munnar Tea Hills',acts:'Drive to Munnar → tea estate walk → Eravikulam National Park Nilgiri tahr'},
+      {title:'Munnar Waterfalls',acts:'Attukal & Lakkam waterfalls → Echo Point → Top Station viewpoint (Tamil Nadu border)'},
+      {title:'Periyar Tiger Reserve',acts:'Thekkady Periyar Lake boat safari → spice plantation tour → bamboo rafting'},
+      {title:'Kumarakom Bird Sanctuary',acts:'Early morning bird watching → Vembanad Lake sunset houseboat → toddy & fish curry'},
+      {title:'Thrissur & Departure',acts:'Thrissur Pooram temple festival ground → Vadakkunnathan Temple → Kochi airport'}
     ]
   },
   {
     id:'jaipur', name:'Jaipur', country:'India', state:'Rajasthan', emoji:'🏰', type:'domestic', tier:'mid',
     photo:'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&q=80',
     tags:['Heritage','Amber Fort','Culture','Shopping','Cuisine'],
-    base:{f:4000,h:1500,fo:500,a:700},
+    base:{f:4500,h:2800,fo:900,a:700},
     peak:'Oct – Mar', avoid:'Apr – Jun (extreme heat 45°C+)',
     desc:'The Pink City — Amber Fort, royal palaces and vibrant bazaars.',
     itinerary:[
       {title:'Amber & Jaigarh Forts',acts:'Elephant ride to Amber Fort → Jaigarh Fort cannon → City Palace & Jantar Mantar'},
       {title:'Pink City Walk',acts:'Hawa Mahal sunrise photo → Johri Bazaar gems → Albert Hall Museum → rooftop dinner'},
       {title:'Nahargarh & Crafts',acts:'Nahargarh Fort sunset → block printing workshop → blue pottery → Bapu Bazaar'},
-      {title:'Bagru & Departure',acts:'Bagru village textile tour → camel ride → Pink City brunch → departure'}
+      {title:'Bagru & Villages',acts:'Bagru village textile tour → camel ride → Pink City brunch → stepwell Panna Meena'},
+      {title:'Pushkar Day Trip',acts:'Drive to Pushkar → sacred lake → Brahma Temple (only one in world) → camel fair ground'},
+      {title:'Jodhpur — Blue City',acts:'Drive to Jodhpur → Mehrangarh Fort → Jaswant Thada marble cenotaph → blue streets'},
+      {title:'Jodhpur Bazaars',acts:'Sardar Market spices → Umaid Bhawan Palace museum → desert tented camp dinner'},
+      {title:'Jaisalmer — Desert City',acts:'Drive to Jaisalmer → golden sandstone fort → Patwon ki Haveli mansions'},
+      {title:'Thar Desert Safari',acts:'Camel safari into Thar Desert → Sam sand dunes → bonfire → folk music under stars'},
+      {title:'Return to Jaipur & Departure',acts:'Drive back → Ranthambore tiger reserve stop → Jaipur airport departure'}
     ]
   },
   {
     id:'andaman', name:'Andaman', country:'India', state:'A&N Islands', emoji:'🐠', type:'domestic', tier:'luxury',
     photo:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80',
     tags:['Beach','Scuba Diving','Snorkeling','Bioluminescence'],
-    base:{f:12000,h:3000,fo:800,a:1500},
+    base:{f:6500,h:6000,fo:1500,a:2000},
     peak:'Nov – May', avoid:'Jun – Sep (cyclone season)',
     desc:'Turquoise paradise — pristine coral reefs and secret jungle coves.',
     itinerary:[
       {title:'Port Blair & Cellular Jail',acts:'Fly to Port Blair → Cellular Jail light & sound show → seafood dinner'},
       {title:'Havelock Island',acts:'Ferry to Havelock → Radhanagar Beach (Asia\'s best) → kayaking at sunset'},
       {title:'Elephant Beach Snorkeling',acts:'Elephant Beach snorkeling → glass-bottom boat → night bioluminescence tour'},
-      {title:'Neil Island & Return',acts:'Ferry to Neil → Laxmanpur Beach → Natural Bridge → fly back from Port Blair'}
+      {title:'Neil Island',acts:'Ferry to Neil → Laxmanpur Beach → Natural Bridge → coral reef snorkeling'},
+      {title:'Scuba Diving Certification',acts:'PADI open water scuba course day 1 → underwater world of Andaman → fish identification'},
+      {title:'Scuba Diving Day 2',acts:'PADI open water scuba day 2 → dive at Mac Point → colourful coral garden at 15m depth'},
+      {title:'North Bay & Ross Island',acts:'Snorkeling at North Bay → Ross Island (abandoned British capital) → deer & peacock sighting'},
+      {title:'Baratang Island',acts:'Speed boat through mangrove creek → limestone caves → mud volcano → parrot island bird show'},
+      {title:'Diglipur — North Andaman',acts:'Turtle nesting beach at Kalipur → Saddle Peak trek (highest point in Andamans, 732m)'},
+      {title:'Last Beach Day & Departure',acts:'Corbyn\'s Cove Beach sunrise → local Andamani food market → Port Blair airport departure'}
     ]
   },
   {
     id:'pondi', name:'Pondicherry', country:'India', state:'Puducherry', emoji:'🇫🇷', type:'domestic', tier:'budget',
     photo:'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600&q=80',
     tags:['French Quarter','Promenade','Cafés','Auroville','Yoga'],
-    base:{f:0,h:1000,fo:450,a:300},
+    base:{f:800,h:2000,fo:800,a:400},
     peak:'Oct – Mar', avoid:'Oct – Dec (NE monsoon)',
     desc:'French colonial promenade, sunrise walks and Auroville peace.',
     itinerary:[
       {title:'White Town & French Quarter',acts:'Sunrise promenade walk → Sacré-Coeur church → French café breakfast → Alliance Française'},
       {title:'Auroville',acts:'Matri Mandir meditation → Auroville village → handicraft shopping → beach sunset'},
       {title:'Tamil Quarter & Temples',acts:'Manakula Vinayagar Temple → Botanical Garden → Paradise Beach boat ride'},
-      {title:'Serenity Beach & Return',acts:'Serenity Beach yoga → fresh juice breakfast → Aurobindo Ashram → departure'}
+      {title:'Serenity Beach & Yoga',acts:'Serenity Beach yoga → fresh juice breakfast → Aurobindo Ashram → departure'},
+      {title:'Chunnambar Backwaters',acts:'Chunnambar boat house → backwater kayaking → mangrove trail → beach bonfire'},
+      {title:'Gingee Fort Day Trip',acts:'Gingee Fort (Troy of the East) → three-hilltop fortress → Rajagiri summit climb'},
+      {title:'Cuddalore & Chidambaram',acts:'Chidambaram Nataraja Temple → Pichavaram mangrove forest boat ride → crab curry lunch'},
+      {title:'Cycling the French Streets',acts:'Heritage bicycle tour of French Quarter → colonial mansions → rooftop café hopping'},
+      {title:'Villianur & Rural Tamil Nadu',acts:'Villianur Gokarneswarar Temple chariot festival route → rural pottery village → toddy'},
+      {title:'Last Sunrise & Return',acts:'Promenade sunrise → Café de Flore breakfast → French souvenir shopping → bus to Chennai'}
     ]
   },
   {
     id:'leh', name:'Leh–Ladakh', country:'India', state:'Ladakh', emoji:'🏍️', type:'domestic', tier:'luxury',
     photo:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
     tags:['High Altitude','Pangong Lake','Monasteries','Biking'],
-    base:{f:9000,h:2000,fo:700,a:1200},
+    base:{f:8000,h:3500,fo:1200,a:1500},
     peak:'Jun – Sep', avoid:'Nov – Mar (roads closed, -20°C)',
     desc:'Land of high passes — Pangong Lake and ancient monastery silence.',
     itinerary:[
@@ -629,7 +671,12 @@ const DEST=[
       {title:'Monasteries Circuit',acts:'Thiksey Monastery → Hemis → Rancho School (3 Idiots!) → Magnetic Hill'},
       {title:'Pangong Lake',acts:'Drive to Pangong Tso (4350m) → colour-changing lake → camp overnight'},
       {title:'Nubra Valley',acts:'Khardung La Pass (world\'s highest motorable road) → Nubra Valley → camel ride on sand dunes'},
-      {title:'Tso Moriri & Return',acts:'Tso Moriri Lake → drive back → local homestay dinner → departure'}
+      {title:'Tso Moriri Lake',acts:'Drive to Tso Moriri (4522m) → flamingo sighting → wild yak territory → nomad camp'},
+      {title:'Zanskar Valley',acts:'Zanskar River gorge viewpoint → Rangdum Monastery → remote glacial valley walk'},
+      {title:'Alchi & Likir Monasteries',acts:'Alchi Monastery (oldest in Ladakh, 10th century) → Likir Buddha statue → Indus River walk'},
+      {title:'Sham Valley Trek',acts:'Easy Sham Valley day trek → apricot orchards → Nimmu confluence of Indus & Zanskar'},
+      {title:'Lamayuru Moonland',acts:'Lamayuru Monastery → moonland landscape → Fotu La Pass → Lamayuru drama performance'},
+      {title:'Leh Market & Departure',acts:'Leh main bazaar pashmina shopping → Tibetan thukpa breakfast → Kushok Bakula airport'}
     ]
   },
 
@@ -638,7 +685,7 @@ const DEST=[
     id:'bali', name:'Bali', country:'Indonesia', state:'Indonesia', emoji:'🌺', type:'international', tier:'mid',
     photo:'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80',
     tags:['Temples','Rice Terraces','Beaches','Nightlife','Spa'],
-    base:{f:18000,h:2500,fo:800,a:1000},
+    base:{f:12000,h:4000,fo:1200,a:1200},
     peak:'Apr – Oct (dry season)', avoid:'Jan – Mar (heavy rain)',
     visa:{type:'Visa Free',detail:'Indians get 30-day free visa on arrival. Extendable once for 30 more days. No pre-approval needed.',color:'#2D6A4F',badge:'✅ Visa Free'},
     desc:'Island of the Gods — sacred temples, lush rice terraces and world-class beaches.',
@@ -647,14 +694,19 @@ const DEST=[
       {title:'Ubud — Cultural Heart',acts:'Tegallalang rice terraces → Tirta Empul temple water purification → Monkey Forest'},
       {title:'Tanah Lot & Kuta',acts:'Tanah Lot temple at sunset → Kuta surf lesson → Beachwalk shopping'},
       {title:'Mount Batur Sunrise',acts:'4AM trek up Mount Batur (1717m) → sunrise at summit → hot springs → Ubud spa'},
-      {title:'Nusa Penida Day Trip',acts:'Boat to Nusa Penida → Kelingking Beach cliff view → Crystal Bay snorkeling → return'}
+      {title:'Nusa Penida Day Trip',acts:'Boat to Nusa Penida → Kelingking Beach cliff view → Crystal Bay snorkeling → return'},
+      {title:'Uluwatu & Jimbaran',acts:'Uluwatu cliff temple → Kecak fire dance at sunset → Jimbaran seafood BBQ on the beach'},
+      {title:'Cooking Class & Cycling',acts:'Balinese cooking class in Ubud → rice field cycling tour → traditional healer visit'},
+      {title:'Lovina & North Bali',acts:'Drive to Lovina → sunrise dolphin watching → Gitgit waterfalls → black sand beach'},
+      {title:'East Bali Temples',acts:'Pura Besakih (mother temple) → Tirta Gangga water palace → Amed snorkeling'},
+      {title:'Spa Day & Departure',acts:'Morning beach yoga → luxury spa treatment → Seminyak shopping → night flight home'}
     ]
   },
   {
     id:'bangkok', name:'Bangkok', country:'Thailand', state:'Thailand', emoji:'🏯', type:'international', tier:'mid',
     photo:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80',
     tags:['Temples','Street Food','Nightlife','Shopping','Massage'],
-    base:{f:14000,h:2000,fo:600,a:800},
+    base:{f:9000,h:3500,fo:900,a:900},
     peak:'Nov – Feb (cool & dry)', avoid:'Apr – Jun (very hot)',
     visa:{type:'Visa Free',detail:'Indians get 30-day visa exemption. No e-visa needed for stays up to 30 days. Passport must be valid 6 months.',color:'#2D6A4F',badge:'✅ Visa Free'},
     desc:'City of angels — glittering temples, legendary street food and vibrant nightlife.',
@@ -663,14 +715,19 @@ const DEST=[
       {title:'Markets & Malls',acts:'Chatuchak Weekend Market (15,000 stalls) → Jim Thompson House → Siam Paragon & MBK'},
       {title:'Ayutthaya Day Trip',acts:'Ancient capital UNESCO ruins → Wat Mahathat → floating market → street pad thai'},
       {title:'Rooftop Bangkok',acts:'Sky Bar (Hangover movie bar) → Chinatown Yaowarat night market → Silom massage'},
-      {title:'Day Trip & Departure',acts:'Damnoen Saduak floating market → Amphawa → Suvarnabhumi departure'}
+      {title:'Damnoen Saduak Floating Market',acts:'Damnoen Saduak floating market → Amphawa → local canal dinner'},
+      {title:'Chiang Mai Day Trip',acts:'Fly to Chiang Mai → Doi Inthanon National Park → elephant sanctuary visit'},
+      {title:'Chiang Mai Temples',acts:'Doi Suthep temple → Old City moat walk → night bazaar → khantoke dinner'},
+      {title:'Pai Valley',acts:'Drive to Pai → hot springs → canyon walk → bohemian café scene'},
+      {title:'Islands — Koh Samui',acts:'Fly to Koh Samui → Big Buddha temple → Ang Thong Marine Park snorkeling'},
+      {title:'Beach & Departure',acts:'Chaweng Beach morning → island boat tour → Bangkok connection → departure'}
     ]
   },
   {
     id:'dubai', name:'Dubai', country:'UAE', state:'UAE', emoji:'🏙️', type:'international', tier:'luxury',
     photo:'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80',
     tags:['Burj Khalifa','Desert Safari','Shopping','Luxury','Modern Wonders'],
-    base:{f:16000,h:5000,fo:1200,a:2000},
+    base:{f:9500,h:9000,fo:2000,a:2500},
     peak:'Nov – Apr', avoid:'Jun – Aug (50°C heat)',
     visa:{type:'Visa on Arrival',detail:'Indians with valid US/UK/EU/Schengen visa get free 14-day VOA. Others apply for UAE e-Visa (₹4,000–6,000, processed in 3–5 days).',color:'#8B6914',badge:'🟡 Visa on Arrival / e-Visa'},
     desc:'City of superlatives — the world\'s tallest tower, golden deserts and ultra-luxury malls.',
@@ -679,30 +736,40 @@ const DEST=[
       {title:'Old Dubai',acts:'Gold Souk & Spice Souk → Abra crossing → Al Fahidi Historic District → Jumeirah Mosque'},
       {title:'Desert Safari',acts:'Red dune bashing → camel ride → falconry → Bedouin camp dinner under stars'},
       {title:'Palm & Marina',acts:'Palm Jumeirah monorail → Atlantis → Dubai Marina yacht dinner → JBR Walk'},
-      {title:'Miracle Garden & Departure',acts:'Dubai Miracle Garden → duty free → departure from DXB'}
+      {title:'Miracle Garden & Global Village',acts:'Dubai Miracle Garden → Global Village (world cultures) → street food from 90 countries'},
+      {title:'Abu Dhabi Day Trip',acts:'Sheikh Zayed Grand Mosque → Louvre Abu Dhabi → Ferrari World → Yas Island'},
+      {title:'Sky & Adventure',acts:'Frame Dubai → skydiving over Palm → XLine Dubai Marina zipline → rooftop brunch'},
+      {title:'Sharjah & Culture',acts:'Sharjah Art Museum → Blue Souk → Sharjah Heritage Area → dhow dinner cruise'},
+      {title:'Aquaventure & Beach',acts:'Aquaventure Waterpark at Atlantis → private beach → sunset sail → Blue Waters Ain Dubai'},
+      {title:'Shopping & Departure',acts:'Mall of Emirates & ski slope → last shawarma → duty free → DXB departure'}
     ]
   },
   {
     id:'vietnam', name:'Vietnam', country:'Vietnam', state:'Vietnam', emoji:'🛵', type:'international', tier:'budget',
     photo:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80',
     tags:['Ha Long Bay','Hoi An','Pho','History','Motorbikes'],
-    base:{f:15000,h:1500,fo:500,a:700},
+    base:{f:11000,h:2800,fo:800,a:900},
     peak:'Nov – Apr (north); Jan – Aug (south)', avoid:'Oct – Nov (typhoon season)',
     visa:{type:'e-Visa Required',detail:'Indians must apply for Vietnam e-Visa online at evisa.xuatnhapcanh.gov.vn. Cost ~$25 (₹2,100). Valid 90 days, single entry. Processed in 3 working days.',color:'#7A3B00',badge:'🟠 e-Visa Required'},
     desc:'Breathtaking limestone bays, ancient lantern towns and the world\'s best street food.',
     itinerary:[
       {title:'Hanoi Old Quarter',acts:'Fly into Hanoi → 36 Streets Old Quarter walk → Hoan Kiem Lake → egg coffee'},
       {title:'Ha Long Bay Cruise',acts:'3-hour drive → overnight cruise on Ha Long Bay → kayaking through caves → sunset on deck'},
-      {title:'Hoi An Ancient Town',acts:'Fly to Da Nang → Hoi An lantern town by bicycle → tailoring → Cao Lau noodles'},
+      {title:'Ha Long — Day 2',acts:'Sunrise on the bay → swimming lagoon → Ti Top Island hiking → return to Hanoi'},
+      {title:'Hue Imperial City',acts:'Fly to Da Nang → drive to Hue → Imperial Citadel → royal tombs → bun bo hue noodles'},
+      {title:'Hoi An Ancient Town',acts:'Hoi An lantern town by bicycle → tailoring → Cao Lau noodles → Japanese Bridge'},
+      {title:'My Son Sanctuary',acts:'UNESCO Hindu temples at My Son → marble mountains → Da Nang dragon bridge'},
       {title:'Ho Chi Minh City',acts:'Fly to HCMC → War Remnants Museum → Ben Thanh Market → rooftop bar'},
-      {title:'Mekong Delta & Departure',acts:'Mekong Delta boat tour → floating market → fruit orchards → Tan Son Nhat departure'}
+      {title:'Cu Chi Tunnels',acts:'Cu Chi Tunnels wartime experience → Mekong Delta boat tour → floating market'},
+      {title:'Phu Quoc Island',acts:'Fly to Phu Quoc → Long Beach → cable car to An Thoi → fresh seafood dinner'},
+      {title:'Island & Departure',acts:'Phu Quoc sunrise snorkeling → fish sauce factory → Tan Son Nhat departure'}
     ]
   },
   {
     id:'singapore', name:'Singapore', country:'Singapore', state:'Singapore', emoji:'🦁', type:'international', tier:'luxury',
     photo:'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&q=80',
     tags:['Gardens by the Bay','Sentosa','Food','Clean City','Marina Bay'],
-    base:{f:14000,h:4500,fo:1000,a:1500},
+    base:{f:8000,h:8000,fo:1800,a:2000},
     peak:'Feb – Apr & Sep – Nov', avoid:'Nov – Jan (heavy rain)',
     visa:{type:'Visa Free',detail:'Indians get 30-day visa-free entry. No prior application needed. Passport valid 6 months + return ticket required at immigration.',color:'#2D6A4F',badge:'✅ Visa Free'},
     desc:'The Lion City — futuristic gardens, legendary hawker food and spotless luxury.',
@@ -710,14 +777,20 @@ const DEST=[
       {title:'Marina Bay & Gardens',acts:'Marina Bay Sands Skypark → Gardens by the Bay → Supertree Grove light show'},
       {title:'Universal Studios',acts:'Sentosa Island → Universal Studios → S.E.A. Aquarium → Resorts World'},
       {title:'Cultural Districts',acts:'Chinatown temples → Little India → Clarke Quay riverside dinner → Singapore Flyer'},
-      {title:'Botanic Gardens & Shopping',acts:'UNESCO Botanic Gardens → Orchard Road → hawker centre lunch → Changi Airport (top attraction!)'}
+      {title:'Botanic Gardens & Shopping',acts:'UNESCO Botanic Gardens → Orchard Road → hawker centre lunch → Changi Airport Jewel'},
+      {title:'Zoo & River Safari',acts:'Singapore Zoo (world-famous open concept) → River Wonders → Night Safari'},
+      {title:'Pulau Ubin Island',acts:'Bumboat to Pulau Ubin → mangrove cycling → Chek Jawa wetlands → seafood village'},
+      {title:'Art & Science',acts:'ArtScience Museum → National Gallery → Peranakan Museum → Kampong Glam Arab Quarter'},
+      {title:'Johor Bahru Day Trip',acts:'Cross to Malaysia → Legoland JB → Johor Bahru city food trail → return to SG'},
+      {title:'Cable Car & Sentosa',acts:'Mount Faber cable car → Siloso Beach → S.E.A. Aquarium → Wings of Time show'},
+      {title:'Last Hawker Feast & Departure',acts:'Maxwell Food Centre breakfast → Lau Pa Sat satay → final Changi window shopping → departure'}
     ]
   },
   {
     id:'maldives', name:'Maldives', country:'Maldives', state:'Maldives', emoji:'🏝️', type:'international', tier:'luxury',
     photo:'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80',
     tags:['Overwater Bungalows','Snorkeling','Crystal Water','Honeymoon','Sunset'],
-    base:{f:22000,h:8000,fo:1500,a:2000},
+    base:{f:12000,h:18000,fo:2500,a:3000},
     peak:'Nov – Apr (dry season)', avoid:'Jun – Aug (choppy seas)',
     visa:{type:'Visa Free',detail:'Indians get free 30-day visa on arrival at Velana International Airport. No pre-application. Just valid passport + confirmed hotel booking.',color:'#2D6A4F',badge:'✅ Visa Free'},
     desc:'Paradise on earth — crystalline lagoons, coral reefs and iconic overwater villas.',
@@ -725,14 +798,20 @@ const DEST=[
       {title:'Arrival & Water Villa',acts:'Fly to Malé → speedboat to resort → overwater villa check-in → snorkeling house reef'},
       {title:'Diving & Marine Life',acts:'Scuba dive with manta rays → glass-bottom kayak → sunset dolphin cruise'},
       {title:'Local Island Visit',acts:'Day trip to local Maldivian island → local café → sandbank picnic → stargazing'},
-      {title:'Spa & Sunset',acts:'Overwater spa treatment → beach bonfire dinner → departure next morning'}
+      {title:'Spa & Sunset',acts:'Overwater spa treatment → beach bonfire dinner → underwater restaurant experience'},
+      {title:'Whale Shark Snorkeling',acts:'Whale shark snorkeling excursion → sandbank BBQ lunch → lagoon kayaking'},
+      {title:'Submarine & Deep Dive',acts:'Semi-submarine tour of coral reef → advanced scuba dive → sunset cocktails on villa deck'},
+      {title:'Island Hopping',acts:'Traditional dhoni boat to 3 uninhabited islands → bioluminescent beach at night'},
+      {title:'Fishing & Cooking',acts:'Sunrise fishing with local fishermen → cook your catch → beachside yoga session'},
+      {title:'Water Sports Day',acts:'Jet ski, parasailing, wakeboarding → afternoon nap → beachside fine dining'},
+      {title:'Last Sunrise & Departure',acts:'Final sunrise swim → spa breakfast → seaplane back to Malé → departure'}
     ]
   },
   {
     id:'paris', name:'Paris', country:'France', state:'France', emoji:'🗼', type:'international', tier:'luxury',
     photo:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=80',
     tags:['Eiffel Tower','Art','Fashion','Cuisine','Romance'],
-    base:{f:45000,h:6000,fo:2000,a:1500},
+    base:{f:35000,h:11000,fo:3500,a:2500},
     peak:'Apr – Jun & Sep – Oct', avoid:'Jul – Aug (crowds & heat)',
     visa:{type:'Schengen Visa Required',detail:'Indians must apply for Schengen Visa at the French Consulate/VFS. Cost ₹7,000–8,500. Documents: 3 months bank statements, ITR, travel insurance, hotel bookings. Processing: 10–15 working days.',color:'#6B1A1A',badge:'🔴 Schengen Visa Required'},
     desc:'The City of Light — romantic boulevards, world-class art and the finest cuisine.',
@@ -740,14 +819,20 @@ const DEST=[
       {title:'Eiffel Tower & Champs-Élysées',acts:'Eiffel Tower summit → Seine river cruise → Arc de Triomphe → Champs-Élysées walk'},
       {title:'Louvre & Montmartre',acts:'Louvre Museum (Mona Lisa) → Tuileries Garden → Montmartre & Sacré-Coeur → wine at café'},
       {title:'Versailles Day Trip',acts:'Palace of Versailles → Hall of Mirrors → gardens → Marais district evening'},
-      {title:'Musée d\'Orsay & Departure',acts:'Musée d\'Orsay Impressionists → Seine picnic → last café crème → Charles de Gaulle'}
+      {title:'Musée d\'Orsay & Saint-Germain',acts:'Musée d\'Orsay Impressionists → Luxembourg Gardens → Saint-Germain-des-Prés bookshops'},
+      {title:'Champagne Region',acts:'Day trip to Reims → Champagne cave cellars → cathedral → bubbly tasting → Paris return'},
+      {title:'Loire Valley Châteaux',acts:'Drive to Loire Valley → Château de Chambord → Chenonceau castle over the river'},
+      {title:'Centre Pompidou & Le Marais',acts:'Centre Pompidou modern art → Le Marais falafel street → Place des Vosges → wine bar'},
+      {title:'Day Trip to Mont Saint-Michel',acts:'Drive to Normandy → Mont Saint-Michel tidal island abbey → crêpe lunch'},
+      {title:'Père Lachaise & Canal',acts:'Père Lachaise cemetery (Jim Morrison, Oscar Wilde) → Canal Saint-Martin walk → bistro dinner'},
+      {title:'Last Café & Departure',acts:'Final café crème and croissant → Seine picnic → Charles de Gaulle departure'}
     ]
   },
   {
     id:'srilanka', name:'Sri Lanka', country:'Sri Lanka', state:'Sri Lanka', emoji:'🌴', type:'international', tier:'budget',
     photo:'https://images.unsplash.com/photo-1546975490-a79abf050e68?w=600&q=80',
     tags:['Sigiriya Rock','Tea Country','Beaches','Wildlife','Spices'],
-    base:{f:10000,h:1800,fo:600,a:700},
+    base:{f:5500,h:3000,fo:900,a:800},
     peak:'Dec – Mar (west & south)', avoid:'May – Sep (SW monsoon)',
     visa:{type:'ETA Required',detail:'Indians apply for Sri Lanka ETA online at eta.gov.lk. Cost $20 (₹1,680). Approved instantly or within 24 hrs. Valid 30 days, double entry.',color:'#8B6914',badge:'🟡 ETA Required (Easy Online)'},
     desc:'Pearl of the Indian Ocean — ancient rock fortresses, whale watching and spiced cuisine.',
@@ -756,14 +841,19 @@ const DEST=[
       {title:'Sigiriya Lion Rock',acts:'Drive to Sigiriya → climb 5th-century rock fortress (200m) → Dambulla Cave Temple'},
       {title:'Kandy & Temple of Tooth',acts:'Kandy → Temple of the Sacred Tooth Relic → Peradeniya Botanical Garden → cultural dance show'},
       {title:'Ella Tea Country',acts:'Little Adam\'s Peak hike → Nine Arch Bridge by train → tea factory tour → Ella gap views'},
-      {title:'Mirissa Beach & Departure',acts:'Whale watching boat trip → Mirissa Beach → Galle Fort walk → fly from Colombo'}
+      {title:'Mirissa Beach',acts:'Whale watching boat trip → Mirissa Beach → sunset swimming → seafood dinner'},
+      {title:'Galle Fort',acts:'UNESCO Galle Fort walk → lighthouse → Dutch architecture → antique shops → beach café'},
+      {title:'Yala National Park',acts:'Yala safari — leopards, elephants, crocodiles → beachside camp overnight'},
+      {title:'Arugam Bay Surfing',acts:'Drive to east coast Arugam Bay → surf lesson → lagoon boat tour → beach bonfire'},
+      {title:'Trincomalee',acts:'Drive to Trinco → Pigeon Island snorkeling → Fort Frederick → Marble Beach swim'},
+      {title:'Colombo & Departure',acts:'Colombo Pettah market → Dutch hospital food street → Bandaranaike airport departure'}
     ]
   },
   {
     id:'nepal', name:'Nepal', country:'Nepal', state:'Nepal', emoji:'⛰️', type:'international', tier:'budget',
     photo:'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80',
     tags:['Everest Base Camp','Kathmandu','Trekking','Monasteries','Adventure'],
-    base:{f:12000,h:1200,fo:500,a:1000},
+    base:{f:7000,h:2200,fo:700,a:1200},
     peak:'Oct – Nov & Mar – May', avoid:'Jun – Sep (monsoon, landslides)',
     visa:{type:'Visa Free',detail:'Indians do NOT need a visa or passport to enter Nepal. A valid government-issued photo ID (Aadhaar, Voter ID) is sufficient. Unlimited stay.',color:'#2D6A4F',badge:'✅ No Visa / No Passport Needed'},
     desc:'Roof of the world — Himalayan treks, ancient temples and incredible mountain views.',
@@ -771,8 +861,118 @@ const DEST=[
       {title:'Kathmandu Durbar Square',acts:'Fly to Tribhuvan → Pashupatinath Temple → Boudhanath Stupa → Thamel rooftop dinner'},
       {title:'Nagarkot Sunrise',acts:'Drive to Nagarkot → Everest sunrise viewpoint → Bhaktapur Durbar Square UNESCO site'},
       {title:'Pokhara — Lake City',acts:'Fly or drive to Pokhara → Phewa Lake boat → Barahi Temple → paragliding over Himalaya'},
-      {title:'Annapurna Base Camp Trek',acts:'Poon Hill sunrise trek → rhododendron forests → mountain views → hot springs'},
-      {title:'Chitwan & Departure',acts:'Chitwan National Park safari (rhino, elephant) → Kathmandu departure'}
+      {title:'Annapurna Trek Day 1',acts:'Poon Hill sunrise trek → rhododendron forests → mountain views → hot springs'},
+      {title:'Annapurna Trek Day 2',acts:'Ghorepani village → Tadapani ridge trail → Chomrong village overnight'},
+      {title:'Chitwan Safari',acts:'Chitwan National Park jeep safari → one-horned rhino, Bengal tigers, elephants'},
+      {title:'Chitwan — Canoe & Elephants',acts:'Rapti River canoe → elephant breeding centre → tharu cultural show'},
+      {title:'Lumbini — Buddha\'s Birthplace',acts:'UNESCO Lumbini sacred garden → Maya Devi Temple → eternal flame → monasteries'},
+      {title:'Kathmandu Valley Temples',acts:'Swayambhunath Monkey Temple → Patan Durbar Square → traditional Newari dinner'},
+      {title:'Trekking Gear Street & Departure',acts:'Thamel shopping for pashmina & trekking gear → last momos → Tribhuvan airport'}
+    ]
+  },
+  {
+    id:'malaysia', name:'Malaysia', country:'Malaysia', state:'Malaysia', emoji:'🌆', type:'international', tier:'mid',
+    photo:'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=600&q=80',
+    tags:['Petronas Towers','Rainforest','Street Food','Islands','Culture'],
+    base:{f:8500,h:3200,fo:900,a:900},
+    peak:'Mar – Oct (west coast)', avoid:'Nov – Jan (east coast monsoon)',
+    visa:{type:'Visa Free',detail:'Indians get 30-day visa-free entry to Malaysia. No prior application needed. Passport valid 6 months + sufficient funds required.',color:'#2D6A4F',badge:'✅ Visa Free'},
+    desc:'Where gleaming towers meet ancient rainforest — incredible food, islands and diverse cultures.',
+    itinerary:[
+      {title:'Kuala Lumpur Arrival',acts:'Fly into KLIA → Petronas Twin Towers at night → Bukit Bintang food street → rooftop bar'},
+      {title:'KL Culture & Markets',acts:'Batu Caves Hindu temple → Central Market batik → Chinatown Petaling Street → nasi lemak breakfast'},
+      {title:'Genting Highlands',acts:'Cable car to Genting → theme park → misty hill station → casino complex → cool mountain air'},
+      {title:'Penang — Food Capital',acts:'Fly to Penang → George Town UNESCO streets → char kway teow → street art walk'},
+      {title:'Penang Temples & Beaches',acts:'Kek Lok Si Temple → Penang Hill funicular → Batu Ferringhi Beach sunset'},
+      {title:'Langkawi Island',acts:'Ferry to Langkawi → cable car to Gunung Mat Chinchang → Eagle Square → duty-free shopping'},
+      {title:'Langkawi Mangroves',acts:'Mangrove kayaking → Kilim Geoforest boat tour → eagle feeding → floating fish farm lunch'},
+      {title:'Cameron Highlands',acts:'Drive to Cameron Highlands → BOH tea plantation → strawberry farms → mossy forest walk'},
+      {title:'Malacca Heritage City',acts:'Jonker Street night market → A Famosa fort ruins → St Paul\'s Hill → chicken rice ball lunch'},
+      {title:'KL Last Day & Departure',acts:'KLCC park morning walk → Pavilion mall → Jalan Alor hawker street dinner → KLIA departure'}
+    ]
+  },
+  {
+    id:'japan', name:'Japan', country:'Japan', state:'Japan', emoji:'🗾', type:'international', tier:'luxury',
+    photo:'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&q=80',
+    tags:['Cherry Blossoms','Mount Fuji','Temples','Sushi','Shinkansen'],
+    base:{f:28000,h:7500,fo:2200,a:2000},
+    peak:'Mar – May (sakura) & Oct – Nov (autumn)', avoid:'Jul – Aug (humid, typhoons)',
+    visa:{type:'Visa Required',detail:'Indians must apply for Japan Tourist Visa at VFS/Japanese Consulate. Cost ₹1,000. Documents: 3 months bank statement, ITR, hotel booking, return tickets. Processing: 5–7 working days. Approval rate very high with proper documents.',color:'#6B1A1A',badge:'🔴 Tourist Visa Required'},
+    desc:'Land of the rising sun — ancient temples, neon cities, cherry blossoms and the world\'s finest food.',
+    itinerary:[
+      {title:'Tokyo Arrival',acts:'Fly into Narita → Shinjuku check-in → Shibuya Crossing → ramen dinner → Kabukicho neon walk'},
+      {title:'Tokyo Temples & Culture',acts:'Senso-ji Temple at sunrise → Tsukiji outer market sushi breakfast → Harajuku Takeshita Street'},
+      {title:'Tokyo Modern',acts:'teamLab Borderless digital art → Akihabara electronics → Tokyo Skytree observation deck'},
+      {title:'Mount Fuji Day Trip',acts:'Shinkansen to Odawara → Hakone → Lake Ashi boat with Fuji view → ryokan hot spring onsen'},
+      {title:'Kyoto Arrival',acts:'Shinkansen to Kyoto → Fushimi Inari 10,000 torii gates at dusk → kaiseki dinner'},
+      {title:'Kyoto Temples',acts:'Arashiyama bamboo grove → Tenryu-ji garden → Kinkaku-ji Golden Pavilion → Gion geisha district'},
+      {title:'Nara Day Trip',acts:'Train to Nara → deer park (800 free-roaming deer) → Todai-ji giant Buddha → wagashi sweet making'},
+      {title:'Osaka Food Tour',acts:'Shinkansen to Osaka → Dotonbori food street → takoyaki & okonomiyaki → Osaka Castle'},
+      {title:'Hiroshima & Miyajima',acts:'Shinkansen to Hiroshima → Peace Memorial → ferry to Miyajima floating torii gate'},
+      {title:'Tokyo & Departure',acts:'Return to Tokyo → Odaiba waterfront → TeamLab Planets → Narita Airport departure'}
+    ]
+  },
+  {
+    id:'turkey', name:'Turkey', country:'Turkey', state:'Turkey', emoji:'🕌', type:'international', tier:'mid',
+    photo:'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=600&q=80',
+    tags:['Cappadocia','Hot Air Balloon','Istanbul','Beaches','Bazaars'],
+    base:{f:22000,h:5000,fo:1500,a:1500},
+    peak:'Apr – Jun & Sep – Nov', avoid:'Jul – Aug (extreme heat)',
+    visa:{type:'e-Visa Required',detail:'Indians apply for Turkey e-Visa online at evisa.gov.tr. Cost $50 (₹4,200). Processed instantly online. Valid 180 days, multiple entry, 90-day stay. Very straightforward process.',color:'#8B6914',badge:'🟡 e-Visa Required (Easy Online)'},
+    desc:'Where East meets West — fairy chimneys, Blue Mosque, turquoise coast and legendary bazaars.',
+    itinerary:[
+      {title:'Istanbul Arrival',acts:'Fly into Istanbul → Sultanahmet old city → Blue Mosque at sunset → döner kebab dinner'},
+      {title:'Istanbul Grand Bazaar',acts:'Hagia Sophia → Grand Bazaar (4,000 shops) → Spice Bazaar → Bosphorus sunset cruise'},
+      {title:'Istanbul Modern',acts:'Dolmabahçe Palace → Taksim Square → Istiklal Street → rooftop rakı dinner'},
+      {title:'Cappadocia Arrival',acts:'Fly to Kayseri → Cappadocia → Devrent Valley fairy chimneys → cave hotel check-in'},
+      {title:'Hot Air Balloon Sunrise',acts:'4AM hot air balloon flight over fairy chimneys → champagne landing → Göreme Open-Air Museum'},
+      {title:'Underground Cities',acts:'Derinkuyu underground city (8 floors deep) → Ihlara Valley canyon walk → pigeon valley sunset'},
+      {title:'Pamukkale',acts:'Fly to Denizli → Pamukkale cotton-castle thermal pools → Hierapolis ancient city ruins'},
+      {title:'Ephesus Ancient City',acts:'Drive to Ephesus → Library of Celsus → Temple of Artemis → Virgin Mary house'},
+      {title:'Aegean Coast',acts:'Bodrum castle → turquoise bay swimming → gulet boat cruise → seafood mezze dinner'},
+      {title:'Antalya & Departure',acts:'Antalya old harbour → Hadrian\'s Gate → Konyaaltı Beach → Istanbul connection → departure'}
+    ]
+  },
+  {
+    id:'greece', name:'Greece', country:'Greece', state:'Greece', emoji:'🏛️', type:'international', tier:'luxury',
+    photo:'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=600&q=80',
+    tags:['Santorini','Acropolis','Islands','Mediterranean','History'],
+    base:{f:38000,h:9000,fo:2800,a:2000},
+    peak:'May – Jun & Sep – Oct', avoid:'Jul – Aug (expensive, crowded, hot)',
+    visa:{type:'Schengen Visa Required',detail:'Indians must apply for Schengen Visa at VFS Greece. Cost ₹7,000–8,500. Documents: 3 months bank statements, ITR, travel insurance, hotel bookings. Processing: 10–15 working days.',color:'#6B1A1A',badge:'🔴 Schengen Visa Required'},
+    desc:'Cradle of civilization — whitewashed Cyclades, ancient ruins and the bluest water on earth.',
+    itinerary:[
+      {title:'Athens Arrival',acts:'Fly into Athens → Acropolis & Parthenon → Plaka old neighbourhood → souvlaki dinner'},
+      {title:'Athens Museums',acts:'National Archaeological Museum → Syntagma Square → Monastiraki flea market → rooftop sunset'},
+      {title:'Day Trip to Delphi',acts:'Oracle of Delphi → Temple of Apollo → Castalian Spring → olive grove village lunch'},
+      {title:'Santorini Arrival',acts:'Ferry or fly to Santorini → Oia village check-in → caldera sunset (world-famous) → wine tasting'},
+      {title:'Santorini & Volcano',acts:'Akrotiri Minoan ruins → Red Beach → volcano boat trip → hot springs swim → Fira town walk'},
+      {title:'Mykonos Island',acts:'Ferry to Mykonos → windmills → Little Venice → beach clubs → nightlife'},
+      {title:'Mykonos Beaches',acts:'Paradise Beach → Delos island day trip (UNESCO ancient ruins) → sunset cocktails'},
+      {title:'Crete — Largest Island',acts:'Fly to Crete → Knossos Minoan palace → Heraklion market → seafood taverna'},
+      {title:'Crete Beaches',acts:'Balos Lagoon boat trip → Elafonissi pink sand beach → Samaria Gorge walking trail'},
+      {title:'Athens & Departure',acts:'Return to Athens → last gyros → Cape Sounion Poseidon temple → Athens airport departure'}
+    ]
+  },
+  {
+    id:'mauritius', name:'Mauritius', country:'Mauritius', state:'Mauritius', emoji:'🐬', type:'international', tier:'luxury',
+    photo:'https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=600&q=80',
+    tags:['Lagoons','Underwater Waterfall','Luxury Resorts','Dolphins','Creole Food'],
+    base:{f:18000,h:12000,fo:2000,a:2200},
+    peak:'May – Dec (dry season)', avoid:'Jan – Mar (cyclone season)',
+    visa:{type:'Visa Free',detail:'Indians get 90-day visa-free entry to Mauritius. No prior application. Just valid passport, return ticket and hotel booking confirmation.',color:'#2D6A4F',badge:'✅ Visa Free'},
+    desc:'Africa\'s island paradise — turquoise lagoons, volcanic peaks, an underwater waterfall and five-star luxury.',
+    itinerary:[
+      {title:'Arrival & North Coast',acts:'Fly into SSR Airport → Grand Baie resort check-in → Pereybere Beach sunset → Creole dinner'},
+      {title:'Dolphins & Snorkeling',acts:'Morning dolphin swimming at Tamarin Bay → Black River snorkeling → beach BBQ lunch'},
+      {title:'Chamarel — 7 Coloured Earth',acts:'Chamarel Seven Coloured Earth geopark → Chamarel waterfall → rum distillery tasting'},
+      {title:'Le Morne Underwater Waterfall',acts:'Helicopter or boat tour to Le Morne → optical illusion underwater waterfall → Black River Gorges'},
+      {title:'South Coast Beaches',acts:'Blue Bay Marine Park snorkeling → Mahebourg colonial museum → Ile aux Aigrettes nature reserve'},
+      {title:'East Coast & Ile aux Cerfs',acts:'Boat to Ile aux Cerfs island → white sand beaches → water sports → catamaran sunset cruise'},
+      {title:'Port Louis Capital',acts:'Port Louis Caudan Waterfront → Central Market → Street art district → Aapravasi Ghat UNESCO site'},
+      {title:'North Islands',acts:'Boat to Coin de Mire island → snorkeling coral gardens → giant tortoise sanctuary → sundowner'},
+      {title:'Quad Biking & Zipline',acts:'Quad bike across sugar cane fields → ziplining through tropical forest → Pamplemousses Botanical Garden'},
+      {title:'Spa & Departure',acts:'Overwater spa treatment → beach yoga → last Creole fish vindaye lunch → SSR Airport departure'}
     ]
   }
 ];
@@ -846,11 +1046,18 @@ function setT(t,el){S.type=t;document.querySelectorAll('#tRow .pill').forEach(p=
 function calc(d){
   const city=document.getElementById('fromCity').value;
   const fAdj={Mumbai:0.82,Delhi:0.80,Bangalore:0.88,Chennai:1,Hyderabad:0.92,Kolkata:1.08,Pune:0.95,Ahmedabad:0.90,Kochi:0.93}[city]||1;
-  // All values are PER PERSON totals for the entire trip
-  const fl = Math.round(d.base.f * fAdj * 2);       // round-trip flight per person (×2)
-  const ht = Math.round(d.base.h  * S.days);         // hotel total per person
-  const fo = Math.round(d.base.fo * S.days);         // food total per person
-  const ac = Math.round(d.base.a  * S.days);         // activities total per person
+
+  // Room-sharing: couple & family share a room (cost split per person), solo & group pay per person
+  const roomShare = (S.type==='couple') ? 2 : (S.type==='family') ? 3 : 1;
+
+  // fl  = round-trip flight per person (base.f is one-way, ×2 for return)
+  const fl = Math.round(d.base.f * fAdj * 2);
+  // ht  = hotel total for the trip, per person (room cost ÷ roomShare × nights)
+  const ht = Math.round((d.base.h / roomShare) * S.days);
+  // fo  = food total for the trip per person (per-day × days)
+  const fo = Math.round(d.base.fo * S.days);
+  // ac  = activities total for the trip per person (per-day × days)
+  const ac = Math.round(d.base.a  * S.days);
   const tot = fl + ht + fo + ac;
   return {fl, ht, fo, ac, tot};
 }
@@ -896,7 +1103,7 @@ function renderCard(d){
   const cityCode={Chennai:'MAA',Mumbai:'BOM',Delhi:'DEL',Bangalore:'BLR',Hyderabad:'HYD',Kolkata:'CCU',Pune:'PNQ',Ahmedabad:'AMD',Kochi:'COK'}[city]||'MAA';
 
   // Destination IATA codes
-  const destIATA={goa:'GOI',manali:'KUU',ooty:'CJB',alleppey:'COK',jaipur:'JAI',andaman:'IXZ',pondi:'MAA',leh:'IXL',bali:'DPS',bangkok:'BKK',dubai:'DXB',vietnam:'HAN',singapore:'SIN',maldives:'MLE',paris:'CDG',srilanka:'CMB',nepal:'KTM'};
+  const destIATA={goa:'GOI',manali:'KUU',ooty:'CJB',alleppey:'COK',jaipur:'JAI',andaman:'IXZ',pondi:'MAA',leh:'IXL',bali:'DPS',bangkok:'BKK',dubai:'DXB',vietnam:'HAN',singapore:'SIN',maldives:'MLE',paris:'CDG',srilanka:'CMB',nepal:'KTM',malaysia:'KUL',japan:'NRT',turkey:'IST',greece:'ATH',mauritius:'MRU'};
   const toCode = destIATA[d.id] || '';
 
   // Round-trip Skyscanner URL with origin → destination
@@ -930,7 +1137,7 @@ function renderCard(d){
     </div>
 
     <div class="bdown">
-      <div class="bi"><div class="bil">✈ Flights (round-trip)</div><div class="biv">₹${d.c.fl.toLocaleString('en-IN')}</div></div>
+      <div class="bi"><div class="bil">${['pondi','ooty'].includes(d.id)?'🚌 Transport (round-trip)':'✈ Flights (round-trip)'}</div><div class="biv">₹${d.c.fl.toLocaleString('en-IN')}</div></div>
       <div class="bi"><div class="bil">🏨 Hotel (${S.days} nights)</div><div class="biv">₹${d.c.ht.toLocaleString('en-IN')}</div></div>
       <div class="bi"><div class="bil">🍛 Food (${S.days} days)</div><div class="biv">₹${d.c.fo.toLocaleString('en-IN')}</div></div>
       <div class="bi"><div class="bil">🎯 Activities (total)</div><div class="biv">₹${d.c.ac.toLocaleString('en-IN')}</div></div>
@@ -1058,9 +1265,9 @@ function updateCmpBadge(){
 ═══════════════════════════════════════════════ */
 function hotelType(d){
   const t=d.tier;
-  if(t==='budget') return {type:'Budget / Guesthouse',eg:'₹800–1,500/night (OYO, FabHotel, Zostel)',base:d.base.h};
-  if(t==='mid')    return {type:'Mid-range / 3-star Hotel',eg:'₹1,500–3,500/night (ibis, Lemon Tree, local resorts)',base:d.base.h};
-  return             {type:'Luxury / 4–5 star Resort',eg:'₹3,500–10,000+/night (Taj, Marriott, boutique resort)',base:d.base.h};
+  if(t==='budget') return {type:'Budget / Guesthouse',eg:'₹1,500–3,000/night per room (OYO, FabHotel, Zostel)',base:d.base.h};
+  if(t==='mid')    return {type:'Mid-range / 3-star Hotel',eg:'₹3,000–6,000/night per room (ibis, Lemon Tree, local resorts)',base:d.base.h};
+  return             {type:'Luxury / 4-5 star Resort',eg:'₹6,000–20,000+/night per room (Taj, Marriott, boutique resort)',base:d.base.h};
 }
 
 /* ═══════════════════════════════════════════════
@@ -1316,8 +1523,8 @@ function renderCmp(){
   const rows=[
     ['Per Person',`₹${a.c.tot.toLocaleString('en-IN')}`,`₹${b.c.tot.toLocaleString('en-IN')}`,true],
     ['Flights',`₹${a.c.fl.toLocaleString('en-IN')}`,`₹${b.c.fl.toLocaleString('en-IN')}`,false],
-    ['Hotel/night',`₹${a.c.ht.toLocaleString('en-IN')}`,`₹${b.c.ht.toLocaleString('en-IN')}`,false],
-    ['Food/day',`₹${a.c.fo.toLocaleString('en-IN')}`,`₹${b.c.fo.toLocaleString('en-IN')}`,false],
+    ['Hotel (total)',`₹${a.c.ht.toLocaleString('en-IN')}`,`₹${b.c.ht.toLocaleString('en-IN')}`,false],
+    ['Food (total)',`₹${a.c.fo.toLocaleString('en-IN')}`,`₹${b.c.fo.toLocaleString('en-IN')}`,false],
     ['Activities',`₹${a.c.ac.toLocaleString('en-IN')}`,`₹${b.c.ac.toLocaleString('en-IN')}`,false],
     ['Type',a.type,b.type,false],['Category',a.tier,b.tier,false],
     ['Duration',a.days+' days',b.days+' days',false]
