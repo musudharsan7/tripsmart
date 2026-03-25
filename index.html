@@ -1919,50 +1919,79 @@ function renderTips(){
 function showT(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2400);}
 
 /* ═══════════════════════════════════════════════
-   FLIGHT DEALS EXPLORER
+   FLIGHT DEALS EXPLORER — Real Travelpayouts API
 ═══════════════════════════════════════════════ */
 const CITY_IATA={Chennai:'MAA',Mumbai:'BOM',Delhi:'DEL',Bangalore:'BLR',Hyderabad:'HYD',Kolkata:'CCU',Pune:'PNQ',Ahmedabad:'AMD',Kochi:'COK'};
-const DEST_IATA={goa:'GOI',manali:'KUU',ooty:'CJB',alleppey:'COK',jaipur:'JAI',andaman:'IXZ',pondi:'MAA',leh:'IXL',bali:'DPS',bangkok:'BKK',dubai:'DXB',vietnam:'HAN',singapore:'SIN',maldives:'MLE',paris:'CDG',srilanka:'CMB',nepal:'KTM',malaysia:'KUL',japan:'NRT',turkey:'IST',greece:'ATH',mauritius:'MRU'};
+const DEST_IATA={goa:'GOI',manali:'KUU',ooty:'CJB',alleppey:'COK',jaipur:'JAI',andaman:'IXZ',leh:'IXL',bali:'DPS',bangkok:'BKK',dubai:'DXB',vietnam:'HAN',singapore:'SIN',maldives:'MLE',paris:'CDG',srilanka:'CMB',nepal:'KTM',malaysia:'KUL',japan:'NRT',turkey:'IST',greece:'ATH',mauritius:'MRU'};
 
-// Seasonal fare multipliers per month (1=base, <1=cheap, >1=expensive)
-const MONTH_MULT=[1.15,1.0,1.05,0.9,0.85,1.1,1.2,1.15,0.9,1.0,1.25,1.3];
-// Month names for next 6 months
+// ── PASTE YOUR WORKER URL HERE after deploying ──────
+// e.g. 'https://tripsmart-proxy.yourname.workers.dev'
+const PROXY_BASE = 'https://travelpayout.musudharsan.workers.dev';
+// ────────────────────────────────────────────────────
+
 const MONTH_NAMES=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-let FD={from:'Chennai',type:'all',month:null,cabinClass:'economy',selectedMonth:null};
-
-// Cabin multipliers
+const MONTH_MULT=[1.15,1.0,1.05,0.9,0.85,1.1,1.2,1.15,0.9,1.0,1.25,1.3]; // fallback
 const CABIN_MULT={economy:1,premium:1.6,business:2.8};
 
+let FD={from:'Chennai',type:'all',month:null,year:null,cabinClass:'economy'};
+let FD_CACHE={}; // cache: "MAA-2025-06" → {GOI:{price,airline}, ...}
+
+/* ── Fetch matrix from Travelpayouts via Worker ── */
+async function fetchTPMatrix(fromCode, yearMonth){
+  const cacheKey=`${fromCode}-${yearMonth}`;
+  if(FD_CACHE[cacheKey]) return FD_CACHE[cacheKey];
+
+  // If no worker deployed yet, return null (will use fallback)
+  if(!PROXY_BASE) return null;
+
+  try{
+    const url=`${PROXY_BASE}/month-matrix?origin=${fromCode}&depart_date=${yearMonth}&currency=inr`;
+    const res=await fetch(url,{signal:AbortSignal.timeout(6000)});
+    if(!res.ok) return null;
+    const json=await res.json();
+    // API returns: { "success": true, "data": { "GOI": { "0": { price, airline, ... } } } }
+    const matrix=json.data||{};
+    FD_CACHE[cacheKey]=matrix;
+    return matrix;
+  }catch(e){
+    console.warn('TP API error:',e);
+    return null;
+  }
+}
+
+/* ── Static fallback fare (used when API has no data) ── */
+function staticFare(dest,fromCity,mIdx,cabinClass){
+  const cityAdj={Mumbai:0.82,Delhi:0.80,Bangalore:0.88,Chennai:1,Hyderabad:0.92,Kolkata:1.08,Pune:0.95,Ahmedabad:0.90,Kochi:0.93}[fromCity]||1;
+  const base=dest.base.f*cityAdj*2;
+  const cabin=CABIN_MULT[cabinClass]||1;
+  const fare=Math.round(base*MONTH_MULT[mIdx]*cabin);
+  const normal=Math.round(base*1.25*cabin);
+  const saving=Math.max(0,normal-fare);
+  const pct=Math.round((saving/normal)*100);
+  return{fare,normal,saving,pct,live:false};
+}
+
 function initFlightDeals(){
-  // Build month strip for next 6 months
   const now=new Date();
   const strip=document.getElementById('fdMonths');
   strip.innerHTML='';
   for(let i=0;i<6;i++){
     const d=new Date(now.getFullYear(),now.getMonth()+i,1);
-    const mIdx=d.getMonth();
-    const mName=MONTH_NAMES[mIdx];
-    const yr=d.getFullYear();
-    const mult=MONTH_MULT[mIdx];
-    const cheap=mult<1.0;
+    const mIdx=d.getMonth(), yr=d.getFullYear();
+    const cheap=MONTH_MULT[mIdx]<1.0;
     const div=document.createElement('div');
     div.className='fd-month'+(i===0?' active':'')+(cheap?' cheap':'');
-    div.dataset.month=mIdx;
-    div.dataset.year=yr;
-    div.innerHTML=`${mName} '${String(yr).slice(2)}<span class="fd-month-price">${cheap?'🟢 Low':''}${!cheap&&mult>=1.2?'🔴 Peak':''}</span>`;
+    div.dataset.month=mIdx; div.dataset.year=yr;
+    div.innerHTML=`${MONTH_NAMES[mIdx]} '${String(yr).slice(2)}<span class="fd-month-price">${cheap?'🟢 Low':MONTH_MULT[mIdx]>=1.2?'🔴 Peak':''}</span>`;
     div.onclick=function(){
       document.querySelectorAll('.fd-month').forEach(m=>m.classList.remove('active'));
       this.classList.add('active');
-      FD.month=+this.dataset.month;
-      FD.year=+this.dataset.year;
+      FD.month=+this.dataset.month; FD.year=+this.dataset.year;
       exploreFlights();
     };
     strip.appendChild(div);
   }
-  // Set default month
-  FD.month=now.getMonth();
-  FD.year=now.getFullYear();
+  FD.month=now.getMonth(); FD.year=now.getFullYear();
   exploreFlights();
 }
 
@@ -1973,77 +2002,83 @@ function setFdClass(el){
   exploreFlights();
 }
 
-function fdFare(dest,fromCity,mIdx,cabinClass){
-  const cityAdj={Mumbai:0.82,Delhi:0.80,Bangalore:0.88,Chennai:1,Hyderabad:0.92,Kolkata:1.08,Pune:0.95,Ahmedabad:0.90,Kochi:0.93}[fromCity]||1;
-  const baseFare=dest.base.f*cityAdj*2; // round trip
-  const seasonal=MONTH_MULT[mIdx];
-  const cabin=CABIN_MULT[cabinClass]||1;
-  const fare=Math.round(baseFare*seasonal*cabin);
-  // "normal" price = peak month price for comparison
-  const normal=Math.round(baseFare*1.25*cabin);
-  const saving=Math.max(0,normal-fare);
-  const pct=Math.round((saving/normal)*100);
-  return{fare,normal,saving,pct,cheap:seasonal<1.05};
-}
-
-function exploreFlights(){
+async function exploreFlights(){
   FD.from=document.getElementById('fdFrom').value;
   FD.type=document.getElementById('fdType').value;
   const el=document.getElementById('fdResults');
-  el.innerHTML=`<div class="fd-loading"><span class="fd-spin">✈️</span>Finding best deals…</div>`;
+  el.innerHTML=`<div class="fd-loading"><span class="fd-spin">✈️</span>${PROXY_BASE?'Fetching live prices…':'Loading deals…'}</div>`;
 
-  setTimeout(()=>{
-    const mIdx=FD.month??new Date().getMonth();
-    const yr=FD.year??new Date().getFullYear();
-    const mName=MONTH_NAMES[mIdx];
-    const fromCode=CITY_IATA[FD.from]||'MAA';
+  const mIdx=FD.month??new Date().getMonth();
+  const yr=FD.year??new Date().getFullYear();
+  const mName=MONTH_NAMES[mIdx];
+  const fromCode=CITY_IATA[FD.from]||'MAA';
+  const yearMonth=`${yr}-${String(mIdx+1).padStart(2,'0')}`;
 
-    let deals=DEST
-      .filter(d=>FD.type==='all'||d.type===FD.type)
-      .filter(d=>DEST_IATA[d.id]) // must have IATA
-      .map(d=>{
-        const f=fdFare(d,FD.from,mIdx,FD.cabinClass);
-        return{...d,...f};
-      })
-      .sort((a,b)=>a.fare-b.fare);
+  // Try live API first
+  const matrix=await fetchTPMatrix(fromCode,yearMonth);
 
-    const cheapCount=deals.filter(d=>d.cheap).length;
-    const cheapest=deals[0];
+  const deals=DEST
+    .filter(d=>FD.type==='all'||d.type===FD.type)
+    .filter(d=>DEST_IATA[d.id])
+    .map(d=>{
+      const toCode=DEST_IATA[d.id];
+      // Check if live data exists for this route
+      const liveEntry=matrix&&matrix[toCode]&&(matrix[toCode]['0']||Object.values(matrix[toCode])[0]);
+      let fare,normal,saving,pct,live=false,airline='';
+      if(liveEntry&&liveEntry.price){
+        // Apply cabin multiplier on top of live economy price
+        const cabinM=CABIN_MULT[FD.cabinClass]||1;
+        fare=Math.round(liveEntry.price*cabinM);
+        // Compare with static "normal" peak fare
+        const staticF=staticFare(d,FD.from,11,FD.cabinClass); // Dec = peak
+        normal=Math.max(staticF.normal,Math.round(fare*1.2));
+        saving=Math.max(0,normal-fare);
+        pct=Math.round((saving/normal)*100);
+        live=true;
+        airline=liveEntry.airline||'';
+      } else {
+        // Fallback to static
+        ({fare,normal,saving,pct}=staticFare(d,FD.from,mIdx,FD.cabinClass));
+      }
+      return{...d,fare,normal,saving,pct,live,airline,toCode};
+    })
+    .sort((a,b)=>a.fare-b.fare);
 
-    el.innerHTML=`
-      <div class="fd-summary">
-        <div class="fd-summary-txt">
-          <span>${deals.length} destinations</span> from <span>${FD.from}</span> in <span>${mName} '${String(yr).slice(2)}</span>
-          · <span>${cheapCount} low-fare</span> routes
-        </div>
-        <div style="font-size:.72rem;color:var(--muted)">Cheapest from <span style="color:var(--gold2);font-weight:600">₹${cheapest?.fare.toLocaleString('en-IN')}</span></div>
+  const liveCount=deals.filter(d=>d.live).length;
+  const cheapest=deals[0];
+
+  el.innerHTML=`
+    <div class="fd-summary">
+      <div class="fd-summary-txt">
+        <span>${deals.length} destinations</span> from <span>${FD.from}</span> in <span>${mName} '${String(yr).slice(2)}</span>
+        ${liveCount>0?`· <span style="color:#86efac">✅ ${liveCount} live prices</span>`:'· <span style="color:var(--muted);font-size:.7rem">⚠ Estimated fares — deploy worker for live prices</span>'}
       </div>
-      <div class="fd-grid">
-        ${deals.map(d=>{
-          const toCode=DEST_IATA[d.id]||'';
-          const skyUrl=`https://www.skyscanner.co.in/transport/flights/${fromCode.toLowerCase()}/${toCode.toLowerCase()}/?adults=1&cabinclass=${FD.cabinClass}&rtn=1`;
-          const isIntl=d.type==='international';
-          const saveTag=d.pct>=10?`<div class="fd-deal-save">Save ${d.pct}% vs peak</div>`:'';
-          return`<div class="fd-deal">
-            ${d.pct>=15?'<div class="fd-deal-badge">🔥 Hot Deal</div>':''}
-            ${isIntl?`<div class="fd-deal-intl">🌏 ${d.country}</div>`:''}
-            <img class="fd-deal-img" src="${d.photo}" alt="${d.name}" loading="lazy"
-              onerror="this.outerHTML='<div class=fd-deal-img-fb>${d.emoji}</div>'">
-            <div class="fd-deal-body">
-              <div class="fd-deal-name">${d.emoji} ${d.name}</div>
-              <div class="fd-deal-loc">📍 ${d.state}</div>
-              <div>
-                <span class="fd-deal-price">₹${d.fare.toLocaleString('en-IN')}</span>
-                ${d.pct>=5?`<span class="fd-deal-orig">₹${d.normal.toLocaleString('en-IN')}</span>`:''}
-              </div>
-              ${saveTag}
-              <div class="fd-deal-date">✈ Round-trip · ${mName} · ${FD.cabinClass}</div>
+      <div style="font-size:.72rem;color:var(--muted)">Cheapest <span style="color:var(--gold2);font-weight:600">₹${cheapest?.fare.toLocaleString('en-IN')}</span></div>
+    </div>
+    <div class="fd-grid">
+      ${deals.map(d=>{
+        const skyUrl=`https://www.skyscanner.co.in/transport/flights/${fromCode.toLowerCase()}/${d.toCode.toLowerCase()}/?adults=1&cabinclass=${FD.cabinClass}&rtn=1`;
+        const isIntl=d.type==='international';
+        return`<div class="fd-deal">
+          ${d.pct>=15?'<div class="fd-deal-badge">🔥 Hot Deal</div>':''}
+          ${d.live?'<div class="fd-deal-badge" style="background:linear-gradient(135deg,#0a2a4a,#1e3a5f);border-color:rgba(96,165,250,.4);color:#93c5fd;left:auto;right:8px;top:8px">🔴 Live</div>':''}
+          ${isIntl&&!d.live?`<div class="fd-deal-intl">🌏 ${d.country}</div>`:''}
+          <img class="fd-deal-img" src="${d.photo}" alt="${d.name}" loading="lazy"
+            onerror="this.outerHTML='<div class=fd-deal-img-fb>${d.emoji}</div>'">
+          <div class="fd-deal-body">
+            <div class="fd-deal-name">${d.emoji} ${d.name}</div>
+            <div class="fd-deal-loc">📍 ${d.state}${d.airline?' · '+d.airline:''}</div>
+            <div>
+              <span class="fd-deal-price">₹${d.fare.toLocaleString('en-IN')}</span>
+              ${d.pct>=5?`<span class="fd-deal-orig">₹${d.normal.toLocaleString('en-IN')}</span>`:''}
             </div>
-            <a class="fd-book-btn" href="${skyUrl}" target="_blank">✈ Search on Skyscanner →</a>
-          </div>`;
-        }).join('')}
-      </div>`;
-  },400);
+            ${d.pct>=10?`<div class="fd-deal-save">Save ${d.pct}% vs peak</div>`:''}
+            <div class="fd-deal-date">✈ Round-trip · ${mName} · ${FD.cabinClass}${d.live?' · Live fare':' · Est.'}</div>
+          </div>
+          <a class="fd-book-btn" href="${skyUrl}" target="_blank">✈ Search & Book on Skyscanner →</a>
+        </div>`;
+      }).join('')}
+    </div>`;
 }
 
 /* ── INIT ── */
